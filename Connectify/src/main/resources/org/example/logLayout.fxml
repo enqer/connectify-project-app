@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.LogLayout">
-    <VBox alignment="CENTER">
+<VBox alignment="CENTER" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.LogLayout">
         <children>
             <Label text="User Login">
                 <VBox.margin>
@@ -41,4 +40,3 @@
             </Label>
         </children>
     </VBox>
-</AnchorPane>
