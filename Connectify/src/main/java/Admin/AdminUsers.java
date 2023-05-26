@@ -1,4 +1,4 @@
-package org.example;
+package Admin;
 
 public class AdminUsers {
     private String firstName;
