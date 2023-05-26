@@ -19,8 +19,8 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("admin.fxml"));
         Parent root = fxmlLoader.load();
-        String css = this.getClass().getResource("admin.css").toExternalForm();
-        scene.getStylesheets().add(css);
+//        String css = this.getClass().getResource("admin.css").toExternalForm();
+//        scene.getStylesheets().add(css);
        // AdminController adminController = fxmlLoader.getController();
        // adminController.initialize(null,null);
         scene = new Scene(root,1280,720);
