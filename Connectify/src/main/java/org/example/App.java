@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * JavaFX App
@@ -17,9 +18,18 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("login"), 600, 400);
-        stage.setScene(scene);
-        stage.show();
+        try{
+            scene = new Scene(loadFXML("login"), 400, 500);
+            stage.setScene(scene);
+            String css = this.getClass().getResource("styles/app.css").toExternalForm();
+            scene.getStylesheets().add(css);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+
+        }
+
     }
 
     static void setRoot(String fxml) throws IOException {

@@ -17,9 +17,14 @@ public class LoginController {
     @FXML
     private Pane Pane;
 
+    // on start window
+    public void initialize() throws IOException {
+        showLogin();
+    }
 
 
-    public void showLogin (ActionEvent event) throws IOException {
+
+    public void showLogin () throws IOException {
         Pane newLoadedPane =  FXMLLoader.load(getClass().getResource("logLayout.fxml"));
         Pane.getChildren().clear();
         Pane.getChildren().add(newLoadedPane);
