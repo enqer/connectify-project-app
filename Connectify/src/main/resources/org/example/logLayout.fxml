@@ -7,7 +7,7 @@
 
 <VBox alignment="CENTER" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.LogLayout">
         <children>
-            <Label text="User Login">
+            <Label fx:id="loginTitle" text="Logowanie">
                 <VBox.margin>
                     <Insets bottom="10.0" />
                 </VBox.margin>
@@ -15,17 +15,17 @@
                     <Font size="18.0" />
                 </font>
             </Label>
-            <TextField promptText="Username">
+            <TextField promptText="Login">
                 <VBox.margin>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </VBox.margin>
             </TextField>
-            <TextField promptText="Password">
-                <VBox.margin>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                </VBox.margin>
-            </TextField>
-            <Button mnemonicParsing="false" text="Login">
+      <PasswordField promptText="Hasło">
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </PasswordField>
+            <Button mnemonicParsing="false" text="Zaloguj">
                 <VBox.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </VBox.margin>

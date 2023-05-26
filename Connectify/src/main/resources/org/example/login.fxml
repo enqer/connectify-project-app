@@ -8,7 +8,7 @@
    <children>
       <HBox alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#showLogin" text="Logowanie">
+            <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#showLogin" text="Logowanie">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
@@ -16,7 +16,7 @@
                   <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                </padding>
             </Button>
-            <Button mnemonicParsing="false" onAction="#showRegister" text="Rejestracja">
+            <Button fx:id="registerBtn" mnemonicParsing="false" onAction="#showRegister" text="Rejestracja">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
@@ -28,8 +28,7 @@
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding></HBox>
-      <Pane fx:id="Pane" prefHeight="300.0" prefWidth="300.0" />
-      <Button fx:id="primaryButton" onAction="#switchToSecondary" text="Switch to Secondary View" />
+      <Pane fx:id="Pane" maxHeight="300.0" maxWidth="300.0" prefHeight="300.0" prefWidth="300.0" />
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

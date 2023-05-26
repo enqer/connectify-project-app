@@ -1,4 +1,35 @@
 
 .root {
-    -fx-background-color: "black";
+    -fx-background-color: #f0eff1;
+    -fx-alignment: center;
 }
+.text-field {
+    -fx-border-color: #404040;
+    -fx-border-width: 0 0 2 0; // top, right, bottom, left
+    -fx-background-color: transparent;
+}
+
+.button {
+    -fx-background-color: #404040;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-font-weight: bold ;
+    -fx-border-color: transparent;
+    -fx-border-width: 2 2 2 2; // top, right, bottom, left
+}
+
+#loginTitle, #registerTitle {
+    -fx-font-size: 24;
+    -fx-font-weight: bold ;
+}
+
+.button:disabled {
+    -fx-background-color: transparent;
+    -fx-border-color: #404040;
+    -fx-border-width: 2 2 2 2; // top, right, bottom, left
+    -fx-text-fill: #404040;
+    -fx-font-size: 14;
+    -fx-font-weight: bold ;
+    -fx-opacity: 1.0;
+}
+

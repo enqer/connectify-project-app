@@ -9,7 +9,7 @@
    <children>
       <VBox alignment="CENTER" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
-            <Label text="Rejestracja">
+            <Label fx:id="registerTitle" text="Rejestracja">
                <font>
                   <Font size="18.0" />
                </font>
