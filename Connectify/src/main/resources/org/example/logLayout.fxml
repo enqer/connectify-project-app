@@ -33,7 +33,7 @@
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </padding>
             </Button>
-            <Label text="Don't have an account? Register">
+            <Label fx:id="loginInfo">
                 <VBox.margin>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </VBox.margin>

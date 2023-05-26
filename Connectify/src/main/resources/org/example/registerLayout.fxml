@@ -42,17 +42,20 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <DatePicker promptText="Wiek">
+            <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="250.0" promptText="Wiek">
                <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </DatePicker>
             <Button mnemonicParsing="false" text="Rejestruj">
                <padding>
                   <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                </padding>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
             </Button>
-            <Label text="Label">
+            <Label fx:id="registerInfo">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
