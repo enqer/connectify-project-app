@@ -5,11 +5,18 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.example.connection.Connect;
 
+import java.sql.Connection;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 public class RegisterLayout {
+
+    Connect connect = new Connect();
+    Connection sql = connect.getConnection();
+    Statement statement;
 
     @FXML
     private TextField name, surname, login, email;
@@ -51,18 +58,22 @@ public class RegisterLayout {
             registerInfo.setText("Ustaw silniejsze hasło!\n Silne hasło to takie które zawiera:\n dużą i małą literę, cyfrę, znak specjalny\n oraz ma co najmniej 8 znaków. ");
             return false;
         }
-
         return true;
     }
+
+    // checking if the login is not in used
     private Boolean isUniqueLogin(){
         // checking
         return true;
     }
+
+    // checking if the mail is not in used
     private Boolean isUniqueMail(){
         // checking
         return true;
     }
 
+    //checking if password is strong enough
     private Boolean isStrongPassword(){
         String pass = password.getText();
 
@@ -95,12 +106,14 @@ public class RegisterLayout {
         return true;
     }
 
+    // checking if the age of user is enough
     private Boolean isEnoughAge(){
         LocalDate currentDate = LocalDate.now();
         LocalDate minimumDate = currentDate.minusYears(13);
         return datePicker.getValue().isBefore(minimumDate);
     }
 
+    // check if every field have been filled
     private Boolean isFieldsFilled(){
         return name.getText() != null && surname.getText() != null && login.getText() != null && email.getText() != null && password.getText() != null && datePicker.getValue() != null;
     }
