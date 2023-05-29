@@ -34,8 +34,19 @@ public class RegisterLayout {
     @FXML
     private void registerUser(){
         if (checkDataValidity()){
-            registerInfo.setText("Konto zostało utworzone!");
+            try {
+                String query = connect.registerUser(name.getText(),surname.getText(),login.getText(),email.getText(),password.getText(),datePicker.getValue().toString());
+                statement = sql.createStatement();
+                int rs = statement.executeUpdate(query);
+                System.out.println(rs);
+                registerInfo.setText("Konto zostało utworzone!");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
+        System.out.println(datePicker.getValue().getMonthValue());
+        System.out.println(datePicker.getValue().getDayOfMonth());
+        System.out.println(datePicker.getValue().getYear());
     }
 
     private Boolean checkDataValidity(){
@@ -143,6 +154,8 @@ public class RegisterLayout {
 
     // check if every field have been filled
     private Boolean isFieldsFilled(){
-        return name.getText() != null && surname.getText() != null && login.getText() != null && email.getText() != null && password.getText() != null && datePicker.getValue() != null;
+        if (name.getText().equals("") || surname.getText().equals("") || login.getText().equals("") || email.getText().equals("") || password.getText().equals("") || datePicker.getValue() == null)
+            return false;
+        return true;
     }
 }
