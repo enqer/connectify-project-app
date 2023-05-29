@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import org.example.connection.Connect;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
@@ -63,7 +65,20 @@ public class RegisterLayout {
 
     // checking if the login is not in used
     private Boolean isUniqueLogin(){
-        // checking
+        try {
+            Boolean result = false;
+            String query = connect.checkUniqueLogin(login.getText());
+            statement = sql.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()){
+                result = rs.getBoolean("exists");
+                System.out.println(result);
+            }
+            if (!result)
+                return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return true;
     }
 
