@@ -44,11 +44,11 @@ public class RegisterLayout {
             return false;
         }
         if (!isEnoughAge()){
-            registerInfo.setText("Musisz mieć co najmniej 13 lat aby założyć konto!");
+            registerInfo.setText("Musisz mieć co najmniej 13 lat\n aby założyć konto!");
             return false;
         }
         if (!isStrongPassword()){
-            registerInfo.setText("Ustaw silniejsze hasło! Silne hasło to takie które zawiera: dużą i małą literę, cyfrę, znak specjalny oraz ma co najmniej 8 znaków ");
+            registerInfo.setText("Ustaw silniejsze hasło!\n Silne hasło to takie które zawiera:\n dużą i małą literę, cyfrę, znak specjalny\n oraz ma co najmniej 8 znaków. ");
             return false;
         }
 

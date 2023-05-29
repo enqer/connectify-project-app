@@ -4,9 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="TOP_CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.LoginController">
+<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.LoginController">
    <children>
-      <HBox alignment="CENTER">
+      <HBox alignment="TOP_CENTER">
          <children>
             <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#showLogin" text="Logowanie">
                <HBox.margin>
@@ -28,9 +28,12 @@
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding></HBox>
-      <Pane fx:id="Pane" maxHeight="300.0" maxWidth="300.0" prefHeight="300.0" prefWidth="300.0" />
+      <Pane fx:id="Pane" maxWidth="300.0" prefHeight="350.0" prefWidth="300.0">
+         <VBox.margin>
+            <Insets bottom="30.0" />
+         </VBox.margin></Pane>
    </children>
    <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+      <Insets left="20.0" right="20.0" />
    </padding>
 </VBox>

@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.RegisterLayout">
    <children>
-      <VBox alignment="CENTER" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+      <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
             <Label fx:id="registerTitle" text="Rejestracja">
                <font>
@@ -55,9 +55,9 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Label fx:id="registerInfo" maxHeight="1.7976931348623157E308" textAlignment="CENTER">
+            <Label fx:id="registerInfo" minHeight="-Infinity" prefHeight="80.0" text="&#10;" textAlignment="CENTER">
                <VBox.margin>
-                  <Insets top="10.0" />
+                  <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </Label>
          </children>
