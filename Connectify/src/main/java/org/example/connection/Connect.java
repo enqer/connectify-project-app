@@ -52,5 +52,10 @@ public class Connect {
         String sql = "SELECT EXISTS ( select * from public.connectify where email='"+email+"' );";
         return sql;
     }
+    public String registerUser(String name, String surname, String login, String email, String password, String date ){
+        String sql =    "INSERT INTO public.connectify (name, surname, login, email, password, date)\n" +
+                        "VALUES ('"+name+"', '"+surname+"', '"+login+"', '"+email+"', '"+password+"', '"+date+"');";
+        return sql;
+    }
 }
 //    SELECT EXISTS ( select * from public.connectify where login='test' )

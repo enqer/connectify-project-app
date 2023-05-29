@@ -84,7 +84,20 @@ public class RegisterLayout {
 
     // checking if the mail is not in used
     private Boolean isUniqueMail(){
-        // checking
+        try {
+            Boolean result = false;
+            String query = connect.checkUniqueEmail(email.getText());
+            statement = sql.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()){
+                result = rs.getBoolean("exists");
+                System.out.println(result);
+            }
+            if (!result)
+                return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return true;
     }
 
