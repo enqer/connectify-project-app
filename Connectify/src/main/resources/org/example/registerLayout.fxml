@@ -55,7 +55,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Label fx:id="registerInfo">
+            <Label fx:id="registerInfo" maxHeight="1.7976931348623157E308" textAlignment="CENTER">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
