@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.example.connection.Connect;
+import org.example.mail.MailSender;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -74,7 +75,7 @@ public class LogLayout {
                 result = rs.getBoolean("exists");
                 System.out.println(result);
             }
-            if (!result && Pattern.matches(regex, emailHelper.getText()))
+            if (result && Pattern.matches(regex, emailHelper.getText()))
                 return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -97,10 +98,37 @@ public class LogLayout {
     @FXML
     private void sendHelp(){
         if (checkCorrectEmail()){
-            helperInfo.setText("Hasło zostało wysłane na twoją pocztę email.");
-            // TODO Sending email
+            String pass = passwordHelper();
+            if (pass != null){
+                MailSender mailSender = new MailSender();
+                mailSender.setSender(System.getenv("EMAIL"));
+                mailSender.setRecipient(emailHelper.getText());
+                mailSender.setSubject("Connectify - przypomnienie hasła!");
+                mailSender.setContent("Twoje hasło to: "+pass);
+                mailSender.send();
+                helperInfo.setText("Hasło zostało wysłane na twoją pocztę email.");
+            }else {
+                helperInfo.setText("Ups, coś poszło nie tak, spróbuj ponownie później.");
+            }
         }else {
             helperInfo.setText("Nieprawidłowy email lub brak konta o takim emailu.");
         }
+    }
+
+    protected String passwordHelper(){
+        String result = null;
+        System.out.println();
+        try{
+            String query = connect.passwordHelper(emailHelper.getText());
+            statement = sql.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()){
+                result = rs.getString("password");
+                System.out.println(result);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
     }
 }

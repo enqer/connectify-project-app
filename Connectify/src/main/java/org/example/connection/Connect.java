@@ -62,5 +62,9 @@ public class Connect {
         String sql ="Select password from public.connectify where login='"+login+"'";
         return sql;
     }
+    public String passwordHelper(String email){
+        String sql ="Select password from public.connectify where email='"+email+"'";
+        return sql;
+    }
 }
 
