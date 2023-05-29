@@ -96,6 +96,7 @@ public class RegisterLayout {
     // checking if the mail is not in used
     private Boolean isUniqueMail(){
         try {
+            String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
             Boolean result = false;
             String query = connect.checkUniqueEmail(email.getText());
             statement = sql.createStatement();
@@ -104,7 +105,7 @@ public class RegisterLayout {
                 result = rs.getBoolean("exists");
                 System.out.println(result);
             }
-            if (!result)
+            if (!result && Pattern.matches(regex, email.getText()))
                 return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
