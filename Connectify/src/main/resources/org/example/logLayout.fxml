@@ -15,17 +15,17 @@
                     <Font size="18.0" />
                 </font>
             </Label>
-            <TextField promptText="Login">
+            <TextField fx:id="login" promptText="Login">
                 <VBox.margin>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </VBox.margin>
             </TextField>
-      <PasswordField promptText="Hasło">
+      <PasswordField fx:id="password" promptText="Hasło">
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
       </PasswordField>
-            <Button mnemonicParsing="false" text="Zaloguj">
+            <Button mnemonicParsing="false" onAction="#loginUser" text="Zaloguj">
                 <VBox.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </VBox.margin>
@@ -38,5 +38,29 @@
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </VBox.margin>
             </Label>
+      <Label onMouseClicked="#showHelp" text="Kliknij tutaj!" underline="true">
+         <graphic>
+            <Label text="Zapomniałeś hasła?" />
+         </graphic>
+      </Label>
+      <Label fx:id="helperInputText" text="Wprowadź email:" visible="false">
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </Label>
+      <TextField fx:id="emailHelper" promptText="Email" visible="false">
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+         </VBox.margin>
+      </TextField>
+      <Button fx:id="btnHelp" mnemonicParsing="false" onAction="#sendHelp" text="Button" visible="false">
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin></Button>
+      <Label fx:id="helperInfo">
+         <VBox.margin>
+            <Insets bottom="10.0" top="5.0" />
+         </VBox.margin>
+      </Label>
         </children>
     </VBox>

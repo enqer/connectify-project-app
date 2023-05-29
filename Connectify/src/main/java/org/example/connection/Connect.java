@@ -57,5 +57,10 @@ public class Connect {
                         "VALUES ('"+name+"', '"+surname+"', '"+login+"', '"+email+"', '"+password+"', '"+date+"');";
         return sql;
     }
+
+    public String checkLoginPassword(String login){
+        String sql ="Select password from public.connectify where login='"+login+"'";
+        return sql;
+    }
 }
 

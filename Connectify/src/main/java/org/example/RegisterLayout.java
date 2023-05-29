@@ -7,6 +7,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.example.connection.Connect;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,13 +41,11 @@ public class RegisterLayout {
                 int rs = statement.executeUpdate(query);
                 System.out.println(rs);
                 registerInfo.setText("Konto zostało utworzone!");
-            } catch (SQLException e) {
+                switchToChat();
+            } catch (SQLException | IOException e) {
                 throw new RuntimeException(e);
             }
         }
-        System.out.println(datePicker.getValue().getMonthValue());
-        System.out.println(datePicker.getValue().getDayOfMonth());
-        System.out.println(datePicker.getValue().getYear());
     }
 
     private Boolean checkDataValidity(){
@@ -60,7 +59,7 @@ public class RegisterLayout {
             return false;
         }
         if (!isUniqueMail()){
-            registerInfo.setText("Podany email jest zajęty!");
+            registerInfo.setText("Podany email jest zajęty albo niepoprawny!");
             return false;
         }
         if (!isEnoughAge()){
@@ -158,5 +157,9 @@ public class RegisterLayout {
         if (name.getText().equals("") || surname.getText().equals("") || login.getText().equals("") || email.getText().equals("") || password.getText().equals("") || datePicker.getValue() == null)
             return false;
         return true;
+    }
+    @FXML
+    private void switchToChat() throws IOException {
+        App.setRoot("chat");
     }
 }
