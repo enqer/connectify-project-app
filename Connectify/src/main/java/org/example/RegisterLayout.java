@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 public class RegisterLayout {
@@ -95,8 +96,9 @@ public class RegisterLayout {
     }
 
     private Boolean isEnoughAge(){
-
-        return true;
+        LocalDate currentDate = LocalDate.now();
+        LocalDate minimumDate = currentDate.minusYears(13);
+        return datePicker.getValue().isBefore(minimumDate);
     }
 
     private Boolean isFieldsFilled(){
