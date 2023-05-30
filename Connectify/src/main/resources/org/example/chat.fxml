@@ -1,16 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Button?>
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ChatController">
-    <children>
-        <Label text="Secondary View" />
-        <Button fx:id="secondaryButton" text="Switch to Primary View" onAction="#switchToPrimary" />
-    </children>
+<AnchorPane fx:id="myAnchorPane" prefHeight="720.0" prefWidth="1280.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ChatController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-</VBox>
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#282b30" height="57.0" layoutX="286.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="954.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#282b30" height="57.0" layoutX="40.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#282b30" height="508.0" layoutX="286.0" layoutY="164.0" stroke="BLACK" strokeType="INSIDE" width="954.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#282b30" height="50.0" layoutX="286.0" layoutY="92.0" stroke="BLACK" strokeType="INSIDE" width="433.0" />
+      <ListView fx:id="myListView" layoutX="40.0" layoutY="92.0" prefHeight="580.0" prefWidth="200.0" />
+      <Label layoutX="101.0" layoutY="32.0" text="Kontakty" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font></Label>
+      <Label fx:id="myLabel" contentDisplay="CENTER" layoutX="303.0" layoutY="97.0" prefHeight="40.0" prefWidth="285.0" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="1158.0" layoutY="25.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" text="Szukaj" textFill="WHITE" />
+      <TextField layoutX="317.0" layoutY="25.0" prefHeight="30.0" prefWidth="810.0" promptText="Wyszukaj znajomego" />
+      <Label layoutX="622.0" layoutY="97.0" prefHeight="40.0" prefWidth="62.0" text="Status:" textFill="WHITE">
+         <font>
+            <Font name="Arial Italic" size="18.0" />
+         </font>
+      </Label>
+      <Circle fill="DODGERBLUE" layoutX="696.0" layoutY="117.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
+
+   </children>
+</AnchorPane>
