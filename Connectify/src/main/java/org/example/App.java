@@ -20,10 +20,11 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
 
         try{
-            scene = new Scene(loadFXML("login"), 400, 550);
+            //scene = new Scene(loadFXML("login"), 400, 550);
+            scene = new Scene(loadFXML("chat"), 1280, 720);
             stage.setScene(scene);
-            String css = this.getClass().getResource("styles/app.css").toExternalForm();
-            scene.getStylesheets().add(css);
+            //String css = this.getClass().getResource("styles/app.css").toExternalForm();
+            //scene.getStylesheets().add(css);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -32,11 +33,9 @@ public class App extends Application {
         }
 
 
-//        scene = new Scene(loadFXML("login"), 1280, 720);
-//        //String css = this.getClass().getResource("application.css").toExternalForm();
-//        //scene.getStylesheets().add(css);
-//        stage.setScene(scene);
-//        stage.show();
+
+        stage.setScene(scene);
+        stage.show();
 
     }
 

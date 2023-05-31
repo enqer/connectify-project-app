@@ -1,0 +1,55 @@
+#myAnchorPane {
+    -fx-background-color: #424549;
+}
+
+.list-view .list-cell:even {
+    -fx-background-color: #282b30;
+    -fx-text-fill: white;
+
+}
+.list-view .list-cell:odd {
+    -fx-background-color: #282b30;
+    -fx-text-fill: white;
+}
+
+.list-cell {
+    -fx-border-color: #7289da;
+}
+
+.list-view {
+    -fx-background-radius: 5px;
+}
+
+.text-field {
+    -fx-background-color: #424549;
+    -fx-text-fill: #c5c5c5;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 6px;
+    -fx-border-color: #515357;
+    -fx-border-width: 2px;
+}
+
+.text-field:focused {
+    -fx-text-fill: white;
+    -fx-border-color: #7289da;
+    -fx-border-width: 2px;
+}
+
+.button {
+    -fx-background-color: #424549;
+    -fx-text-fill: white;
+    -fx-border-color: #515357;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 6px;
+}
+
+.button:pressed {
+    -fx-border-color: #7289da;
+}
+
+
+.rectangle {
+    -fx-arc-width: 12;
+    -fx-arc-height: 12;
+}
