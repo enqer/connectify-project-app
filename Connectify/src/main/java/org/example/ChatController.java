@@ -8,15 +8,34 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class ChatController implements Initializable {
+
+    int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
+    int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
+    Stage stage;
+    Scene scene;
+
+    int initialX;
+    int initialY;
+
     @FXML
     private ListView<String> myListView;
 
     @FXML
     private Label myLabel;
+
+    @FXML
+    private Circle status;
 
     String[] persons = {"John", "Alice", "Steve", "Paul", "Dupa_rozpruwacz_69420"};
 
@@ -34,6 +53,9 @@ public class ChatController implements Initializable {
 
             }
         });
+
+        //status.setFill(Color.web("#1e2124"));
+        //status.setFill(Color.GREEN);
 
     }
 }

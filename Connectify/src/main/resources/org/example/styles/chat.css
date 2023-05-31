@@ -1,4 +1,4 @@
-#myAnchorPane {
+#chatScene {
     -fx-background-color: #424549;
 }
 
@@ -47,7 +47,6 @@
 .button:pressed {
     -fx-border-color: #7289da;
 }
-
 
 .rectangle {
     -fx-arc-width: 12;
