@@ -84,19 +84,17 @@ public class RegisterLayout {
                 result = rs.getBoolean("exists");
                 System.out.println(result);
             }
-            if (!result)
-                return true;
+            return !result;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return true;
     }
 
     // checking if the mail is not in used
     private Boolean isUniqueMail(){
+        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        Boolean result = false;
         try {
-            String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-            Boolean result = false;
             String query = connect.checkUniqueEmail(email.getText());
             statement = sql.createStatement();
             ResultSet rs = statement.executeQuery(query);
@@ -104,10 +102,13 @@ public class RegisterLayout {
                 result = rs.getBoolean("exists");
                 System.out.println(result);
             }
-            if (!result && Pattern.matches(regex, email.getText()))
-                return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+        if (Pattern.matches(regex, email.getText()) && result)
+            return false;
+        else if (Pattern.matches(regex, email.getText()) && !result) {
+            return true;
         }
         return true;
     }
