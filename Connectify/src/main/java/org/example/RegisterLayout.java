@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.example.connection.Connect;
+import org.example.mail.MailSender;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -41,6 +42,7 @@ public class RegisterLayout {
                 int rs = statement.executeUpdate(query);
                 System.out.println(rs);
                 registerInfo.setText("Konto zostało utworzone!");
+                sendWelcomeMail();
                 switchToChat();
             } catch (SQLException | IOException e) {
                 throw new RuntimeException(e);
@@ -162,5 +164,14 @@ public class RegisterLayout {
     @FXML
     private void switchToChat() throws IOException {
         App.setRoot("chat");
+    }
+
+    private void sendWelcomeMail(){
+        MailSender mailSender = new MailSender();
+        mailSender.setSender(System.getenv("EMAIL"));
+        mailSender.setRecipient(email.getText());
+        mailSender.setSubject("Connectify - witamy na nasyzm czacie!");
+        mailSender.setContent("Dzięki że dołączyłeś do naszej społeczności! :)");
+        mailSender.send();
     }
 }
