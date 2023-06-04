@@ -5,9 +5,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.connection.Connect;
 
 import java.io.IOException;
-import java.util.Objects;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  * JavaFX App
@@ -18,26 +23,39 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        setLoginScene(stage);
+        showAllUsers();
+    }
 
-        try{
-            scene = new Scene(loadFXML("login"), 400, 550);
-            stage.setScene(scene);
-            String css = this.getClass().getResource("styles/app.css").toExternalForm();
-            scene.getStylesheets().add(css);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    private void showAllUsers() throws IOException {
+        String zapytanie = "SELECT login FROM public.connectify";
+        Connect connect = new Connect();
+        Connection conn = connect.getConnection();
+        ArrayList<String> logins = new ArrayList<>();
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(zapytanie)) {
 
+            while (rs.next()) {
+                String login = rs.getString("login");
+                logins.add(login);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
+        ChatController chatController = (ChatController) scene.getUserData();
+        chatController.showUsers(logins);
 
-//        scene = new Scene(loadFXML("login"), 1280, 720);
-//        //String css = this.getClass().getResource("application.css").toExternalForm();
-//        //scene.getStylesheets().add(css);
-//        stage.setScene(scene);
-//        stage.show();
+    }
 
+    public void setLoginScene(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("chat.fxml"));
+        Parent chatRoot = fxmlLoader.load();
+        ChatController chatController = fxmlLoader.getController();
+        scene = new Scene(chatRoot, 1280, 720);
+        scene.setUserData(chatController);
+        stage.setScene(scene);
+        stage.show();
     }
 
     static void setRoot(String fxml) throws IOException {
@@ -50,7 +68,8 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
+
 
 }
