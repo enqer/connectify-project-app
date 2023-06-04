@@ -35,6 +35,9 @@ public class ChatController implements Initializable {
     private Label myLabel;
 
     @FXML
+    private Label account;
+
+    @FXML
     private Circle status;
 
     String[] persons = {"John", "Alice", "Steve", "Paul", "Dupa_rozpruwacz_69420"};
@@ -58,4 +61,8 @@ public class ChatController implements Initializable {
         //status.setFill(Color.GREEN);
 
     }
+    public Label getAccountLabel() {
+        return account;
+    }
+
 }

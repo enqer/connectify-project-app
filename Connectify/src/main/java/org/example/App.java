@@ -7,35 +7,37 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
+/**
+ * JavaFX App
+ */
 public class App extends Application {
 
     private static Scene scene;
 
-    private Stage primaryStage; // Deklaracja zmiennej primaryStage
-
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        this.primaryStage = primaryStage;
-        //setLoginScene(primaryStage);
-        setChatScene(primaryStage);
-        primaryStage.show();
-    }
+    public void start(Stage stage) throws IOException {
 
-    public void setLoginScene(Stage stage) throws IOException {
-        Parent loginRoot = loadFXML("login");
-        Scene loginScene = new Scene(loginRoot, 400, 550);
-        String css = this.getClass().getResource("styles/app.css").toExternalForm();
-        loginScene.getStylesheets().add(css);
-        stage.setScene(loginScene);
-    }
+        try{
+            scene = new Scene(loadFXML("login"), 400, 550);
+            stage.setScene(scene);
+            String css = this.getClass().getResource("styles/app.css").toExternalForm();
+            scene.getStylesheets().add(css);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
 
-    public void setChatScene(Stage stage) throws IOException {
-        Parent chatRoot = loadFXML("chat");
-        Scene chatScene = new Scene(chatRoot, 1280, 720);
-        String css = this.getClass().getResource("styles/chat.css").toExternalForm();
-        chatScene.getStylesheets().add(css);
-        stage.setScene(chatScene);
+        }
+
+
+//        scene = new Scene(loadFXML("login"), 1280, 720);
+//        //String css = this.getClass().getResource("application.css").toExternalForm();
+//        //scene.getStylesheets().add(css);
+//        stage.setScene(scene);
+//        stage.show();
+
     }
 
     static void setRoot(String fxml) throws IOException {
