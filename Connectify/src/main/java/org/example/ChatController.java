@@ -19,7 +19,6 @@ import javafx.scene.shape.Circle;
 public class ChatController implements Initializable {
 
     public List<String> logins;
-    //private String[] persons = {"John", "Alice", "Steve", "Paul", "Dupa_rozpruwacz_69420"};
     private List<String> persons = new ArrayList<>(Arrays.asList("John", "Alice", "Steve", "Paul", "Dupa_rozpruwacz_69420"));
 
     String currentPerson;
@@ -76,8 +75,16 @@ public class ChatController implements Initializable {
             if (login.equals(searchString)) {
                 System.out.println("User found: " + login);
                 found = true;
-                persons.add(login);
-                System.out.println(persons);
+
+                // Sprawdzenie, czy użytkownik już istnieje w liście persons
+                if (!persons.contains(login)) {
+                    persons.add(login);
+                    myListView.getItems().setAll(persons);
+
+                } else {
+                    System.out.println("User already exists in the list");
+                }
+                break;
             }
         }
 
@@ -85,6 +92,7 @@ public class ChatController implements Initializable {
             System.out.println("User not found");
         }
     }
+
 
     public Label getAccountLabel() {
         return account;
