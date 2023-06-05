@@ -1,6 +1,11 @@
 package org.example;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
+import org.example.connection.Connect;
 
 
 public class ChatController implements Initializable {
@@ -38,15 +44,32 @@ public class ChatController implements Initializable {
     @FXML
     private TextField search;
 
-    public void showUsers(List<String> logins) {
+    private void showAllUsers() throws IOException {
+        String zapytanie = "SELECT login FROM public.connectify";
+        Connect connect = new Connect();
+        Connection conn = connect.getConnection();
+        ArrayList<String> logins = new ArrayList<>();
         this.logins = logins;
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(zapytanie)) {
 
+            while (rs.next()) {
+                String login = rs.getString("login");
+                logins.add(login);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         System.out.println(logins);
-
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        try {
+            showAllUsers();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         myListView.getItems().addAll(persons);
 
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -61,6 +84,8 @@ public class ChatController implements Initializable {
         //status.setFill(Color.GREEN);
 
     }
+
+
 
     @FXML
     public void searchUser() {

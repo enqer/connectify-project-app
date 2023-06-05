@@ -166,7 +166,7 @@ public class RegisterLayout {
         App.setRoot("chat");
     }
 
-}
+
 
     private void sendWelcomeMail(){
         MailSender mailSender = new MailSender();

@@ -45,6 +45,8 @@ public class MailSender {
 
 
     public void send() {
+        System.out.println(username + "to nazwa");
+        System.out.println(password + "a to nie");
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
