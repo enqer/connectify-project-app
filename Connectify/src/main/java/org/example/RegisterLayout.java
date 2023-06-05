@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.example.connection.Connect;
+import org.example.mail.MailSender;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -41,6 +42,7 @@ public class RegisterLayout {
                 int rs = statement.executeUpdate(query);
                 System.out.println(rs);
                 registerInfo.setText("Konto zostało utworzone!");
+                sendWelcomeMail();
                 switchToChat();
             } catch (SQLException | IOException e) {
                 throw new RuntimeException(e);
@@ -84,19 +86,17 @@ public class RegisterLayout {
                 result = rs.getBoolean("exists");
                 System.out.println(result);
             }
-            if (!result)
-                return true;
+            return !result;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return true;
     }
 
     // checking if the mail is not in used
     private Boolean isUniqueMail(){
+        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        Boolean result = false;
         try {
-            String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-            Boolean result = false;
             String query = connect.checkUniqueEmail(email.getText());
             statement = sql.createStatement();
             ResultSet rs = statement.executeQuery(query);
@@ -104,10 +104,13 @@ public class RegisterLayout {
                 result = rs.getBoolean("exists");
                 System.out.println(result);
             }
-            if (!result && Pattern.matches(regex, email.getText()))
-                return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+        if (Pattern.matches(regex, email.getText()) && result)
+            return false;
+        else if (Pattern.matches(regex, email.getText()) && !result) {
+            return true;
         }
         return true;
     }
@@ -161,5 +164,14 @@ public class RegisterLayout {
     @FXML
     private void switchToChat() throws IOException {
         App.setRoot("chat");
+    }
+
+    private void sendWelcomeMail(){
+        MailSender mailSender = new MailSender();
+        mailSender.setSender(System.getenv("EMAIL"));
+        mailSender.setRecipient(email.getText());
+        mailSender.setSubject("Connectify - witamy na nasyzm czacie!");
+        mailSender.setContent("Dzięki że dołączyłeś do naszej społeczności! :)");
+        mailSender.send();
     }
 }

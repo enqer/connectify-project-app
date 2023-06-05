@@ -57,7 +57,7 @@ public class LogLayout {
                 result = rs.getString("password");
                 System.out.println(result);
             }
-            if (result != null && result ==password.getText() )
+            if (result != null && result.equals(password.getText()))
                 return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
