@@ -18,7 +18,6 @@ import java.util.ResourceBundle;
 public class AdminController implements Initializable {
     @FXML
     private ListView<Parent> listView;
-
     private ArrayList<AdminUsers> userList;
 
     private static ObservableList<AdminUsers> users = FXCollections.observableArrayList(
