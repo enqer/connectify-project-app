@@ -69,7 +69,7 @@ public class Management implements Initializable {
             Parent selectedUserFXML = listView.getSelectionModel().getSelectedItem();
             if (selectedUserFXML != null) {
                 AdminUsers selectedUser = users.get(listView.getSelectionModel().getSelectedIndex());
-                System.out.println("Wybrany użytkownik: " + selectedUser.getFirstName() + " " + selectedUser.getLastName() + selectedUser.getAvatar());
+                System.out.println("Wybrany użytkownik: " + selectedUser.getFirstName() + " " + selectedUser.getLastName());
                 nameSelectedUser.setText(selectedUser.getFirstName()+" "+selectedUser.getLastName());
                 emailSelectedUser.setText(selectedUser.getEmail());
                 logourlSelectedUser.setImage(new Image(selectedUser.getAvatar()));
@@ -87,6 +87,12 @@ public class Management implements Initializable {
         for (AdminUsers user : users) {
             addElement(user);
         }
+        // add first user to start menu
+        AdminUsers selectedUser = users.get(0);
+        nameSelectedUser.setText(selectedUser.getFirstName()+" "+selectedUser.getLastName());
+        emailSelectedUser.setText(selectedUser.getEmail());
+        logourlSelectedUser.setImage(new Image(selectedUser.getAvatar()));
+
 
     }
 

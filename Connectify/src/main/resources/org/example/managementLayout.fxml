@@ -12,7 +12,7 @@
          <Image url="@img/search_image.png" />
       </ImageView>
       <ImageView fx:id="logourlSelectedUser" fitHeight="50.0" fitWidth="51.0" layoutX="364.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="nameSelectedUser" layoutX="430.0" layoutY="83.0" text="Jan Kowalski" />
+      <Label fx:id="nameSelectedUser" layoutX="430.0" layoutY="83.0" text="Tomasz El" />
       <Label fx:id="emailSelectedUser" layoutX="430.0" layoutY="100.0" text="mail@template.com" />
       <Label layoutX="364.0" layoutY="149.0" text="Wyślij wiadomość do użytkownika" />
       <TextArea layoutX="364.0" layoutY="173.0" prefHeight="93.0" prefWidth="318.0" />
