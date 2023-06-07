@@ -3,11 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="myAnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@admin.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.AdminController">
+<AnchorPane id="myAnchorPane" prefHeight="493.0" prefWidth="902.0" stylesheets="@admin.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.AdminController">
     <children>
-        <Label fx:id="titleLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="74.0" prefWidth="600.0" text="Title" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-        <Button layoutX="163.0" layoutY="25.0" mnemonicParsing="false" text="Zarządzanie" />
-        <Button layoutX="452.0" layoutY="25.0" mnemonicParsing="false" text="Statystyki" />
-        <Pane fx:id="AdminPane" layoutY="75.0" prefHeight="325.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0" />
+        <Label fx:id="titleLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="74.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Button layoutX="163.0" layoutY="25.0" mnemonicParsing="false" onAction="#showManagement" text="Zarządzanie" />
+        <Button layoutX="835.0" layoutY="25.0" mnemonicParsing="false" text="Statystyki" />
+        <Pane fx:id="adminPane" layoutY="75.0" prefHeight="325.0" prefWidth="879.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0" />
     </children>
 </AnchorPane>
