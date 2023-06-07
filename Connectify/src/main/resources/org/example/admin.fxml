@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.AdminController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane id="myAnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@admin.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.AdminController">
+    <children>
+        <Label fx:id="titleLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="74.0" prefWidth="600.0" text="Title" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Button layoutX="163.0" layoutY="25.0" mnemonicParsing="false" text="Zarządzanie" />
+        <Button layoutX="452.0" layoutY="25.0" mnemonicParsing="false" text="Statystyki" />
+        <Pane fx:id="AdminPane" layoutY="75.0" prefHeight="325.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0" />
+    </children>
 </AnchorPane>
