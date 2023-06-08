@@ -33,6 +33,10 @@ public class RegisterLayout {
 
     @FXML
     private Label registerInfo;
+
+    public void initialize() throws IOException {
+//        email.getStyleClass().add("unfocused");
+    }
     @FXML
     private void registerUser(){
         if (checkDataValidity()){
