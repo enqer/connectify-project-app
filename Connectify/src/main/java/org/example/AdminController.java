@@ -31,7 +31,11 @@ public class AdminController implements Initializable {
         adminPane.getChildren().clear();
         adminPane.getChildren().add(newLoadedPane);
     }
-
+    public void showStats() throws IOException {
+        AnchorPane newLoadedPane = FXMLLoader.load(getClass().getResource("statsLayout.fxml"));
+        adminPane.getChildren().clear();
+        adminPane.getChildren().add(newLoadedPane);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

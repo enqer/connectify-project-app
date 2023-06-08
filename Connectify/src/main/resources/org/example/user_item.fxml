@@ -4,10 +4,10 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="74.0" prefWidth="256.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Admin.AdminUsersListController">
+<AnchorPane fx:id="userItem" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="74.0" prefWidth="311.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Admin.AdminUsersListController">
    <children>
-      <Label fx:id="name" layoutX="67.0" layoutY="11.0" text="name" />
-      <Label fx:id="email" layoutX="68.0" layoutY="37.0" text="email" />
+      <Label fx:id="name" layoutX="67.0" layoutY="11.0" text="name" textFill="WHITE" />
+      <Label fx:id="email" layoutX="68.0" layoutY="37.0" text="email" textFill="WHITE" />
       <ImageView fx:id="logo" fitHeight="36.0" fitWidth="42.0" layoutX="14.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
