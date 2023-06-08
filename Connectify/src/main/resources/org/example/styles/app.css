@@ -5,9 +5,15 @@
 
     -fx-focus-color: -fx-primary-color;
 }
+.default-color0.chart-bar { -fx-bar-fill: #424549 }
+.default-color1.chart-bar { -fx-bar-fill: #424549 }
+
+
+
 .root {
     -fx-background-color: #f0eff1;
     -fx-background-color: #f4f4f4;
+    -fx-background-color: #424549;
     -fx-alignment: center;
 }
 .text-field {

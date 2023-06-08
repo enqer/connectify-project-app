@@ -107,12 +107,9 @@ public class RegisterLayout {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        if (Pattern.matches(regex, email.getText()) && result)
-            return false;
-        else if (Pattern.matches(regex, email.getText()) && !result) {
+        if (Pattern.matches(regex, email.getText()) && !result)
             return true;
-        }
-        return true;
+        return false;
     }
 
     //checking if password is strong enough
@@ -170,7 +167,7 @@ public class RegisterLayout {
         MailSender mailSender = new MailSender();
         mailSender.setSender(System.getenv("EMAIL"));
         mailSender.setRecipient(email.getText());
-        mailSender.setSubject("Connectify - witamy na nasyzm czacie!");
+        mailSender.setSubject("Connectify - witamy na naszym czacie!");
         mailSender.setContent("Dzięki że dołączyłeś do naszej społeczności! :)");
         mailSender.send();
     }
