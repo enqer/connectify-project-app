@@ -1,40 +1,54 @@
 * {
-    -fx-primary-color: #404040;
+    -fx-primary-color: 	#7289da;
     -fx-secondary-color: transparent;
     -fx-light-grey-color: #d1d1d1;
+    -fx-purple-color: 	#7289da;
+    -fx-black0-color: 	#424549;
+    -fx-black1-color: 	#36393e;
+    -fx-black2-color: 	#282b30;
+    -fx-black3-color: 	#1e2124;
 
-    -fx-focus-color: -fx-primary-color;
+    /*-fx-focus-color: -fx-primary-color;*/
 }
+
+
 .root {
-    -fx-background-color: #f0eff1;
-    -fx-background-color: #f4f4f4;
+    -fx-background-color: -fx-black0-color;
     -fx-alignment: center;
 }
-.text-field {
-    -fx-border-color: #404040;
-    -fx-border-width: 0 0 2 0; // top, right, bottom, left
-    -fx-background-color: transparent;
+
+
+#forgetPass, #loginInfo, #helperInfo, #registerInfo {
+    -fx-text-fill: white;
+}
+#forgetPass2 {
+    -fx-text-fill: -fx-purple-color;
+    -fx-font-weight: bold;
 }
 
 .button {
-    -fx-background-color: #404040;
+    -fx-background-color: -fx-purple-color;
     -fx-text-fill: white;
     -fx-font-size: 14;
     -fx-font-weight: bold ;
     -fx-border-color: transparent;
     -fx-border-width: 2 2 2 2; // top, right, bottom, left
 }
+.button:hover{
+    -fx-cursor: hand;
+}
 
 #loginTitle, #registerTitle {
     -fx-font-size: 24;
     -fx-font-weight: bold ;
+    -fx-text-fill: white;
 }
 
 .button:disabled {
     -fx-background-color: transparent;
-    -fx-border-color: #404040;
+    -fx-border-color: -fx-purple-color;
     -fx-border-width: 2 2 2 2; // top, right, bottom, left
-    -fx-text-fill: #404040;
+    -fx-text-fill: -fx-purple-color;
     -fx-font-size: 14;
     -fx-font-weight: bold ;
     -fx-opacity: 1.0;
@@ -89,4 +103,18 @@
 .date-picker-popup .spinner .button .left-arrow,
 .date-picker-popup .spinner .button .right-arrow {
     -fx-background-color: white;
+}
+.text-field {
+    -fx-border-color: -fx-purple-color;
+    -fx-prompt-text-fill: white;
+    -fx-text-fill: white;
+    -fx-border-width: 0 0 2 0; // top, right, bottom, left
+    -fx-background-color: transparent;
+}
+.text-field {
+    -fx-border-color: -fx-purple-color;
+    -fx-prompt-text-fill: green;
+    -fx-text-fill: red;
+    -fx-border-width: 0 0 2 0; // top, right, bottom, left
+-fx-background-color: transparent;
 }
