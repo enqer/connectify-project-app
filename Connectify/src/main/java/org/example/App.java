@@ -13,12 +13,17 @@ import java.util.Objects;
  * JavaFX App
  */
 public class App extends Application {
-
     private static Scene scene;
+    private static double initialSceneWidth;
+    private static double initialSceneHeight;
+
+//    public static void setInitialSceneSize(double width, double height) {
+//        initialSceneWidth = width;
+//        initialSceneHeight = height;
+//    }
 
     @Override
     public void start(Stage stage) throws IOException {
-
         try{
             scene = new Scene(loadFXML("login"), 400, 550);
             stage.setScene(scene);
@@ -42,6 +47,13 @@ public class App extends Application {
 
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
+
+        if (initialSceneWidth > 0 && initialSceneHeight > 0) {
+            Stage stage = (Stage) scene.getWindow();
+            stage.setWidth(initialSceneWidth);
+            stage.setHeight(initialSceneHeight);
+        }
+
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

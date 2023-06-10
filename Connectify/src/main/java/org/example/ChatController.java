@@ -39,10 +39,18 @@ public class ChatController implements Initializable {
     private Label account;
 
     @FXML
+    private Label searchError;
+
+    @FXML
     private Circle status;
 
     @FXML
     private TextField search;
+
+
+    //status.setFill(Color.web("#1e2124"));
+    //status.setFill(Color.GREEN);
+
 
     private void showAllUsers() throws IOException {
         String zapytanie = "SELECT login FROM public.connectify";
@@ -80,15 +88,13 @@ public class ChatController implements Initializable {
             }
         });
 
-        //status.setFill(Color.web("#1e2124"));
-        //status.setFill(Color.GREEN);
-
     }
 
 
 
     @FXML
     public void searchUser() {
+        searchError.setText("");
         String searchString = search.getText();
         if (searchString.isEmpty()) {
             System.out.println("Nothing given");
@@ -108,6 +114,7 @@ public class ChatController implements Initializable {
 
                 } else {
                     System.out.println("User already exists in the list");
+                    searchError.setText("Użytkownik jest już dodany!");
                 }
                 break;
             }
@@ -115,6 +122,7 @@ public class ChatController implements Initializable {
 
         if (!found) {
             System.out.println("User not found");
+            searchError.setText("Nie odnaleziono użytkownika.");
         }
     }
 

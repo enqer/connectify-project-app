@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.example.connection.Connect;
 import org.example.mail.MailSender;
 
@@ -85,6 +86,10 @@ public class LogLayout {
 
     @FXML
     private void switchToChat() throws IOException {
+        Stage stage = (Stage) loginInfo.getScene().getWindow();
+
+        stage.setWidth(1280);
+        stage.setHeight(720);
         App.setRoot("chat");
     }
 
