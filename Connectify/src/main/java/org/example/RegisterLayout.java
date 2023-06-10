@@ -41,7 +41,7 @@ public class RegisterLayout {
     private void registerUser(){
         if (checkDataValidity()){
             try {
-                String query = connect.registerUser(name.getText(),surname.getText(),login.getText(),email.getText(),password.getText(),datePicker.getValue().toString());
+                String query = connect.registerUser(name.getText(),surname.getText(),login.getText(),email.getText(),password.getText(),datePicker.getValue().toString(),"batman");
                 statement = sql.createStatement();
                 int rs = statement.executeUpdate(query);
                 System.out.println(rs);

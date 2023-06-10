@@ -52,9 +52,9 @@ public class Connect {
         String sql = "SELECT EXISTS ( select * from public.connectify where email='"+email+"' );";
         return sql;
     }
-    public String registerUser(String name, String surname, String login, String email, String password, String date ){
-        String sql =    "INSERT INTO public.connectify (name, surname, login, email, password, date_of_birth, blocked, online)\n" +
-                        "VALUES ('"+name+"', '"+surname+"', '"+login+"', '"+email+"', '"+password+"', '"+date+"', false, true);";
+    public String registerUser(String name, String surname, String login, String email, String password, String date, String avatar ){
+        String sql =    "INSERT INTO public.connectify (name, surname, login, email, password, date_of_birth, blocked, online,logo)\n" +
+                        "VALUES ('"+name+"', '"+surname+"', '"+login+"', '"+email+"', '"+password+"', '"+date+"', false, true,'"+avatar+"');";
         return sql;
     }
 
