@@ -72,14 +72,14 @@ public class MailSender {
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
             message.setSubject(subject);
             message.setText(content);
-            BodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setText(content);
+//            BodyPart messageBodyPart = new MimeBodyPart();
+//            messageBodyPart.setText(content);
 
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(messageBodyPart);
-
-            message.setContent(multipart);
+//            Multipart multipart = new MimeMultipart();
+//            multipart.addBodyPart(messageBodyPart);
+//            message.setContent(multipart);
             Transport.send(message);
+
 
         } catch (Exception e) {
             e.printStackTrace();

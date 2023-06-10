@@ -22,12 +22,12 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="surname" promptText="Nazwisko">
+            <TextField id="surname" fx:id="surname" cache="true" promptText="Nazwisko">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="login" promptText="Login">
+            <TextField id="log" fx:id="login" promptText="Login">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
@@ -42,7 +42,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </PasswordField>
-            <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="250.0" promptText="Wiek">
+            <DatePicker fx:id="datePicker" focusTraversable="false" prefHeight="25.0" prefWidth="250.0" promptText="Wiek">
                <VBox.margin>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>

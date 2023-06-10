@@ -1,0 +1,55 @@
+
+#stats{
+    -fx-background-color: #424549;
+}
+#titleLabel{
+    -fx-background-color: #36393e;
+}
+#adminPane{
+    -fx-background-color: #8a9099;
+}
+
+#managementButton{
+    -fx-border-style: solid;
+    -fx-border-width: 0 1px 0 1px;
+    -fx-border-color: white;
+}
+#managementButton:hover{
+    -fx-background-color: #7289da;
+}
+#statsButton:hover{
+    -fx-background-color: #7289da;
+}
+#statsButton{
+    -fx-border-style: solid;
+    -fx-border-width: 0 1px 0 1px;
+    -fx-border-color: white;
+}
+#selectedUserPane{
+    -fx-background-color: #c8dbe3;
+}
+#searchLabel{
+    -fx-border-style: solid;
+    -fx-border-width: 1px 1px 1px 0;
+    -fx-border-color: black;
+    -fx-background-color: white;
+}
+#searchLabel:hover{
+    -fx-background-color: #7289da;
+}
+#searchUsersTextField{
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: black;
+}
+#listView{
+    -fx-border-style: solid;
+    -fx-border-width: 0 1px 1px 1px;
+    -fx-border-color: black;
+}
+.list-cell:selected {
+   -fx-background-color: #7289da;
+ }
+ .list-cell{
+   -fx-background-color: #424549;
+ }
