@@ -111,10 +111,4 @@
     -fx-border-width: 0 0 2 0; // top, right, bottom, left
     -fx-background-color: transparent;
 }
-.text-field {
-    -fx-border-color: -fx-purple-color;
-    -fx-prompt-text-fill: green;
-    -fx-text-fill: red;
-    -fx-border-width: 0 0 2 0; // top, right, bottom, left
--fx-background-color: transparent;
-}
+

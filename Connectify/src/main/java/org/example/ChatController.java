@@ -1,6 +1,8 @@
 package org.example;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,20 +13,32 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.shape.Circle;
 import org.example.connection.Connect;
+import org.example.socket.WebSocketChatServer;
+
+
+import javax.websocket.*;
 
 
 public class ChatController implements Initializable {
 
+    private Session session;
     public List<String> logins;
+
+
+    @FXML
+    public TextArea inputMessage;
+    @FXML
+    public ScrollPane showMessages;
+
+
     private List<String> persons = new ArrayList<>(Arrays.asList("John", "Alice", "Steve", "Paul", "Dupa_rozpruwacz_69420"));
 
     String currentPerson;
@@ -77,6 +91,8 @@ public class ChatController implements Initializable {
             public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
                 currentPerson = myListView.getSelectionModel().getSelectedItem();
                 myLabel.setText(currentPerson);
+
+                connectToServer("1");
             }
         });
 
@@ -121,5 +137,66 @@ public class ChatController implements Initializable {
 
     public Label getAccountLabel() {
         return account;
+    }
+
+
+
+
+
+
+
+
+    @FXML
+    public void sendMessageToServer() {
+        if (inputMessage.getText() != null) {
+            sendMessage(inputMessage.getText());
+        }
+    }
+
+    private void sendMessage(String message) {
+        try {
+            session.getBasicRemote().sendText(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void connectToServer(String room) {
+        WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+        String uri = "ws://localhost:8080/chat/" + room;
+        try {
+            session = container.connectToServer(new Endpoint() {
+                @Override
+                public void onOpen(Session session, EndpointConfig config) {
+                    // Wywoływane, gdy połączenie z serwerem WebSocket zostanie otwarte
+                    System.out.println("WebSocket connection opened");
+                }
+
+                @Override
+                public void onClose(Session session, CloseReason closeReason) {
+                    // Wywoływane, gdy połączenie z serwerem WebSocket zostanie zamknięte
+                    System.out.println("WebSocket connection closed");
+                }
+
+                @Override
+                public void onError(Session session, Throwable throwable) {
+                    // Wywoływane, gdy wystąpi błąd w połączeniu z serwerem WebSocket
+                    throwable.printStackTrace();
+                }
+
+
+                public void onMessage(Session session, String message) {
+                    // Wywoływane, gdy otrzymano wiadomość od serwera WebSocket
+                    Platform.runLater(() -> {
+                        // Wyświetl otrzymaną wiadomość w interfejsie użytkownika
+                        // np. w polu TextArea
+//                        chatArea.appendText(message + "\n");
+                        System.out.println(message);
+                    });
+                }
+            }, new URI(uri));
+        } catch (DeploymentException | IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 }
