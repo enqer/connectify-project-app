@@ -53,8 +53,8 @@ public class Connect {
         return sql;
     }
     public String registerUser(String name, String surname, String login, String email, String password, String date ){
-        String sql =    "INSERT INTO public.connectify (name, surname, login, email, password, date_of_birth)\n" +
-                        "VALUES ('"+name+"', '"+surname+"', '"+login+"', '"+email+"', '"+password+"', '"+date+"');";
+        String sql =    "INSERT INTO public.connectify (name, surname, login, email, password, date_of_birth, blocked, online)\n" +
+                        "VALUES ('"+name+"', '"+surname+"', '"+login+"', '"+email+"', '"+password+"', '"+date+"', false, true);";
         return sql;
     }
 
