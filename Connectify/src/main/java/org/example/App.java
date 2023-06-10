@@ -4,8 +4,13 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -20,11 +25,15 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         try{
+
             scene = new Scene(loadFXML("login"), 400, 550);
             stage.setTitle("Connectify");
             Image img = new Image(String.valueOf(this.getClass().getResource("img/logo.png")));
             stage.getIcons().add(img);
             stage.setScene(scene);
+
+
+
             String css = this.getClass().getResource("styles/app.css").toExternalForm();
             scene.getStylesheets().add(css);
             stage.setScene(scene);
