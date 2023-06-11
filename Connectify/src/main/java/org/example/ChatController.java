@@ -11,23 +11,36 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import org.example.connection.Connect;
 
 
 public class ChatController implements Initializable {
+    private String userLogin;
+    private String username;
 
     public List<String> logins;
     private List<String> persons = new ArrayList<>(Arrays.asList("John", "Alice", "Steve", "Paul", "Dupa_rozpruwacz_69420"));
 
     String currentPerson;
+
+    Connect connect = new Connect();
+    Connection conn = connect.getConnection();
+
+    @FXML
+    private AnchorPane chatScene;
 
     @FXML
     private ListView<String> myListView;
@@ -48,18 +61,58 @@ public class ChatController implements Initializable {
     private TextField search;
 
 
+
     //status.setFill(Color.web("#1e2124"));
     //status.setFill(Color.GREEN);
 
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        Platform.runLater(() -> {
+            Stage stage = (Stage) chatScene.getScene().getWindow();
+            centerWindowOnScreen(stage);
+
+            myListView.getItems().addAll(persons);
+
+            myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
+                    currentPerson = myListView.getSelectionModel().getSelectedItem();
+                    myLabel.setText(currentPerson);
+                }
+            });
+        });
+
+        try {
+            showAllUsers();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void displayName(String username){
+        account.setText(username);
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+
+    private void centerWindowOnScreen(Stage stage) {
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        double centerX = screenBounds.getMinX() + (screenBounds.getWidth() / 2);
+        double centerY = screenBounds.getMinY() + (screenBounds.getHeight() / 2);
+
+        stage.setX(centerX - (stage.getWidth() / 2));
+        stage.setY(centerY - (stage.getHeight() / 2));
+    }
 
     private void showAllUsers() throws IOException {
-        String zapytanie = "SELECT login FROM public.connectify";
-        Connect connect = new Connect();
-        Connection conn = connect.getConnection();
+        String query = connect.showUsers();
         ArrayList<String> logins = new ArrayList<>();
         this.logins = logins;
         try (Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(zapytanie)) {
+             ResultSet rs = stmt.executeQuery(query)) {
 
             while (rs.next()) {
                 String login = rs.getString("login");
@@ -71,27 +124,6 @@ public class ChatController implements Initializable {
         System.out.println(logins);
     }
 
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        try {
-            showAllUsers();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        myListView.getItems().addAll(persons);
-
-        myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-                currentPerson = myListView.getSelectionModel().getSelectedItem();
-                myLabel.setText(currentPerson);
-            }
-        });
-
-    }
-
-
-
     @FXML
     public void searchUser() {
         searchError.setText("");
@@ -101,33 +133,40 @@ public class ChatController implements Initializable {
             return;
         }
 
-        boolean found = false;
+        boolean foundUser = false; // Flaga informująca, czy znaleziono użytkownika innego niż zalogowany
+        boolean foundSelf = false; // Flaga informująca, czy znaleziono samego siebie
+
         for (String login : logins) {
             if (login.equals(searchString)) {
-                System.out.println("User found: " + login);
-                found = true;
-
-                // Sprawdzenie, czy użytkownik już istnieje w liście persons
-                if (!persons.contains(login)) {
-                    persons.add(login);
-                    myListView.getItems().setAll(persons);
-
+                if (login.equals(username)){
+                    System.out.println("You searched yourself");
+                    foundSelf = true;
                 } else {
-                    System.out.println("User already exists in the list");
-                    searchError.setText("Użytkownik jest już dodany!");
+                    System.out.println("User found: " + login);
+                    foundUser = true;
+
+                    if (!persons.contains(login)) {
+                        persons.add(login);
+                        myListView.getItems().setAll(persons);
+                    } else {
+                        System.out.println("User already exists in the list");
+                        searchError.setText("Użytkownik jest już dodany!");
+                    }
                 }
                 break;
             }
         }
 
-        if (!found) {
+        if (foundSelf && !foundUser) {
+            searchError.setText("Tak, to Ty.");
+        } else if (!foundUser) {
             System.out.println("User not found");
             searchError.setText("Nie odnaleziono użytkownika.");
         }
     }
 
 
-    public Label getAccountLabel() {
-        return account;
-    }
+
+
+
 }

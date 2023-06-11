@@ -66,5 +66,9 @@ public class Connect {
         String sql ="Select password from public.connectify where email='"+email+"'";
         return sql;
     }
+    public String showUsers() {
+        String sql = "SELECT login FROM public.connectify";
+        return sql;
+    }
 }
 

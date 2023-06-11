@@ -1,10 +1,14 @@
 package org.example;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.example.connection.Connect;
 import org.example.mail.MailSender;
 
@@ -47,7 +51,7 @@ public class RegisterLayout {
                 System.out.println(rs);
                 registerInfo.setText("Konto zostało utworzone!");
                 sendWelcomeMail();
-                switchToChat();
+                switchToChat(login.getText());
             } catch (SQLException | IOException e) {
                 throw new RuntimeException(e);
             }
@@ -163,8 +167,24 @@ public class RegisterLayout {
         return true;
     }
     @FXML
-    private void switchToChat() throws IOException {
-        App.setRoot("chat");
+    private void switchToChat(String username) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("chat.fxml"));
+        Parent root = loader.load();
+        ChatController chatController = loader.getController();
+        chatController.displayName(username);
+        chatController.setUsername(username);
+
+
+        Stage stage = new Stage();
+        stage.setTitle("Chat Window");
+        stage.setWidth(1280);
+        stage.setHeight(720);
+        stage.setScene(new Scene(root));
+        stage.show();
+
+        // Zamknięcie bieżącego okna logowania
+        Stage currentStage = (Stage) registerInfo.getScene().getWindow();
+        currentStage.close();
     }
 
 

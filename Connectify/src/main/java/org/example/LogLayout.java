@@ -1,6 +1,9 @@
 package org.example;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -22,6 +25,8 @@ public class LogLayout {
     Connection sql = connect.getConnection();
     Statement statement;
 
+    private Parent root;
+
     @FXML
     private Label loginInfo;
     @FXML
@@ -40,9 +45,10 @@ public class LogLayout {
     private Label helperInfoText;
     @FXML
     private void loginUser() throws IOException {
+
         if (isCorrectPassword()){
             loginInfo.setText("Zalogowano!");
-            switchToChat();
+            switchToChat(login.getText());
         } else {
             loginInfo.setText("Niepoprawny login lub hasło!");
         }
@@ -51,6 +57,7 @@ public class LogLayout {
     private Boolean isCorrectPassword(){
         try{
             String result = null;
+
             String query = connect.checkLoginPassword(login.getText());
             statement = sql.createStatement();
             ResultSet rs = statement.executeQuery(query);
@@ -85,13 +92,26 @@ public class LogLayout {
     }
 
     @FXML
-    private void switchToChat() throws IOException {
-        Stage stage = (Stage) loginInfo.getScene().getWindow();
+    private void switchToChat(String username) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("chat.fxml"));
+        Parent root = loader.load();
+        ChatController chatController = loader.getController();
+        chatController.displayName(username);
+        chatController.setUsername(username);
 
+
+        Stage stage = new Stage();
+        stage.setTitle("Chat Window");
         stage.setWidth(1280);
         stage.setHeight(720);
-        App.setRoot("chat");
+        stage.setScene(new Scene(root));
+        stage.show();
+
+        // Zamknięcie bieżącego okna logowania
+        Stage currentStage = (Stage) loginInfo.getScene().getWindow();
+        currentStage.close();
     }
+
 
     @FXML
     private void showHelp(){

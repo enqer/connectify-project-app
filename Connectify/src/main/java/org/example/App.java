@@ -2,9 +2,11 @@ package org.example;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,10 +20,6 @@ public class App extends Application {
     private static double initialSceneWidth;
     private static double initialSceneHeight;
 
-//    public static void setInitialSceneSize(double width, double height) {
-//        initialSceneWidth = width;
-//        initialSceneHeight = height;
-//    }
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -34,19 +32,12 @@ public class App extends Application {
             String css = this.getClass().getResource("styles/app.css").toExternalForm();
             scene.getStylesheets().add(css);
             stage.setScene(scene);
+
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
 
         }
-
-
-//        scene = new Scene(loadFXML("login"), 1280, 720);
-//        //String css = this.getClass().getResource("application.css").toExternalForm();
-//        //scene.getStylesheets().add(css);
-//        stage.setScene(scene);
-//        stage.show();
-
     }
 
     static void setRoot(String fxml) throws IOException {
@@ -56,6 +47,8 @@ public class App extends Application {
             Stage stage = (Stage) scene.getWindow();
             stage.setWidth(initialSceneWidth);
             stage.setHeight(initialSceneHeight);
+
+
         }
 
     }
