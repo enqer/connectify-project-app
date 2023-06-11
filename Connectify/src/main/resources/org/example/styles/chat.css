@@ -50,11 +50,11 @@
     -fx-border-color: #7289da;
 }
 
-#dodaj {
+#addUsername {
     -fx-background-color: #33d019;
 }
 
-#odrzuc {
+#rejectUsername {
     -fx-background-color: #d22323;
 }
 

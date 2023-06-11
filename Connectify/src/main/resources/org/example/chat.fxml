@@ -32,8 +32,8 @@
          </font>
       </Label>
       <Circle fx:id="status" fill="DODGERBLUE" layoutX="1208.0" layoutY="117.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
-      <Button fx:id="dodaj" layoutX="946.0" layoutY="102.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="78.0" text="Dodaj" textFill="WHITE" />
-      <Button fx:id="odrzuc" layoutX="1040.0" layoutY="102.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="78.0" text="Odrzuć" textFill="WHITE" />
+      <Button fx:id="addUsername" layoutX="946.0" layoutY="102.0" mnemonicParsing="false" onAction="#addUser" prefHeight="30.0" prefWidth="78.0" text="Dodaj" textFill="WHITE" />
+      <Button fx:id="rejectUsername" layoutX="1040.0" layoutY="102.0" mnemonicParsing="false" onAction="#rejectUser" prefHeight="30.0" prefWidth="78.0" text="Odrzuć" textFill="WHITE" />
       <Label fx:id="searchError" alignment="CENTER" contentDisplay="CENTER" layoutX="282.0" layoutY="65.0" prefHeight="27.0" prefWidth="820.0" textFill="RED">
          <font>
             <Font size="14.0" />
