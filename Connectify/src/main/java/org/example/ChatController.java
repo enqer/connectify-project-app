@@ -155,6 +155,7 @@ public class ChatController implements Initializable {
 
     @FXML
     public void searchUser() {
+        usernameLabel.setText("");
         searchError.setText("");
         String searchString = search.getText();
         if (searchString.isEmpty()) {
@@ -200,6 +201,14 @@ public class ChatController implements Initializable {
         }
     }
 
+    private void visibleElements() {
+        addUsername.setVisible(false);
+        rejectUsername.setVisible(false);
+        deleteUsername.setVisible(false);
+        status.setVisible(false);
+        statusLabel.setVisible(false);
+    }
+
     @FXML
     public void addUser() {
         searchError.setText("");
@@ -211,13 +220,7 @@ public class ChatController implements Initializable {
             persons.add(add);
             myListView.getItems().setAll(persons);
 
-            addUsername.setVisible(false);
-            rejectUsername.setVisible(false);
-            deleteUsername.setVisible(false);
-            status.setVisible(false);
-            statusLabel.setVisible(false);
-
-
+            visibleElements();
 
         } else {
             System.out.println("User already exists in the list");
@@ -233,13 +236,7 @@ public class ChatController implements Initializable {
         if (!persons.contains(remove)) {
             myLabel.setText("");
 
-            addUsername.setVisible(false);
-            rejectUsername.setVisible(false);
-            deleteUsername.setVisible(false);
-            status.setVisible(false);
-            statusLabel.setVisible(false);
-
-
+            visibleElements();
 
         } else {
             System.out.println("User already exists in the list");
@@ -249,20 +246,14 @@ public class ChatController implements Initializable {
 
     @FXML
     public void deleteUser() {
-        searchError.setText("");
-        addUsername.setVisible(false);
-        rejectUsername.setVisible(false);
-
-
         String delete = usernameLabel.getText();
 
         if (persons.contains(delete)) {
             persons.remove(delete);
             myListView.getItems().setAll(persons);
 
-            deleteUsername.setVisible(false);
-            status.setVisible(false);
-            statusLabel.setVisible(false);
+            visibleElements();
+
         }
     }
 
