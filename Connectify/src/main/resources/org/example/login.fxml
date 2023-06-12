@@ -28,7 +28,7 @@
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding></HBox>
-      <Pane fx:id="Pane" maxWidth="300.0" prefHeight="350.0" prefWidth="300.0">
+      <Pane fx:id="Pane" maxWidth="300.0" prefHeight="450.0" prefWidth="300.0">
          <VBox.margin>
             <Insets bottom="30.0" />
          </VBox.margin></Pane>

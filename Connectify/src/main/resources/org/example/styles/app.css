@@ -17,9 +17,6 @@
     -fx-alignment: center;
 }
 
-.window-button {
-    -fx-background-color: green;
-}
 
 #forgetPass, #loginInfo, #helperInfo, #registerInfo {
     -fx-text-fill: white;
@@ -29,7 +26,7 @@
     -fx-font-weight: bold;
 }
 
-.button {
+#registerBtn, #loginBtn, #loginLogBtn, #registerRegBtn {
     -fx-background-color: -fx-purple-color;
     -fx-text-fill: white;
     -fx-font-size: 14;
@@ -47,7 +44,7 @@
     -fx-text-fill: white;
 }
 
-.button:disabled {
+#registerBtn:disabled, #loginBtn:disabled {
     -fx-background-color: transparent;
     -fx-border-color: -fx-purple-color;
     -fx-border-width: 2 2 2 2; // top, right, bottom, left
@@ -56,38 +53,38 @@
     -fx-font-weight: bold ;
     -fx-opacity: 1.0;
 }
-#datePicker {
-    -fx-background-color: -fx-secondary-color;
+#age {
+    -fx-background-color: transparent;
 }
 
-#datePicker .arrow-button {
+#age .arrow-button {
     -fx-background-color: -fx-primary-color;
     -fx-background-radius: 0;
     -fx-border-color: -fx-primary-color;
     -fx-border-width: 2 2 2 2; // top, right, bottom, left
 }
-#datePicker .arrow-button:hover {
+#age .arrow-button:hover {
     -fx-background-color: -fx-primary-color;
 
 }
-#datePicker .arrow-button .arrow {
+#age .arrow-button .arrow {
     -fx-background-color: white;
 }
-#datePicker .cell {
+#age .cell {
     -fx-background-color: white;
 }
-#datePicker .cell:hover {
+#age .cell:hover {
     -fx-background-color: -fx-light-grey-color;
 }
-#datePicker .cell:focused {
+#age .cell:focused {
     -fx-background-color: -fx-light-grey-color;
 
 }
-#datePicker .selected {
+#age .selected {
     -fx-background-color: -fx-primary-color;
     -fx-text-fill: white;
 }
-#datePicker .selected:focused {
+#age .selected:focused {
     -fx-background-color: -fx-primary-color;
     -fx-text-fill: white;
 }
@@ -107,10 +104,15 @@
 .date-picker-popup .spinner .button .right-arrow {
     -fx-background-color: white;
 }
-.text-field {
+#age, #login, #password, #name, #surname, #email, #loginLog, #passwordLog {
     -fx-border-color: -fx-purple-color;
     -fx-prompt-text-fill: white;
     -fx-text-fill: white;
     -fx-border-width: 0 0 2 0; // top, right, bottom, left
     -fx-background-color: transparent;
+}pg
+.text-field {
+    -fx-background-color: transparent;
+
 }
+

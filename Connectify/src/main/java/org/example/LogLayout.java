@@ -24,9 +24,9 @@ public class LogLayout {
     @FXML
     private Label loginInfo;
     @FXML
-    private TextField login;
+    private TextField loginLog;
     @FXML
-    private PasswordField password;
+    private PasswordField passwordLog;
 
     @FXML
     private Label helperInfo;
@@ -50,14 +50,14 @@ public class LogLayout {
     private Boolean isCorrectPassword(){
         try{
             String result = null;
-            String query = connect.checkLoginPassword(login.getText());
+            String query = connect.checkLoginPassword(loginLog.getText());
             statement = sql.createStatement();
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()){
                 result = rs.getString("password");
                 System.out.println(result);
             }
-            if (result != null && result.equals(password.getText()))
+            if (result != null && result.equals(passwordLog.getText()))
                 return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
