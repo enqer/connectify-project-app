@@ -55,7 +55,11 @@
 }
 
 #rejectUsername {
-    -fx-background-color: #d22323;
+    -fx-background-color: #980000;
+}
+
+#deleteUsername {
+    -fx-background-color: #ff0000;
 }
 
 .rectangle {

@@ -19,12 +19,15 @@
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font></Label>
-      <Label fx:id="myLabel" contentDisplay="CENTER" layoutX="272.0" layoutY="97.0" prefHeight="40.0" prefWidth="616.0" textFill="WHITE">
+      <Label fx:id="myLabel" contentDisplay="CENTER" layoutX="272.0" layoutY="97.0" prefHeight="40.0" prefWidth="572.0" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="1130.0" layoutY="25.0" mnemonicParsing="false" onAction="#searchUser" prefHeight="30.0" prefWidth="78.0" text="Szukaj" textFill="WHITE" />
+      <Button layoutX="1130.0" layoutY="25.0" mnemonicParsing="false" onAction="#searchUser" prefHeight="30.0" prefWidth="78.0" text="Szukaj" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
       <TextField fx:id="search" layoutX="282.0" layoutY="25.0" prefHeight="30.0" prefWidth="820.0" promptText="Wyszukaj znajomego" />
       <Label layoutX="1134.0" layoutY="97.0" prefHeight="40.0" prefWidth="62.0" text="Status:" textFill="WHITE">
          <font>
@@ -32,13 +35,24 @@
          </font>
       </Label>
       <Circle fx:id="status" fill="DODGERBLUE" layoutX="1208.0" layoutY="117.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
-      <Button fx:id="addUsername" layoutX="946.0" layoutY="102.0" mnemonicParsing="false" onAction="#addUser" prefHeight="30.0" prefWidth="78.0" text="Dodaj" textFill="WHITE" />
-      <Button fx:id="rejectUsername" layoutX="1040.0" layoutY="102.0" mnemonicParsing="false" onAction="#rejectUser" prefHeight="30.0" prefWidth="78.0" text="Odrzuć" textFill="WHITE" />
+      <Button fx:id="addUsername" layoutX="946.0" layoutY="102.0" mnemonicParsing="false" onAction="#addUser" prefHeight="30.0" prefWidth="78.0" text="Dodaj" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button fx:id="rejectUsername" layoutX="1040.0" layoutY="102.0" mnemonicParsing="false" onAction="#rejectUser" prefHeight="30.0" prefWidth="78.0" text="Odrzuć" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
       <Label fx:id="searchError" alignment="CENTER" contentDisplay="CENTER" layoutX="282.0" layoutY="65.0" prefHeight="27.0" prefWidth="820.0" textFill="RED">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
+      <Button fx:id="deleteUsername" layoutX="1040.0" layoutY="81.0" mnemonicParsing="false" onAction="#deleteUser" prefHeight="32.0" prefWidth="78.0" text="Usuń" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
 
    </children>
 </AnchorPane>

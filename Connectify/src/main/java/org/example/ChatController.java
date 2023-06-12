@@ -67,6 +67,8 @@ public class ChatController implements Initializable {
     @FXML
     private Button rejectUsername;
 
+    @FXML
+    private Button deleteUsername;
 
 
     //status.setFill(Color.web("#1e2124"));
@@ -80,6 +82,7 @@ public class ChatController implements Initializable {
 
             addUsername.setVisible(false);
             rejectUsername.setVisible(false);
+            deleteUsername.setVisible(false);
 
             myListView.getItems().addAll(persons);
 
@@ -89,8 +92,10 @@ public class ChatController implements Initializable {
                     currentPerson = myListView.getSelectionModel().getSelectedItem();
                     myLabel.setText(currentPerson);
 
+                    searchError.setText("");
                     addUsername.setVisible(false);
                     rejectUsername.setVisible(false);
+                    deleteUsername.setVisible(true);
                 }
             });
         });
@@ -102,7 +107,7 @@ public class ChatController implements Initializable {
         }
     }
 
-    public void displayName(String username){
+    public void displayName(String username) {
         account.setText(username);
     }
 
@@ -151,7 +156,7 @@ public class ChatController implements Initializable {
 
         for (String login : logins) {
             if (login.equals(searchString)) {
-                if (login.equals(username)){
+                if (login.equals(username)) {
                     System.out.println("You searched yourself");
                     foundSelf = true;
                 } else {
@@ -162,6 +167,7 @@ public class ChatController implements Initializable {
                         myLabel.setText(login);
                         addUsername.setVisible(true);
                         rejectUsername.setVisible(true);
+                        deleteUsername.setVisible(false);
 
                     } else {
                         System.out.println("User already exists in the list");
@@ -182,16 +188,18 @@ public class ChatController implements Initializable {
 
     @FXML
     public void addUser() {
+        searchError.setText("");
         String add = myLabel.getText();
 
         if (!persons.contains(add)) {
-            myLabel.setText(add);
+            myLabel.setText("");
 
             persons.add(add);
             myListView.getItems().setAll(persons);
 
-            addUsername.setVisible(true);
-            rejectUsername.setVisible(true);
+            addUsername.setVisible(false);
+            rejectUsername.setVisible(false);
+            deleteUsername.setVisible(false);
 
         } else {
             System.out.println("User already exists in the list");
@@ -201,20 +209,35 @@ public class ChatController implements Initializable {
 
     @FXML
     public void rejectUser() {
+        searchError.setText("");
         String remove = myLabel.getText();
 
         if (!persons.contains(remove)) {
-            myLabel.setText(remove);
+            myLabel.setText("");
 
-            persons.add(remove);
-            myListView.getItems().setAll(persons);
-
-            addUsername.setVisible(true);
-            rejectUsername.setVisible(true);
+            addUsername.setVisible(false);
+            rejectUsername.setVisible(false);
+            deleteUsername.setVisible(false);
 
         } else {
             System.out.println("User already exists in the list");
             searchError.setText("Użytkownik jest już dodany!");
+        }
+    }
+
+    @FXML
+    public void deleteUser() {
+        searchError.setText("");
+        addUsername.setVisible(false);
+        rejectUsername.setVisible(false);
+
+        String delete = myLabel.getText();
+
+        if (persons.contains(delete)) {
+            persons.remove(delete);
+            myListView.getItems().setAll(persons);
+
+            deleteUsername.setVisible(false);
         }
     }
 
