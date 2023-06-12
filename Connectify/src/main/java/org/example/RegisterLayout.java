@@ -108,8 +108,11 @@ public class RegisterLayout {
 
     // checking if the mail is not in used
     private Boolean isUniqueMail(){
-        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-        Boolean result = false;
+        String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+        if (!(Pattern.matches(regexPattern, email.getText())))
+            return false;
+        Boolean result = true;
         try {
             String query = connect.checkUniqueEmail(email.getText());
             statement = sql.createStatement();
@@ -121,9 +124,7 @@ public class RegisterLayout {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        if (Pattern.matches(regex, email.getText()) && !result)
-            return true;
-        return false;
+        return !result;
     }
 
     //checking if password is strong enough
