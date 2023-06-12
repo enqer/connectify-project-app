@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.example.connection.Connect;
 import org.example.mail.MailSender;
@@ -101,7 +102,9 @@ public class LogLayout {
 
 
         Stage stage = new Stage();
-        stage.setTitle("Chat Window");
+        Image img = new Image(String.valueOf(this.getClass().getResource("img/logo.png")));
+        stage.getIcons().add(img);
+        stage.setTitle("Connectify - Chat Window");
         stage.setWidth(1280);
         stage.setHeight(720);
         stage.setScene(new Scene(root));

@@ -56,6 +56,12 @@ public class ChatController implements Initializable {
     private Label searchError;
 
     @FXML
+    private Label statusLabel;
+
+    @FXML
+    private Label usernameLabel;
+
+    @FXML
     private Circle status;
 
     @FXML
@@ -83,6 +89,8 @@ public class ChatController implements Initializable {
             addUsername.setVisible(false);
             rejectUsername.setVisible(false);
             deleteUsername.setVisible(false);
+            status.setVisible(false);
+            statusLabel.setVisible(false);
 
             myListView.getItems().addAll(persons);
 
@@ -90,12 +98,15 @@ public class ChatController implements Initializable {
                 @Override
                 public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
                     currentPerson = myListView.getSelectionModel().getSelectedItem();
-                    myLabel.setText(currentPerson);
-
+                    usernameLabel.setText(currentPerson);
+                    myLabel.setText("");
                     searchError.setText("");
                     addUsername.setVisible(false);
                     rejectUsername.setVisible(false);
                     deleteUsername.setVisible(true);
+                    status.setVisible(true);
+                    statusLabel.setVisible(true);
+
                 }
             });
         });
@@ -165,9 +176,12 @@ public class ChatController implements Initializable {
 
                     if (!persons.contains(login)) {
                         myLabel.setText(login);
+
                         addUsername.setVisible(true);
                         rejectUsername.setVisible(true);
                         deleteUsername.setVisible(false);
+                        status.setVisible(false);
+                        statusLabel.setVisible(false);
 
                     } else {
                         System.out.println("User already exists in the list");
@@ -200,6 +214,10 @@ public class ChatController implements Initializable {
             addUsername.setVisible(false);
             rejectUsername.setVisible(false);
             deleteUsername.setVisible(false);
+            status.setVisible(false);
+            statusLabel.setVisible(false);
+
+
 
         } else {
             System.out.println("User already exists in the list");
@@ -218,6 +236,10 @@ public class ChatController implements Initializable {
             addUsername.setVisible(false);
             rejectUsername.setVisible(false);
             deleteUsername.setVisible(false);
+            status.setVisible(false);
+            statusLabel.setVisible(false);
+
+
 
         } else {
             System.out.println("User already exists in the list");
@@ -231,13 +253,16 @@ public class ChatController implements Initializable {
         addUsername.setVisible(false);
         rejectUsername.setVisible(false);
 
-        String delete = myLabel.getText();
+
+        String delete = usernameLabel.getText();
 
         if (persons.contains(delete)) {
             persons.remove(delete);
             myListView.getItems().setAll(persons);
 
             deleteUsername.setVisible(false);
+            status.setVisible(false);
+            statusLabel.setVisible(false);
         }
     }
 
