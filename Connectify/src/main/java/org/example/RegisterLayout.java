@@ -17,6 +17,8 @@ import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 public class RegisterLayout {
+    private static final int MAX_LENGTH = 30;
+
 
     Connect connect = new Connect();
     Connection sql = connect.getConnection();
@@ -36,6 +38,9 @@ public class RegisterLayout {
 
     public void initialize() throws IOException {
 //        email.getStyleClass().add("unfocused");
+        maxLettersTextField(name);
+        maxLettersTextField(surname);
+        maxLettersTextField(login);
     }
     @FXML
     private void registerUser(){
@@ -58,6 +63,11 @@ public class RegisterLayout {
         if (!isFieldsFilled())
         {
             registerInfo.setText("Wypełnij wszystkie pola!");
+            return false;
+        }
+        if (!isEnoughLetters())
+        {
+            registerInfo.setText("Login powinien mieć od 5 do 30 znaków");
             return false;
         }
         if (!isUniqueLogin()){
@@ -162,6 +172,9 @@ public class RegisterLayout {
             return false;
         return true;
     }
+    private Boolean isEnoughLetters(){
+        return login.getText().length() >= 5 && login.getText().length() <= 30;
+    }
     @FXML
     private void switchToChat() throws IOException {
         App.setRoot("chat");
@@ -174,5 +187,13 @@ public class RegisterLayout {
         mailSender.setSubject("Connectify - witamy na naszym czacie!");
         mailSender.setContent("Dzięki że dołączyłeś do naszej społeczności! :)");
         mailSender.send();
+    }
+
+    private void maxLettersTextField(TextField textField){
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.length() > MAX_LENGTH) {
+                textField.setText(newValue.substring(0, MAX_LENGTH));
+            }
+        });
     }
 }
