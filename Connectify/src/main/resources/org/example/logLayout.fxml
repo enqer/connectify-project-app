@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.LogLayout">
+<VBox alignment="CENTER" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.LogLayout">
         <children>
             <Label fx:id="loginTitle" text="Logowanie">
                 <VBox.margin>
@@ -15,17 +15,17 @@
                     <Font size="18.0" />
                 </font>
             </Label>
-            <TextField fx:id="login" focusTraversable="false" promptText="Login">
+            <TextField id="loginLog" fx:id="loginLog" focusTraversable="false" promptText="Login">
                 <VBox.margin>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </VBox.margin>
             </TextField>
-      <PasswordField fx:id="password" focusTraversable="false" promptText="Hasło">
+      <PasswordField id="passwordLog" fx:id="passwordLog" focusTraversable="false" promptText="Hasło">
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
       </PasswordField>
-            <Button mnemonicParsing="false" onAction="#loginUser" text="Zaloguj">
+            <Button id="loginLogBtn" mnemonicParsing="false" onAction="#loginUser" text="Zaloguj">
                 <VBox.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </VBox.margin>
@@ -48,7 +48,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>
       </Label>
-      <TextField fx:id="emailHelper" promptText="Email" visible="false">
+      <TextField id="emailHelper" fx:id="emailHelper" promptText="Email" visible="false">
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
          </VBox.margin>
