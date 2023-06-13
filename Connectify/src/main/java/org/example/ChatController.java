@@ -2,10 +2,7 @@ package org.example;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,15 +26,11 @@ import org.example.connection.Connect;
 
 
 public class ChatController implements Initializable {
-    private String userLogin;
     private String username;
-
     public List<String> logins;
     public List<String> friends;
     private List<String> persons = new ArrayList<>(Arrays.asList("John", "Alice", "Steve", "Paul", "Dupa_rozpruwacz_69420"));
-
     String currentPerson;
-
     Connect connect = new Connect();
     Connection conn = connect.getConnection();
 
@@ -169,6 +162,25 @@ public class ChatController implements Initializable {
             e.printStackTrace();
         }
         System.out.println(friends);
+
+    }
+
+    private void addFriend() {
+        String friend = myLabel.getText();
+        String query = connect.addFriend(username, friend);
+
+        System.out.println(username);
+        System.out.println(friend);
+
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, username);
+            stmt.setString(2, friend);
+            stmt.executeUpdate();
+            System.out.println("Znajomy dodany pomyślnie.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Wystąpił błąd podczas dodawania znajomego.");
+        }
     }
 
 
@@ -236,6 +248,7 @@ public class ChatController implements Initializable {
         if (!persons.contains(add)) {
             myLabel.setText("");
 
+            addFriend();
             persons.add(add);
             myListView.getItems().setAll(persons);
 
