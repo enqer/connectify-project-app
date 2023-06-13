@@ -83,6 +83,10 @@ public class Connect {
         String sql = "SELECT * FROM public.connectify_contacts";
         return sql;
     }
+    public String getUsers(){
+        String sql = "SELECT * from public.connectify";
+        return sql;
+    }
 
 }
 

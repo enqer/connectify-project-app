@@ -66,7 +66,7 @@ public class RegisterLayout {
     private void registerUser(){
         if (checkDataValidity()){
             try {
-                String query = connect.registerUser(name.getText(),surname.getText(),login.getText(),email.getText(),password.getText(),datePicker.getValue().toString(),"batman");
+                String query = connect.registerUser(name.getText(),surname.getText(),login.getText(),email.getText(),password.getText(),datePicker.getValue().toString(),avatar);
                 statement = sql.createStatement();
                 int rs = statement.executeUpdate(query);
                 System.out.println(rs);
@@ -260,7 +260,9 @@ public class RegisterLayout {
     @FXML
     public void selectImg5(){
         setAvatarAndStyle("muslim", imgSPane5);
-    }@FXML
+    }
+
+    @FXML
     public void selectImg6(){
         setAvatarAndStyle("man", imgSPane6);
     }
