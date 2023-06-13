@@ -33,6 +33,7 @@ public class ChatController implements Initializable {
     private String username;
 
     public List<String> logins;
+    public List<String> friends;
     private List<String> persons = new ArrayList<>(Arrays.asList("John", "Alice", "Steve", "Paul", "Dupa_rozpruwacz_69420"));
 
     String currentPerson;
@@ -113,6 +114,7 @@ public class ChatController implements Initializable {
 
         try {
             showAllUsers();
+            showFriends();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -152,6 +154,23 @@ public class ChatController implements Initializable {
         }
         System.out.println(logins);
     }
+
+    private void showFriends() {
+        String query = connect.showFriends(username);
+        ArrayList<String> friends = new ArrayList<>();
+        this.friends = friends;
+        try (Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                String friend = rs.getString("contact");
+                friends.add(friend);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println(friends);
+    }
+
 
     @FXML
     public void searchUser() {
