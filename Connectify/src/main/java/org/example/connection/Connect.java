@@ -78,6 +78,10 @@ public class Connect {
         String sql = "INSERT INTO public.connectify_contacts(user, contact) VALUES('"+user+"','"+contact+"')";
         return sql;
     }
+    public String getUsers(){
+        String sql = "SELECT * from public.connectify";
+        return sql;
+    }
 
 }
 
