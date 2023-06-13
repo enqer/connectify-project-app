@@ -10,11 +10,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import org.example.connection.Connect;
 import org.example.mail.MailSender;
 
@@ -27,8 +22,6 @@ import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 public class RegisterLayout {
-    private static final int MAX_LENGTH = 30;
-
 
     Connect connect = new Connect();
     Connection sql = connect.getConnection();
@@ -46,27 +39,14 @@ public class RegisterLayout {
     @FXML
     private Label registerInfo;
 
-
-
-    @FXML
-    private ImageView img1,img2,img3,img4,img5,img6;
-    @FXML
-    private StackPane imgSPane1,imgSPane2,imgSPane3,imgSPane4,imgSPane5,imgSPane6;
-    private String avatar;
-
-    public void initialize() {
-        maxLettersTextField(name,MAX_LENGTH);
-        maxLettersTextField(surname,MAX_LENGTH);
-        maxLettersTextField(login,MAX_LENGTH);
-        maxLettersTextField(email,255);
-        maxLettersTextField(password, MAX_LENGTH);
+    public void initialize() throws IOException {
+//        email.getStyleClass().add("unfocused");
     }
-
     @FXML
     private void registerUser(){
         if (checkDataValidity()){
             try {
-                String query = connect.registerUser(name.getText(),surname.getText(),login.getText(),email.getText(),password.getText(),datePicker.getValue().toString(),"batman");
+                String query = connect.registerUser(name.getText(),surname.getText(),login.getText(),email.getText(),password.getText(),datePicker.getValue().toString());
                 statement = sql.createStatement();
                 int rs = statement.executeUpdate(query);
                 System.out.println(rs);
@@ -83,11 +63,6 @@ public class RegisterLayout {
         if (!isFieldsFilled())
         {
             registerInfo.setText("Wypełnij wszystkie pola!");
-            return false;
-        }
-        if (!isEnoughLetters())
-        {
-            registerInfo.setText("Login powinien mieć od 5 do "+MAX_LENGTH+" znaków");
             return false;
         }
         if (!isUniqueLogin()){
@@ -128,11 +103,8 @@ public class RegisterLayout {
 
     // checking if the mail is not in used
     private Boolean isUniqueMail(){
-        String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
-                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
-        if (!(Pattern.matches(regexPattern, email.getText())))
-            return false;
-        Boolean result = true;
+        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        Boolean result = false;
         try {
             String query = connect.checkUniqueEmail(email.getText());
             statement = sql.createStatement();
@@ -144,7 +116,9 @@ public class RegisterLayout {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return !result;
+        if (Pattern.matches(regex, email.getText()) && !result)
+            return true;
+        return false;
     }
 
     //checking if password is strong enough
@@ -189,12 +163,9 @@ public class RegisterLayout {
 
     // check if every field have been filled
     private Boolean isFieldsFilled(){
-        if (avatar == null || name.getText().equals("") || surname.getText().equals("") || login.getText().equals("") || email.getText().equals("") || password.getText().equals("") || datePicker.getValue() == null)
+        if (name.getText().equals("") || surname.getText().equals("") || login.getText().equals("") || email.getText().equals("") || password.getText().equals("") || datePicker.getValue() == null)
             return false;
         return true;
-    }
-    private Boolean isEnoughLetters(){
-        return login.getText().length() >= 5 && login.getText().length() <= 30;
     }
     @FXML
     private void switchToChat(String username) throws IOException {
@@ -229,50 +200,4 @@ public class RegisterLayout {
         mailSender.setContent("Dzięki że dołączyłeś do naszej społeczności! :)");
         mailSender.send();
     }
-
-
-    private void maxLettersTextField(TextField textField, int max) {
-        textField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.length() > max) {
-                textField.setText(newValue.substring(0, max));
-            }
-        });
-    }
-
-
-    @FXML
-    public void selectImg1(){
-        setAvatarAndStyle("batman", imgSPane1);
-    }
-
-    @FXML
-    public void selectImg2(){
-        setAvatarAndStyle("breaking-bad", imgSPane2);
-    }
-    @FXML
-    public void selectImg3(){
-        setAvatarAndStyle("grandma", imgSPane3);
-    }
-    @FXML
-    public void selectImg4(){
-        setAvatarAndStyle("monster", imgSPane4);
-    }
-    @FXML
-    public void selectImg5(){
-        setAvatarAndStyle("muslim", imgSPane5);
-    }@FXML
-    public void selectImg6(){
-        setAvatarAndStyle("man", imgSPane6);
-    }
-    private void setAvatarAndStyle(String avatarName, Node imgSPane) {
-        avatar = avatarName;
-        imgSPane1.setStyle("-fx-background-color: transparent");
-        imgSPane2.setStyle("-fx-background-color: transparent");
-        imgSPane3.setStyle("-fx-background-color: transparent");
-        imgSPane4.setStyle("-fx-background-color: transparent");
-        imgSPane5.setStyle("-fx-background-color: transparent");
-        imgSPane6.setStyle("-fx-background-color: transparent");
-        imgSPane.setStyle("-fx-background-color: #7289da");
-    }
-
 }

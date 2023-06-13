@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.RegisterLayout">
+<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.RegisterLayout">
    <children>
       <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
@@ -19,131 +17,37 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Label>
-
-            <Label fx:id="avatarLabel" text="Wybierz swój awatar:">
-               <font>
-                  <Font size="13.0" />
-               </font></Label>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <StackPane fx:id="imgSPane1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="70.0">
-                     <children>
-                        <ImageView fx:id="img1" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#selectImg1" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@img/batman.png" />
-                           </image>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                     </children>
-                  </StackPane>
-                  <StackPane fx:id="imgSPane2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="70.0">
-                     <children>
-                        <ImageView fx:id="img2" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#selectImg2" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@img/breaking-bad.png" />
-                           </image>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                     </children>
-                  </StackPane>
-                  <StackPane fx:id="imgSPane3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="70.0">
-                     <children>
-                        <ImageView fx:id="img3" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#selectImg3" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@img/grandma.png" />
-                           </image>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                     </children>
-                  </StackPane>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <VBox.margin>
-                  <Insets left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER" layoutX="20.0" layoutY="84.0" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <StackPane fx:id="imgSPane4" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="70.0">
-                     <children>
-                        <ImageView fx:id="img4" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#selectImg4" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@img/monster.png" />
-                           </image>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                     </children>
-                  </StackPane>
-                  <StackPane fx:id="imgSPane5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="70.0">
-                     <children>
-                        <ImageView fx:id="img5" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#selectImg5" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@img/muslim.png" />
-                           </image>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                     </children>
-                  </StackPane>
-                  <StackPane fx:id="imgSPane6" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="70.0">
-                     <children>
-                        <ImageView fx:id="img6" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#selectImg6" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@img/man.png" />
-                           </image>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                     </children>
-                  </StackPane>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </HBox>
-            <TextField fx:id="name" promptText="Imię" focusTraversable="false">
+            <TextField fx:id="name" promptText="Imię">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField id="surname" fx:id="surname" focusTraversable="false" promptText="Nazwisko" >
+            <TextField id="surname" fx:id="surname" cache="true" promptText="Nazwisko">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField id="login" fx:id="login" focusTraversable="false" promptText="Login">
+            <TextField id="log" fx:id="login" promptText="Login">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField id="email" fx:id="email" focusTraversable="false" promptText="Email">
+            <TextField fx:id="email" promptText="Email">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <PasswordField id="password" fx:id="password" focusTraversable="false" promptText="Hasło">
+            <PasswordField fx:id="password" promptText="Hasło">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </PasswordField>
-            <DatePicker id="age" fx:id="datePicker" focusTraversable="false" prefHeight="25.0" prefWidth="250.0" promptText="Wiek">
+            <DatePicker fx:id="datePicker" focusTraversable="false" prefHeight="25.0" prefWidth="250.0" promptText="Wiek">
                <VBox.margin>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </DatePicker>
-            <Button id="registerRegBtn" mnemonicParsing="false" onAction="#registerUser" text="Rejestruj">
+            <Button mnemonicParsing="false" onAction="#registerUser" text="Rejestruj">
                <padding>
                   <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                </padding>

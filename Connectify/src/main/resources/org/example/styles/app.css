@@ -18,8 +18,7 @@
 }
 
 
-
-#forgetPass, #loginInfo, #helperInfo, #registerInfo, #avatarLabel {
+#forgetPass, #loginInfo, #helperInfo, #registerInfo {
     -fx-text-fill: white;
 }
 #forgetPass2 {
@@ -27,13 +26,13 @@
     -fx-font-weight: bold;
 }
 
-#registerBtn, #loginBtn, #loginLogBtn, #registerRegBtn, #btnHelp {
+.button {
     -fx-background-color: -fx-purple-color;
     -fx-text-fill: white;
     -fx-font-size: 14;
     -fx-font-weight: bold ;
     -fx-border-color: transparent;
-    -fx-border-width: 2 2 2 2;
+    -fx-border-width: 2 2 2 2; // top, right, bottom, left
 }
 .button:hover{
     -fx-cursor: hand;
@@ -45,47 +44,47 @@
     -fx-text-fill: white;
 }
 
-#registerBtn:disabled, #loginBtn:disabled {
+.button:disabled {
     -fx-background-color: transparent;
     -fx-border-color: -fx-purple-color;
-    -fx-border-width: 2 2 2 2;
+    -fx-border-width: 2 2 2 2; // top, right, bottom, left
     -fx-text-fill: -fx-purple-color;
     -fx-font-size: 14;
     -fx-font-weight: bold ;
     -fx-opacity: 1.0;
 }
-#age {
-    -fx-background-color: transparent;
+#datePicker {
+    -fx-background-color: -fx-secondary-color;
 }
 
-#age .arrow-button {
+#datePicker .arrow-button {
     -fx-background-color: -fx-primary-color;
     -fx-background-radius: 0;
     -fx-border-color: -fx-primary-color;
-    -fx-border-width: 2 2 2 2; 
+    -fx-border-width: 2 2 2 2; // top, right, bottom, left
 }
-#age .arrow-button:hover {
+#datePicker .arrow-button:hover {
     -fx-background-color: -fx-primary-color;
 
 }
-#age .arrow-button .arrow {
+#datePicker .arrow-button .arrow {
     -fx-background-color: white;
 }
-#age .cell {
+#datePicker .cell {
     -fx-background-color: white;
 }
-#age .cell:hover {
+#datePicker .cell:hover {
     -fx-background-color: -fx-light-grey-color;
 }
-#age .cell:focused {
+#datePicker .cell:focused {
     -fx-background-color: -fx-light-grey-color;
 
 }
-#age .selected {
+#datePicker .selected {
     -fx-background-color: -fx-primary-color;
     -fx-text-fill: white;
 }
-#age .selected:focused {
+#datePicker .selected:focused {
     -fx-background-color: -fx-primary-color;
     -fx-text-fill: white;
 }
@@ -105,27 +104,17 @@
 .date-picker-popup .spinner .button .right-arrow {
     -fx-background-color: white;
 }
-#age, #login, #password, #name, #surname, #email, #loginLog, #passwordLog, #emailHelper, #datePicker {
+.text-field {
     -fx-border-color: -fx-purple-color;
     -fx-prompt-text-fill: white;
     -fx-text-fill: white;
-    -fx-border-width: 0 0 2 0;
+    -fx-border-width: 0 0 2 0; // top, right, bottom, left
     -fx-background-color: transparent;
 }
-
-
-
-.text-field {
-    -fx-background-color: transparent;
-
-}
-
-
-#img1, #img2, #img3, #img4, #img5, #img6:hover {
-    -fx-border-color: -fx-purple-color;
-    -fx-padding: 10;
-    -fx-border-width: 2 2 2 2; 
-    -fx-border-radius: 3;
-    -fx-min-height: 100;
-}
-
+/*.text-field {*/
+/*    -fx-border-color: -fx-purple-color;*/
+/*    -fx-prompt-text-fill: green;*/
+/*    -fx-text-fill: red;*/
+/*    -fx-border-width: 0 0 2 0; // top, right, bottom, left*/
+/*-fx-background-color: transparent;*/
+/*}*/

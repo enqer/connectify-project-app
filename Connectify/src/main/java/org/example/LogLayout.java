@@ -1,10 +1,14 @@
 package org.example;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.example.connection.Connect;
 import org.example.mail.MailSender;
@@ -22,12 +26,14 @@ public class LogLayout {
     Connection sql = connect.getConnection();
     Statement statement;
 
+    private Parent root;
+
     @FXML
     private Label loginInfo;
     @FXML
-    private TextField loginLog;
+    private TextField login;
     @FXML
-    private PasswordField passwordLog;
+    private PasswordField password;
 
     @FXML
     private Label helperInfo;
@@ -37,16 +43,13 @@ public class LogLayout {
     private Button btnHelp;
 
     @FXML
-    private Label helperInfoText, loginTitle;
-
-    private void initialize(){
-//        loginTitle.se
-    }
+    private Label helperInfoText;
     @FXML
     private void loginUser() throws IOException {
+
         if (isCorrectPassword()){
             loginInfo.setText("Zalogowano!");
-            switchToChat();
+            switchToChat(login.getText());
         } else {
             loginInfo.setText("Niepoprawny login lub hasło!");
         }
@@ -55,14 +58,15 @@ public class LogLayout {
     private Boolean isCorrectPassword(){
         try{
             String result = null;
-            String query = connect.checkLoginPassword(loginLog.getText());
+
+            String query = connect.checkLoginPassword(login.getText());
             statement = sql.createStatement();
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()){
                 result = rs.getString("password");
                 System.out.println(result);
             }
-            if (result != null && result.equals(passwordLog.getText()))
+            if (result != null && result.equals(password.getText()))
                 return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -70,12 +74,9 @@ public class LogLayout {
         return false;
     }
     private boolean checkCorrectEmail(){
-        Boolean result = true;
         try {
-            String regex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
-                    + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
-            if (!(Pattern.matches(regex, emailHelper.getText())))
-                return false;
+            String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+            Boolean result = false;
             String query = connect.checkUniqueEmail(emailHelper.getText());
             statement = sql.createStatement();
             ResultSet rs = statement.executeQuery(query);
@@ -83,20 +84,37 @@ public class LogLayout {
                 result = rs.getBoolean("exists");
                 System.out.println(result);
             }
+            if (result && Pattern.matches(regex, emailHelper.getText()))
+                return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return !result;
+        return false;
     }
 
     @FXML
-    private void switchToChat() throws IOException {
-        Stage stage = (Stage) loginInfo.getScene().getWindow();
+    private void switchToChat(String username) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("chat.fxml"));
+        Parent root = loader.load();
+        ChatController chatController = loader.getController();
+        chatController.displayName(username);
+        chatController.setUsername(username);
 
+
+        Stage stage = new Stage();
+        Image img = new Image(String.valueOf(this.getClass().getResource("img/logo.png")));
+        stage.getIcons().add(img);
+        stage.setTitle("Connectify - Chat Window");
         stage.setWidth(1280);
         stage.setHeight(720);
-        App.setRoot("chat");
+        stage.setScene(new Scene(root));
+        stage.show();
+
+        // Zamknięcie bieżącego okna logowania
+        Stage currentStage = (Stage) loginInfo.getScene().getWindow();
+        currentStage.close();
     }
+
 
     @FXML
     private void showHelp(){
