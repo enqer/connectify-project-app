@@ -149,13 +149,14 @@ public class ChatController implements Initializable {
     }
 
     private void showFriends() {
+        showAllFriends();
         String query = connect.showFriends(username);
         ArrayList<String> friends = new ArrayList<>();
         this.friends = friends;
         try (Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                String friend = rs.getString("contact");
+                String friend = rs.getString("contact_login");
                 friends.add(friend);
             }
         } catch (SQLException e) {
@@ -165,22 +166,47 @@ public class ChatController implements Initializable {
 
     }
 
-    private void addFriend(String friend) {
-        String query = connect.addFriend(username, friend);
+    private void showAllFriends(){
+        String query = connect.showAllFriends();
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+            while (rs.next()) {
+                String user = rs.getString("user_login");
+                String contact = rs.getString("contact_login");
+                System.out.println("User: " + user + ", Contact: " + contact);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Wystąpił błąd podczas wyświetlania kontaktów.");
+        }
 
-        System.out.println("username: "+username);
-        System.out.println("friend: "+friend);
+    }
+
+    private void addFriend(String friend) throws SQLException {
+        String query = "INSERT INTO public.connectify_contacts VALUES (?, ?)";
+        //String query = connect.addFriend(username, friend);
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, username);
             stmt.setString(2, friend);
-            stmt.executeUpdate();
-            System.out.println("Znajomy dodany pomyślnie.");
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Znajomy dodany pomyślnie.");
+            } else {
+                System.out.println("Nie udało się dodać znajomego.");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Wystąpił błąd podczas dodawania znajomego.");
         }
     }
+
+    private void deleteFriend(String friend) {
+
+
+    }
+
 
 
     @FXML
@@ -240,7 +266,7 @@ public class ChatController implements Initializable {
     }
 
     @FXML
-    public void addUser() {
+    public void addUser() throws SQLException {
         searchError.setText("");
         String add = myLabel.getText();
 

@@ -70,12 +70,17 @@ public class Connect {
         String sql = "SELECT login FROM public.connectify";
         return sql;
     }
-    public String showFriends(String user) {
-        String sql = "SELECT contact FROM public.connectify_contacts WHERE user='"+user+"'";
+    public String showFriends(String userLogin) {
+        String sql = "SELECT contact_login FROM public.connectify_contacts WHERE user_login='"+userLogin+"'";
         return sql;
     }
-    public String addFriend(String user, String contact) {
-        String sql = "INSERT INTO public.connectify_contacts(user, contact) VALUES('"+user+"','"+contact+"')";
+    public String addFriend(String userLogin, String contactLogin) {
+        String sql = "INSERT INTO public.connectify_contacts VALUES('"+userLogin+"','"+contactLogin+"')";
+
+        return sql;
+    }
+    public String showAllFriends() {
+        String sql = "SELECT * FROM public.connectify_contacts";
         return sql;
     }
 
