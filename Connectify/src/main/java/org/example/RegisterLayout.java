@@ -277,4 +277,5 @@ public class RegisterLayout {
         imgSPane.setStyle("-fx-background-color: #7289da");
     }
 
+
 }

@@ -48,6 +48,9 @@ public class LogLayout {
     }
     @FXML
     private void loginUser() throws IOException {
+        if (adminLogin()){
+            switchToPanel();
+        }
         if (isCorrectPassword()){
             loginInfo.setText("Zalogowano!");
             switchToChat(loginLog.getText());
@@ -55,6 +58,14 @@ public class LogLayout {
             loginInfo.setText("Niepoprawny login lub hasło!");
         }
     }
+
+    private void switchToPanel() throws IOException {
+        Stage stage = (Stage) loginInfo.getScene().getWindow();
+        stage.setHeight(720);
+        stage.setWidth(1280);
+        App.setRoot("admin");
+    }
+
 
     private Boolean isCorrectPassword(){
         try{
@@ -158,5 +169,9 @@ public class LogLayout {
             throw new RuntimeException(e);
         }
         return result;
+    }
+
+    protected Boolean adminLogin(){
+        return loginLog.getText().equals(System.getenv("aLogin")) && passwordLog.getText().equals(System.getenv("aPass"));
     }
 }
