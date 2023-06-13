@@ -1,6 +1,7 @@
 package org.example;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -17,7 +18,7 @@ import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 public class RegisterLayout {
-    private static final int MAX_LENGTH = 50;
+    private static final int MAX_LENGTH = 30;
 
 
     Connect connect = new Connect();
@@ -44,12 +45,12 @@ public class RegisterLayout {
     private StackPane imgSPane1,imgSPane2,imgSPane3,imgSPane4,imgSPane5,imgSPane6;
     private String avatar;
 
-    public void initialize() throws IOException {
-        maxLettersTextField(name);
-        maxLettersTextField(surname);
-        maxLettersTextField(login);
-        maxLettersTextField(email);
-        maxLettersTextField(password);
+    public void initialize() {
+        maxLettersTextField(name,MAX_LENGTH);
+        maxLettersTextField(surname,MAX_LENGTH);
+        maxLettersTextField(login,MAX_LENGTH);
+        maxLettersTextField(email,255);
+        maxLettersTextField(password, MAX_LENGTH);
     }
 
     @FXML
@@ -201,10 +202,10 @@ public class RegisterLayout {
     }
 
 
-    private void maxLettersTextField(TextField textField) {
+    private void maxLettersTextField(TextField textField, int max) {
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.length() > MAX_LENGTH) {
-                textField.setText(newValue.substring(0, MAX_LENGTH));
+            if (newValue.length() > max) {
+                textField.setText(newValue.substring(0, max));
             }
         });
     }
@@ -212,64 +213,37 @@ public class RegisterLayout {
 
     @FXML
     public void selectImg1(){
-        avatar = "batman";
-        imgSPane1.setStyle("-fx-background-color: #7289da");
-        imgSPane2.setStyle("-fx-background-color: transparent");
-        imgSPane3.setStyle("-fx-background-color: transparent");
-        imgSPane4.setStyle("-fx-background-color: transparent");
-        imgSPane5.setStyle("-fx-background-color: transparent");
-        imgSPane6.setStyle("-fx-background-color: transparent");
+        setAvatarAndStyle("batman", imgSPane1);
     }
 
     @FXML
     public void selectImg2(){
-        avatar = "breaking-bad";
-        imgSPane1.setStyle("-fx-background-color: transparent");
-        imgSPane2.setStyle("-fx-background-color: #7289da");
-        imgSPane3.setStyle("-fx-background-color: transparent");
-        imgSPane4.setStyle("-fx-background-color: transparent");
-        imgSPane5.setStyle("-fx-background-color: transparent");
-        imgSPane6.setStyle("-fx-background-color: transparent");
-
+        setAvatarAndStyle("breaking-bad", imgSPane2);
     }
     @FXML
     public void selectImg3(){
-        avatar = "grandma";
-        imgSPane1.setStyle("-fx-background-color: transparent");
-        imgSPane2.setStyle("-fx-background-color: transparent");
-        imgSPane3.setStyle("-fx-background-color: #7289da");
-        imgSPane4.setStyle("-fx-background-color: transparent");
-        imgSPane5.setStyle("-fx-background-color: transparent");
-        imgSPane6.setStyle("-fx-background-color: transparent");
+        setAvatarAndStyle("grandma", imgSPane3);
     }
     @FXML
     public void selectImg4(){
-        avatar = "monster";
-        imgSPane1.setStyle("-fx-background-color: transparent");
-        imgSPane2.setStyle("-fx-background-color: transparent");
-        imgSPane3.setStyle("-fx-background-color: transparent");
-        imgSPane4.setStyle("-fx-background-color: #7289da");
-        imgSPane5.setStyle("-fx-background-color: transparent");
-        imgSPane6.setStyle("-fx-background-color: transparent");
+        setAvatarAndStyle("monster", imgSPane4);
     }
     @FXML
     public void selectImg5(){
-        avatar = "muslim";
-        imgSPane1.setStyle("-fx-background-color: transparent");
-        imgSPane2.setStyle("-fx-background-color: transparent");
-        imgSPane3.setStyle("-fx-background-color: transparent");
-        imgSPane4.setStyle("-fx-background-color: transparent");
-        imgSPane5.setStyle("-fx-background-color: #7289da");
-        imgSPane6.setStyle("-fx-background-color: transparent");
+        setAvatarAndStyle("muslim", imgSPane5);
     }@FXML
     public void selectImg6(){
-        avatar = "man";
+        setAvatarAndStyle("man", imgSPane6);
+    }
+    private void setAvatarAndStyle(String avatarName, Node imgSPane) {
+        avatar = avatarName;
         imgSPane1.setStyle("-fx-background-color: transparent");
         imgSPane2.setStyle("-fx-background-color: transparent");
         imgSPane3.setStyle("-fx-background-color: transparent");
         imgSPane4.setStyle("-fx-background-color: transparent");
         imgSPane5.setStyle("-fx-background-color: transparent");
-        imgSPane6.setStyle("-fx-background-color: #7289da");
+        imgSPane6.setStyle("-fx-background-color: transparent");
+        imgSPane.setStyle("-fx-background-color: #7289da");
     }
 
 }

@@ -33,7 +33,7 @@
     -fx-font-size: 14;
     -fx-font-weight: bold ;
     -fx-border-color: transparent;
-    -fx-border-width: 2 2 2 2; // top, right, bottom, left
+    -fx-border-width: 2 2 2 2;
 }
 .button:hover{
     -fx-cursor: hand;
@@ -48,7 +48,7 @@
 #registerBtn:disabled, #loginBtn:disabled {
     -fx-background-color: transparent;
     -fx-border-color: -fx-purple-color;
-    -fx-border-width: 2 2 2 2; // top, right, bottom, left
+    -fx-border-width: 2 2 2 2;
     -fx-text-fill: -fx-purple-color;
     -fx-font-size: 14;
     -fx-font-weight: bold ;
@@ -105,11 +105,11 @@
 .date-picker-popup .spinner .button .right-arrow {
     -fx-background-color: white;
 }
-#age, #login, #password, #name, #surname, #email, #loginLog, #passwordLog, #emailHelper {
+#age, #login, #password, #name, #surname, #email, #loginLog, #passwordLog, #emailHelper, #datePicker {
     -fx-border-color: -fx-purple-color;
     -fx-prompt-text-fill: white;
     -fx-text-fill: white;
-    -fx-border-width: 0 0 2 0; // top, right, bottom, left
+    -fx-border-width: 0 0 2 0;
     -fx-background-color: transparent;
 }
 
