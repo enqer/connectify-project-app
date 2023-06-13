@@ -165,12 +165,11 @@ public class ChatController implements Initializable {
 
     }
 
-    private void addFriend() {
-        String friend = myLabel.getText();
+    private void addFriend(String friend) {
         String query = connect.addFriend(username, friend);
 
-        System.out.println(username);
-        System.out.println(friend);
+        System.out.println("username: "+username);
+        System.out.println("friend: "+friend);
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, username);
@@ -248,7 +247,7 @@ public class ChatController implements Initializable {
         if (!persons.contains(add)) {
             myLabel.setText("");
 
-            addFriend();
+            addFriend(add);
             persons.add(add);
             myListView.getItems().setAll(persons);
 
