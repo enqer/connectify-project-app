@@ -8,21 +8,29 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import org.example.connection.Connect;
+import org.example.mail.MailSender;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Management implements Initializable {
+    Connect connect = new Connect();
+    Connection sql = connect.getConnection();
+    Statement statement;
     @FXML
     private ListView<Parent> listView;
     ObservableList<AdminUsers> usersList = FXCollections.observableArrayList();
@@ -35,34 +43,21 @@ public class Management implements Initializable {
     @FXML
     TextField searchUsersTextField;
     @FXML
+    Label loginSelectedUser;
+    @FXML
+    Label statusSelectedUser;
+    @FXML
     Button blockButton;
+    @FXML
+    Circle circleStatus;
+    @FXML
+    TextArea contentSelectedUser;
+    @FXML
+    Label emptyContent;
+    AdminUsers selectedUser;
     private boolean isBlocked = false;
 
-    AdminUsers a1 = new AdminUsers("Jan", "Kowalski","Jan.kowalski@op.pl","https://static.vecteezy.com/system/resources/previews/005/005/788/original/user-icon-in-trendy-flat-style-isolated-on-grey-background-user-symbol-for-your-web-site-design-logo-app-ui-illustration-eps10-free-vector.jpg");
-    AdminUsers a2 = new AdminUsers("Hugo","Bonzo","hugobonzo3@gmail.com","https://t3.ftcdn.net/jpg/05/17/79/88/360_F_517798849_WuXhHTpg2djTbfNf0FQAjzFEoluHpnct.jpg");
-    AdminUsers a3 = new AdminUsers("Tomek","Noga","tomek.noga@ou.pl","https://toppng.com/uploads/preview/icons-logos-emojis-user-icon-png-transparent-11563566676e32kbvynug.png");
-    AdminUsers a4 = new AdminUsers("Piotr","Reka","piotrekreka@gl.fl","https://toppng.com/uploads/preview/icons-logos-emojis-user-icon-png-transparent-11563566676e32kbvynug.png");
-    AdminUsers a5 =  new AdminUsers("Ola","Cztery","ola4@gmail.com","https://toppng.com/uploads/preview/icons-logos-emojis-user-icon-png-transparent-11563566676e32kbvynug.png");
-    AdminUsers a6 =  new AdminUsers("Hugo","V2","hugov2@op.pl","https://toppng.com/uploads/preview/icons-logos-emojis-user-icon-png-transparent-11563566676e32kbvynug.png");
-
-    private static ObservableList<AdminUsers> users = FXCollections.observableArrayList(
-            new AdminUsers("Jan", "Kowalski","Jan.kowalski@op.pl","https://static.vecteezy.com/system/resources/previews/005/005/788/original/user-icon-in-trendy-flat-style-isolated-on-grey-background-user-symbol-for-your-web-site-design-logo-app-ui-illustration-eps10-free-vector.jpg"),
-            new AdminUsers("Hugo","Bonzo","hugobonzo3@gmail.com","https://t3.ftcdn.net/jpg/05/17/79/88/360_F_517798849_WuXhHTpg2djTbfNf0FQAjzFEoluHpnct.jpg"),
-            new AdminUsers("Tomek","Noga","tomek.noga@ou.pl","https://toppng.com/uploads/preview/icons-logos-emojis-user-icon-png-transparent-11563566676e32kbvynug.png"),
-            new AdminUsers("Piotr","Reka","piotrekreka@gl.fl","https://toppng.com/uploads/preview/icons-logos-emojis-user-icon-png-transparent-11563566676e32kbvynug.png"),
-            new AdminUsers("Ola","Cztery","ola4@gmail.com","https://toppng.com/uploads/preview/icons-logos-emojis-user-icon-png-transparent-11563566676e32kbvynug.png"),
-            new AdminUsers("Hugo","V2","hugov2@op.pl","https://toppng.com/uploads/preview/icons-logos-emojis-user-icon-png-transparent-11563566676e32kbvynug.png")
-
-    );
-    private static ObservableList<AdminUsers> users1 = FXCollections.observableArrayList(
-            new AdminUsers("Jan", "Kowalski","Jan.kowalski@op.pl","https://static.vecteezy.com/system/resources/previews/005/005/788/original/user-icon-in-trendy-flat-style-isolated-on-grey-background-user-symbol-for-your-web-site-design-logo-app-ui-illustration-eps10-free-vector.jpg"),
-            new AdminUsers("Hugo","Bonzo","hugobonzo3@gmail.com","https://t3.ftcdn.net/jpg/05/17/79/88/360_F_517798849_WuXhHTpg2djTbfNf0FQAjzFEoluHpnct.jpg"),
-            new AdminUsers("Tomek","Noga","tomek.noga@ou.pl","https://toppng.com/uploads/preview/icons-logos-emojis-user-icon-png-transparent-11563566676e32kbvynug.png"),
-            new AdminUsers("Piotr","Reka","piotrekreka@gl.fl","https://toppng.com/uploads/preview/icons-logos-emojis-user-icon-png-transparent-11563566676e32kbvynug.png"),
-            new AdminUsers("Ola","Cztery","ola4@gmail.com","https://toppng.com/uploads/preview/icons-logos-emojis-user-icon-png-transparent-11563566676e32kbvynug.png"),
-            new AdminUsers("Hugo","V2","hugov2@op.pl","https://toppng.com/uploads/preview/icons-logos-emojis-user-icon-png-transparent-11563566676e32kbvynug.png")
-
-    );
+    private static ObservableList<AdminUsers> users = FXCollections.observableArrayList();
 
     private void addElement(AdminUsers user) {
         try {
@@ -77,18 +72,27 @@ public class Management implements Initializable {
     }
 
     //get user data from ListView
-    public void getUserData() {
+    public void getUserData() throws SQLException {
             Parent selectedUserFXML = listView.getSelectionModel().getSelectedItem();
             if (selectedUserFXML != null) {
-                AdminUsers selectedUser = users.get(listView.getSelectionModel().getSelectedIndex());
+                selectedUser = users.get(listView.getSelectionModel().getSelectedIndex());
                 System.out.println("Wybrany użytkownik: " + selectedUser.getFirstName() + " " + selectedUser.getLastName());
                 nameSelectedUser.setText(selectedUser.getFirstName()+" "+selectedUser.getLastName());
                 emailSelectedUser.setText(selectedUser.getEmail());
                 logourlSelectedUser.setImage(new Image(selectedUser.getAvatar()));
+                loginSelectedUser.setText(selectedUser.getLogin());
+                if (selectedUser.getStatus()==true){
+                    statusSelectedUser.setText("Online");
+                    circleStatus.setFill(Color.GREEN);
+                }
+                else {
+                    statusSelectedUser.setText("Offline");
+                    circleStatus.setFill(Color.RED);
+                }
            }
         users.clear();
         listView.getItems().clear();
-        users.addAll(a1,a2,a3,a4,a5,a6);
+        addUsers();
         for (AdminUsers user : users) {
             addElement(user);
         }
@@ -134,7 +138,46 @@ public class Management implements Initializable {
         System.out.println("not working");
     }
 
+    public void addUsers() throws SQLException {
+        try {
+            String query = connect.getUsers();
+            statement = sql.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String surname = rs.getString("surname");
+                String login = rs.getString("login");
+                String email = rs.getString("email");
+                String avatar = rs.getString("logo");
+                Boolean status = rs.getBoolean("online");
+                AdminUsers adminUsers = new AdminUsers(name,surname,email,avatar,login,status);
+                users.add(adminUsers);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void sendMail(){
+        if(!contentSelectedUser.getText().isEmpty()) {
+            MailSender mailSender = new MailSender();
+            mailSender.setSender(System.getenv("EMAIL"));
+            mailSender.setRecipient(selectedUser.getEmail());
+            mailSender.setSubject("Connectify - wiadomość od Administratora");
+            mailSender.setContent(contentSelectedUser.getText());
+            mailSender.send();
+        }
+        else emptyContent.setText("Nie można wysłać wiadomości bez treści!");
+    }
+    public void hideContentStatus(){
+        emptyContent.setText("");
+    }
+
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            addUsers();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         searchUsersTextField.setText("Search user");
         usersList.addAll(users);
         for (AdminUsers user : usersList) {
@@ -145,8 +188,16 @@ public class Management implements Initializable {
         nameSelectedUser.setText(selectedUser.getFirstName()+" "+selectedUser.getLastName());
         emailSelectedUser.setText(selectedUser.getEmail());
         logourlSelectedUser.setImage(new Image(selectedUser.getAvatar()));
-
-
+        loginSelectedUser.setText(selectedUser.getLogin());
+        loginSelectedUser.setText(selectedUser.getLogin());
+        if (selectedUser.getStatus()==true){
+            statusSelectedUser.setText("Online");
+            circleStatus.setFill(Color.GREEN);
+        }
+        else {
+            statusSelectedUser.setText("Offline");
+            circleStatus.setFill(Color.RED);
+        }
 
 
     }
