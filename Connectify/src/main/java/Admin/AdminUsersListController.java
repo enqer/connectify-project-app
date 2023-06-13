@@ -18,8 +18,8 @@ public class AdminUsersListController {
         name.setText(users.getFirstName()+" "+ users.getLastName());
         //surname.setText(users.getLastName());
         email.setText(users.getEmail());
-        Image image = new Image(users.getAvatar());
-        logo.setImage(image);
+        Image img = new Image(getClass().getResource("/org/example/img/"+users.getAvatar()+".png").toExternalForm());
+        logo.setImage(img);
     }
 
 }

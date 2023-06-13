@@ -12,7 +12,7 @@ public class AdminUsers {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.avatar = "img/" + avatar + ".png";
+        this.avatar = avatar;
         this.login=login;
         this.status=status;
     }

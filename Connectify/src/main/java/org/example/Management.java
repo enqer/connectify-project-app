@@ -79,7 +79,7 @@ public class Management implements Initializable {
                 System.out.println("Wybrany użytkownik: " + selectedUser.getFirstName() + " " + selectedUser.getLastName());
                 nameSelectedUser.setText(selectedUser.getFirstName()+" "+selectedUser.getLastName());
                 emailSelectedUser.setText(selectedUser.getEmail());
-                logourlSelectedUser.setImage(new Image(selectedUser.getAvatar()));
+                logourlSelectedUser.setImage(new Image(getClass().getResource("/org/example/img/"+selectedUser.getAvatar()+".png").toExternalForm()));
                 loginSelectedUser.setText(selectedUser.getLogin());
                 if (selectedUser.getStatus()==true){
                     statusSelectedUser.setText("Online");
@@ -148,7 +148,8 @@ public class Management implements Initializable {
                 String surname = rs.getString("surname");
                 String login = rs.getString("login");
                 String email = rs.getString("email");
-                String avatar = rs.getString("logo");
+                String avatar = rs.getString("avatar");
+                System.out.println(avatar);
                 Boolean status = rs.getBoolean("online");
                 AdminUsers adminUsers = new AdminUsers(name,surname,email,avatar,login,status);
                 users.add(adminUsers);
@@ -187,7 +188,7 @@ public class Management implements Initializable {
         AdminUsers selectedUser = users.get(0);
         nameSelectedUser.setText(selectedUser.getFirstName()+" "+selectedUser.getLastName());
         emailSelectedUser.setText(selectedUser.getEmail());
-        logourlSelectedUser.setImage(new Image(selectedUser.getAvatar()));
+        logourlSelectedUser.setImage(new Image(getClass().getResource("/org/example/img/"+selectedUser.getAvatar()+".png").toExternalForm()));
         loginSelectedUser.setText(selectedUser.getLogin());
         loginSelectedUser.setText(selectedUser.getLogin());
         if (selectedUser.getStatus()==true){
