@@ -27,7 +27,7 @@
     -fx-font-weight: bold;
 }
 
-#registerBtn, #loginBtn, #loginLogBtn, #registerRegBtn {
+#registerBtn, #loginBtn, #loginLogBtn, #registerRegBtn, #btnHelp {
     -fx-background-color: -fx-purple-color;
     -fx-text-fill: white;
     -fx-font-size: 14;
