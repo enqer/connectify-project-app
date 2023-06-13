@@ -5,12 +5,16 @@ public class AdminUsers {
     private String lastName;
     private String email;
     private String avatar;
+    private String login;
+    private Boolean status;
 
-    public AdminUsers(String firstName, String lastName, String email,String avatar) {
+    public AdminUsers(String firstName, String lastName, String email,String avatar,String login,Boolean status) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.avatar = avatar;
+        this.login=login;
+        this.status=status;
     }
 
 
@@ -28,5 +32,13 @@ public class AdminUsers {
 
     public String getAvatar() {
         return avatar;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public Boolean getStatus() {
+        return status;
     }
 }
