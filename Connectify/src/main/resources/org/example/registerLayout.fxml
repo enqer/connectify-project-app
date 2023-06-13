@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.RegisterLayout">
+<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.RegisterLayout">
    <children>
       <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
@@ -17,8 +19,97 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Label>
-            <Label text="Wybierz swój awatar:" />
-            <TextField id="name" fx:id="name" focusTraversable="false" promptText="Imię">
+
+            <Label fx:id="avatarLabel" text="Wybierz swój awatar:">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Pane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="img21" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#selectImg2" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/breaking-bad.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                  <ImageView fx:id="img2" fitHeight="60.0" fitWidth="60.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#selectImg2" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/breaking-bad.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fx:id="img3" fitHeight="60.0" fitWidth="60.0" layoutX="56.0" layoutY="10.0" onMouseClicked="#selectImg3" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/grandma.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="20.0" layoutY="84.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ImageView fx:id="img4" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#selectImg4" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/monster.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fx:id="img5" fitHeight="60.0" fitWidth="60.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#selectImg5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/muslim.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fx:id="img6" fitHeight="60.0" fitWidth="60.0" layoutX="56.0" layoutY="10.0" onMouseClicked="#selectImg6" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/man.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <TextField fx:id="name" promptText="Imię">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>

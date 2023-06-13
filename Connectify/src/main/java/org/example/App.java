@@ -26,7 +26,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         try{
 
-            scene = new Scene(loadFXML("login"), 400, 550);
+            scene = new Scene(loadFXML("login"), 400, 700);
             stage.setTitle("Connectify");
             Image img = new Image(String.valueOf(this.getClass().getResource("img/logo.png")));
             stage.getIcons().add(img);

@@ -1,10 +1,8 @@
 package org.example;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import org.example.connection.Connect;
 import org.example.mail.MailSender;
 
@@ -17,7 +15,7 @@ import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 public class RegisterLayout {
-    private static final int MAX_LENGTH = 30;
+    private static final int MAX_LENGTH = 50;
 
 
     Connect connect = new Connect();
@@ -36,12 +34,23 @@ public class RegisterLayout {
     @FXML
     private Label registerInfo;
 
+    @FXML
+    private Button img1;
+
+    @FXML
+    private ImageView img2,img3,img4,img5,img6;
+    private String avatar;
+
     public void initialize() throws IOException {
 //        email.getStyleClass().add("unfocused");
         maxLettersTextField(name);
         maxLettersTextField(surname);
         maxLettersTextField(login);
+        maxLettersTextField(email);
+        maxLettersTextField(password);
+//        img1.setGraphic();
     }
+
     @FXML
     private void registerUser(){
         if (checkDataValidity()){
@@ -67,7 +76,7 @@ public class RegisterLayout {
         }
         if (!isEnoughLetters())
         {
-            registerInfo.setText("Login powinien mieć od 5 do 30 znaków");
+            registerInfo.setText("Login powinien mieć od 5 do "+MAX_LENGTH+" znaków");
             return false;
         }
         if (!isUniqueLogin()){
@@ -190,11 +199,53 @@ public class RegisterLayout {
         mailSender.send();
     }
 
-    private void maxLettersTextField(TextField textField){
+
+    private void maxLettersTextField(TextField textField) {
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() > MAX_LENGTH) {
                 textField.setText(newValue.substring(0, MAX_LENGTH));
             }
         });
+    }
+
+
+    @FXML
+    public void selectImg1(){
+        avatar = "batman";
+        System.out.println(avatar);
+    }
+
+    @FXML
+    public void selectImg2(){
+        avatar = "breaking-bad";
+        System.out.println(avatar);
+
+    }
+    @FXML
+    public void selectImg3(){
+        avatar = "grandma";
+        System.out.println(avatar);
+    }
+    @FXML
+    public void selectImg4(){
+        avatar = "monster";
+        System.out.println(avatar);
+    }
+    @FXML
+    public void selectImg5(){
+        avatar = "muslim";
+        System.out.println(avatar);
+    }@FXML
+    public void selectImg6(){
+        avatar = "man";
+        System.out.println(avatar);
+//        selectedImg(img6);
+    }
+
+    public void selectedImg(ImageView img){
+        img.getStyleClass().add("-fx-border-color: -fx-purple-color");
+        img.getStyleClass().add("-fx-border-radius: 3");
+        img.getStyleClass().add("-fx-padding: 10");
+
     }
 }

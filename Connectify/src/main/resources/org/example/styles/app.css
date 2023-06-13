@@ -18,7 +18,8 @@
 }
 
 
-#forgetPass, #loginInfo, #helperInfo, #registerInfo {
+
+#forgetPass, #loginInfo, #helperInfo, #registerInfo, #avatarLabel {
     -fx-text-fill: white;
 }
 #forgetPass2 {
@@ -104,15 +105,24 @@
 .date-picker-popup .spinner .button .right-arrow {
     -fx-background-color: white;
 }
-#age, #login, #password, #name, #surname, #email, #loginLog, #passwordLog {
+#age, #login, #password, #name, #surname, #email, #loginLog, #passwordLog, #emailHelper {
     -fx-border-color: -fx-purple-color;
     -fx-prompt-text-fill: white;
     -fx-text-fill: white;
     -fx-border-width: 0 0 2 0; // top, right, bottom, left
     -fx-background-color: transparent;
-}pg
+}
+
 .text-field {
     -fx-background-color: transparent;
 
 }
 
+
+#img1, #img2, #img3, #img4, #img5, #img6:hover {
+    -fx-border-color: -fx-purple-color;
+    -fx-padding: 10;
+    -fx-border-width: 2 2 2 2; // top, right, bottom, left;
+    -fx-border-radius: 3;
+    -fx-min-height: 100;
+}
