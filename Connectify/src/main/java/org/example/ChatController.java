@@ -28,8 +28,7 @@ import org.example.connection.Connect;
 public class ChatController implements Initializable {
     private String username;
     public List<String> logins;
-    public List<String> friends;
-    private List<String> persons = new ArrayList<>(Arrays.asList("John", "Alice", "Steve", "Paul", "Dupa_rozpruwacz_69420"));
+    private List<String> persons = new ArrayList<>();
     String currentPerson;
     Connect connect = new Connect();
     Connection conn = connect.getConnection();
@@ -76,7 +75,7 @@ public class ChatController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        Platform.runLater(() -> {
+            Platform.runLater(() -> {
             Stage stage = (Stage) chatScene.getScene().getWindow();
             centerWindowOnScreen(stage);
 
@@ -100,28 +99,41 @@ public class ChatController implements Initializable {
                     deleteUsername.setVisible(true);
                     status.setVisible(true);
                     statusLabel.setVisible(true);
-
                 }
             });
         });
 
         try {
             showAllUsers();
-            showFriends();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Sets the displayed username to the specified value.
+     *
+     * @param username The username to be displayed.
+     */
     public void displayName(String username) {
         account.setText(username);
     }
 
+    /**
+     * Sets the username for the current user.
+     *
+     * @param username The username to be set.
+     */
     public void setUsername(String username) {
         this.username = username;
+        showFriends();
     }
 
-
+    /**
+     * Centers the window on the screen.
+     *
+     * @param stage The Stage object representing the window.
+     */
     private void centerWindowOnScreen(Stage stage) {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         double centerX = screenBounds.getMinX() + (screenBounds.getWidth() / 2);
@@ -145,29 +157,31 @@ public class ChatController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(logins);
+        System.out.println("All logins in database: "+logins);
     }
 
     private void showFriends() {
         showAllFriends();
         String query = connect.showFriends(username);
-        ArrayList<String> friends = new ArrayList<>();
-        this.friends = friends;
+        //System.out.println(username);
+        List<String> friends = new ArrayList<>();
         try (Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 String friend = rs.getString("contact_login");
                 friends.add(friend);
+                //System.out.println(friend);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(friends);
-
+        persons = friends;
+        System.out.println("All friends: "+persons);
     }
 
     private void showAllFriends(){
         String query = connect.showAllFriends();
+        System.out.println("change name of this");
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
@@ -179,7 +193,6 @@ public class ChatController implements Initializable {
             e.printStackTrace();
             System.out.println("Wystąpił błąd podczas wyświetlania kontaktów.");
         }
-
     }
 
     private void addFriend(String friend) throws SQLException {
@@ -203,11 +216,24 @@ public class ChatController implements Initializable {
     }
 
     private void deleteFriend(String friend) {
+        String query = "DELETE FROM public.connectify_contacts WHERE user_login = ? AND contact_login = ?";
 
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, username);
+            stmt.setString(2, friend);
 
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Znajomy usunięty pomyślnie.");
+            } else {
+                System.out.println("Nie udało się usunąć znajomego.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Wystąpił błąd podczas usuwania znajomego.");
+        }
     }
-
-
 
     @FXML
     public void searchUser() {
@@ -257,6 +283,9 @@ public class ChatController implements Initializable {
         }
     }
 
+    /**
+     * Hides the visibility of certain elements.
+     */
     private void visibleElements() {
         addUsername.setVisible(false);
         rejectUsername.setVisible(false);
@@ -309,8 +338,8 @@ public class ChatController implements Initializable {
             persons.remove(delete);
             myListView.getItems().setAll(persons);
 
+            deleteFriend(delete);
             visibleElements();
-
         }
     }
 
