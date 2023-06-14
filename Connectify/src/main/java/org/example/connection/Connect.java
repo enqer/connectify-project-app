@@ -75,7 +75,7 @@ public class Connect {
         return sql;
     }
     public String addFriend(String user, String contact) {
-        String sql = "INSERT INTO public.connectify_contacts(user, contact) VALUES('"+user+"','"+contact+"')";
+        String sql = "INSERT INTO public.connectify_contacts(user_login, contact_login) VALUES('"+user+"','"+contact+"')";
         return sql;
     }
     public String getUsers(){

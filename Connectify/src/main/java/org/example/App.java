@@ -27,7 +27,7 @@ public class App extends Application {
 
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         try{
 
             scene = new Scene(loadFXML("login"), 400,700);
@@ -49,7 +49,7 @@ public class App extends Application {
         }
     }
 
-    static void setRoot(String fxml) throws IOException {
+    public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
 
         if (initialSceneWidth > 0 && initialSceneHeight > 0) {

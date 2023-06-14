@@ -15,8 +15,10 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import org.example.ChatController;
 import org.example.connection.Connect;
 import org.example.mail.MailSender;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -25,6 +27,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
+
 
 public class RegisterLayout {
     private static final int MAX_LENGTH = 30;
@@ -66,7 +69,7 @@ public class RegisterLayout {
     private void registerUser(){
         if (checkDataValidity()){
             try {
-                String query = connect.registerUser(name.getText(),surname.getText(),login.getText(),email.getText(),password.getText(),datePicker.getValue().toString(),avatar);
+                String query = connect.registerUser(name.getText(),surname.getText(),login.getText(),email.getText(),encryptPassword(password.getText()),datePicker.getValue().toString(),avatar);
                 statement = sql.createStatement();
                 int rs = statement.executeUpdate(query);
                 System.out.println(rs);
@@ -275,7 +278,11 @@ public class RegisterLayout {
         imgSPane5.setStyle("-fx-background-color: transparent");
         imgSPane6.setStyle("-fx-background-color: transparent");
         imgSPane.setStyle("-fx-background-color: #7289da");
-    }
 
+    }
+    public static String encryptPassword(String inputPassword) {
+        StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
+        return encryptor.encryptPassword(inputPassword);
+    }
 
 }

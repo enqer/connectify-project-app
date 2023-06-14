@@ -10,8 +10,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.example.App;
+import org.example.ChatController;
 import org.example.connection.Connect;
 import org.example.mail.MailSender;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -143,7 +146,7 @@ public class LogLayout {
                 mailSender.setSender(System.getenv("EMAIL"));
                 mailSender.setRecipient(emailHelper.getText());
                 mailSender.setSubject("Connectify - przypomnienie hasła!");
-                mailSender.setContent("Twoje hasło to: "+pass);
+                mailSender.setContent("Twoje hasło to: "+ pass);
                 mailSender.send();
                 helperInfo.setText("Hasło zostało wysłane na twoją pocztę email.");
             }else {
@@ -174,4 +177,5 @@ public class LogLayout {
     protected Boolean adminLogin(){
         return loginLog.getText().equals(System.getenv("aLogin")) && passwordLog.getText().equals(System.getenv("aPass"));
     }
+   
 }

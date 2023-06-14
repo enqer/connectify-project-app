@@ -30,6 +30,7 @@ public class LoginController {
 
     public void showLogin () throws IOException {
         Pane newLoadedPane =  FXMLLoader.load(getClass().getResource("logLayout.fxml"));
+//        Pane snewLoadedPane =  FXMLLoader.load(getClass().getClassLoader().getResource("logLayout.fxml"));
         Pane.getChildren().clear();
         Pane.getChildren().add(newLoadedPane);
         loginBtn.setDisable(true);
