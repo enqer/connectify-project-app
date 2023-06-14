@@ -105,7 +105,7 @@ public class LogLayout {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return !result;
+        return result;
     }
 
     @FXML
