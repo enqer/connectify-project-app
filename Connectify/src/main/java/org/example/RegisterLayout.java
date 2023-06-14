@@ -18,7 +18,9 @@ import javafx.scene.layout.StackPane;
 import org.example.ChatController;
 import org.example.connection.Connect;
 import org.example.mail.MailSender;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.util.password.StrongPasswordEncryptor;
+import org.jasypt.util.text.AES256TextEncryptor;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -281,8 +283,13 @@ public class RegisterLayout {
 
     }
     public static String encryptPassword(String inputPassword) {
-        StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
-        return encryptor.encryptPassword(inputPassword);
+//        StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
+//        return encryptor.encryptPassword(inputPassword);
+        AES256TextEncryptor textEncryptor = new AES256TextEncryptor();
+        textEncryptor.setPassword(System.getenv("PASS"));
+        String myEncryptedText = textEncryptor.encrypt(inputPassword);
+        String plainText = textEncryptor.decrypt(myEncryptedText);
+        return myEncryptedText;
     }
 
 }

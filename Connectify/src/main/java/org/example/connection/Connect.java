@@ -71,7 +71,7 @@ public class Connect {
         return sql;
     }
     public String showFriends(String user) {
-        String sql = "SELECT contact FROM public.connectify_contacts WHERE user='"+user+"'";
+        String sql = "SELECT contact FROM public.connectify_contacts WHERE user_login='"+user+"'";
         return sql;
     }
     public String addFriend(String user, String contact) {
