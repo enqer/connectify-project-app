@@ -57,7 +57,7 @@ public class LogLayout {
         }
         if (isCorrectPassword()){
             loginInfo.setText("Zalogowano!");
-            switchToChat(loginLog.getText());
+            switchToChat(loginLog.getText().toLowerCase());
         } else {
             loginInfo.setText("Niepoprawny login lub hasło!");
         }
@@ -74,7 +74,7 @@ public class LogLayout {
     private Boolean isCorrectPassword(){
         try{
             String result = null;
-            String query = connect.checkLoginPassword(loginLog.getText());
+            String query = connect.checkLoginPassword(loginLog.getText().toLowerCase());
             statement = sql.createStatement();
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()){

@@ -71,13 +71,15 @@ public class RegisterLayout {
     private void registerUser(){
         if (checkDataValidity()){
             try {
-                String query = connect.registerUser(name.getText(),surname.getText(),login.getText(),email.getText(),encryptPassword(password.getText()),datePicker.getValue().toString(),avatar);
+                String nameCapitalize = name.getText().substring(0,1).toUpperCase() + name.getText().substring(1).toLowerCase();
+                String surnameCapitalize = surname.getText().substring(0,1).toUpperCase() + surname.getText().substring(1).toLowerCase();
+                String query = connect.registerUser(nameCapitalize,surnameCapitalize,login.getText().toLowerCase(),email.getText(),encryptPassword(password.getText()),datePicker.getValue().toString(),avatar);
                 statement = sql.createStatement();
                 int rs = statement.executeUpdate(query);
                 System.out.println(rs);
                 registerInfo.setText("Konto zostało utworzone!");
                 sendWelcomeMail();
-                switchToChat(login.getText());
+                switchToChat(login.getText().toLowerCase());
             } catch (SQLException | IOException e) {
                 throw new RuntimeException(e);
             }
@@ -118,7 +120,7 @@ public class RegisterLayout {
     private Boolean isUniqueLogin(){
         try {
             Boolean result = false;
-            String query = connect.checkUniqueLogin(login.getText());
+            String query = connect.checkUniqueLogin(login.getText().toLowerCase());
             statement = sql.createStatement();
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()){
