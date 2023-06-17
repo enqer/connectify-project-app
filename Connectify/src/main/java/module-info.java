@@ -4,6 +4,8 @@ module org.example {
     requires java.sql;
     requires java.mail;
     requires jasypt;
+    exports Message;
+    opens Message to javafx.fxml;
 
 
     opens org.example to javafx.fxml;

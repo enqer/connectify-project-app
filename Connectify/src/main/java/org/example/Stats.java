@@ -36,9 +36,6 @@ public class Stats implements Initializable {
     private LineChart<String,Number> lineChart=new LineChart<String,Number>(categoryAxis,numberAxis);
 
 
-
-
-
     private void getNumberOfUsers() throws SQLException {
         String query = connect.countUser();
         statement = sql.createStatement();

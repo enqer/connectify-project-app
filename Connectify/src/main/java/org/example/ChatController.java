@@ -3,19 +3,28 @@ package org.example;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import Message.UserMessage;
+import Message.UserMessageController;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Screen;
@@ -66,6 +75,12 @@ public class ChatController implements Initializable {
 
     @FXML
     private Button deleteUsername;
+    @FXML
+    private ListView listViewMessage;
+    @FXML
+    private TextField sendTextField;
+
+    private static ObservableList<UserMessage> messages = FXCollections.observableArrayList();
 
 
     //status.setFill(Color.web("#1e2124"));
@@ -147,8 +162,34 @@ public class ChatController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        String formattedTime = dateFormat.format(currentDate);
+        messages.add(new UserMessage("marek",formattedTime.toString(),"batman","Wiadomość"));
+        for (UserMessage userMessage: messages) {
+            addElement(userMessage);
+        }
+
     }
 
+    private void addElement(UserMessage userMessage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("singleMessage.fxml"));
+            Parent root = loader.load();
+            UserMessageController controller = loader.getController();
+            controller.setData(userMessage);
+            listViewMessage.getItems().add(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void addMessage(){
+        String message = sendTextField.getText();
+        messages.add(0,new UserMessage("marek","22:00","batman",message));
+        UserMessage userMessage = messages.get(0);
+            addElement(userMessage);
+    }
 
     /**
      * Sets the displayed username to the specified value.

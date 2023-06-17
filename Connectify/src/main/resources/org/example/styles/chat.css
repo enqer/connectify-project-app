@@ -2,21 +2,21 @@
     -fx-background-color: #424549;
 }
 
-.list-view .list-cell:even {
+#myListView #myListView:even {
     -fx-background-color: #282b30;
     -fx-text-fill: white;
 
 }
-.list-view .list-cell:odd {
+#myListView #myListView:odd {
     -fx-background-color: #282b30;
     -fx-text-fill: white;
 }
 
-.list-cell {
+#myListView {
     -fx-border-color: #7289da;
 }
 
-.list-view {
+#myListView {
     -fx-background-radius: 5px;
 }
 
@@ -66,3 +66,25 @@
     -fx-arc-width: 12;
     -fx-arc-height: 12;
 }
+#sendMessage{
+    -fx-background-color: white;
+}
+#sendTextField{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+#sendLabel,#sendTextField{
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-border-color: black;
+}
+#listViewMessage-cell:selected {
+   -fx-background-color: #7289da;
+ }
+ .listViewMessage-cell{
+   -fx-background-color: #424549;
+ }
+ .listViewMessage-cell:hover{
+    -fx-background-color: #7289da;
+ }
+
