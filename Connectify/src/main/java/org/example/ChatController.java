@@ -73,7 +73,7 @@ public class ChatController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-            Platform.runLater(() -> {
+        Platform.runLater(() -> {
             Stage stage = (Stage) chatScene.getScene().getWindow();
             centerWindowOnScreen(stage);
 
@@ -85,47 +85,46 @@ public class ChatController implements Initializable {
 
             myListView.getItems().addAll(persons);
 
-                myListView.setCellFactory(param -> new ListCell<String>() {
-                    @Override
-                    protected void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
+            myListView.setCellFactory(param -> new ListCell<String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
 
-                        if (empty || item == null) {
-                            setText(null);
-                            setGraphic(null);
-                        } else {
-                            try {
-                                FXMLLoader loader = new FXMLLoader(getClass().getResource("UserItem.fxml"));
-                                AnchorPane userItem = loader.load();
-                                UserItemController controller = loader.getController();
+                    if (empty || item == null) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("UserItem.fxml"));
+                            AnchorPane userItem = loader.load();
+                            UserItemController controller = loader.getController();
 
-                                String query = "SELECT login, email FROM public.connectify WHERE login = ?";
-                                try (PreparedStatement stmt = conn.prepareStatement(query)) {
-                                    stmt.setString(1, item);
-                                    ResultSet rs = stmt.executeQuery();
-                                    if (rs.next()) {
-                                        String login = rs.getString("login");
-                                        String email = rs.getString("email");
+                            String query = "SELECT login, email, avatar FROM public.connectify WHERE login = ?";
+                            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                                stmt.setString(1, item);
+                                ResultSet rs = stmt.executeQuery();
+                                if (rs.next()) {
+                                    String login = rs.getString("login");
+                                    String email = rs.getString("email");
+                                    String avatar = rs.getString("avatar");
 
-                                        // Ustawienie danych użytkownika
-                                        controller.setName(login);
-                                        controller.setEmail(email);
-                                        // controller.setLogo(imageUrl);
+                                    // Ustawienie danych użytkownika
+                                    controller.setName(login);
+                                    controller.setEmail(email);
 
-                                        setGraphic(userItem);
-                                    }
+                                    // Ustawienie ścieżki obrazka
+                                    String imagePath = getClass().getResource("/org/example/img/" + avatar + ".png").toExternalForm();
+                                    controller.setLogo(imagePath);
+
+                                    setGraphic(userItem);
                                 }
-                            } catch (IOException | SQLException e) {
-                                e.printStackTrace();
                             }
+                        } catch (IOException | SQLException e) {
+                            e.printStackTrace();
                         }
                     }
-
-
-
-
-
-                });
+                }
+            });
 
             myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                 @Override
@@ -149,6 +148,7 @@ public class ChatController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
 
     /**
      * Sets the displayed username to the specified value.
@@ -184,35 +184,16 @@ public class ChatController implements Initializable {
     }
 
     private void showAllUsers() throws IOException {
-        String query = "SELECT cc.name, cc.surname, cc.login, cc.email, cc.online, cc.avatar FROM public.connectify cc WHERE cc.login IN (SELECT contact_login FROM public.connectify_contacts WHERE user_login = 'Hahiyu')";
-        //String query = connect.showUsers();SELECT * FROM public.connectify cc WHERE cc.login IN (SELECT contact_login FROM public.connectify_contacts WHERE user_login = 'Hahiyu')";
+        String query = connect.showUsers();
         ArrayList<String> logins = new ArrayList<>();
         this.logins = logins;
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
 
-            myListView.getItems().clear();
-
             while (rs.next()) {
                 String login = rs.getString("login");
-                String email = rs.getString("email");
-                String image = rs.getString("avatar");
-
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("UserItem.fxml"));
-                try {
-                    AnchorPane userItem = loader.load();
-                    UserItemController controller = loader.getController();
-                    controller.setName(login);
-                    controller.setEmail(email);
-                    // controller.setLogo(image); // Zakomentowane, ponieważ obrazek jest tymczasowo wyłączony
-
-                    myListView.getItems().add(String.valueOf(userItem));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                logins.add(login);
             }
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
