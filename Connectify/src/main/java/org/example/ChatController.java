@@ -12,12 +12,10 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Screen;
@@ -28,8 +26,7 @@ import org.example.connection.Connect;
 public class ChatController implements Initializable {
     private String username;
     public List<String> logins;
-    public List<String> friends;
-    private List<String> persons = new ArrayList<>(Arrays.asList("John", "Alice", "Steve", "Paul", "Dupa_rozpruwacz_69420"));
+    private List<String> persons = new ArrayList<>();
     String currentPerson;
     Connect connect = new Connect();
     Connection conn = connect.getConnection();
@@ -88,6 +85,47 @@ public class ChatController implements Initializable {
 
             myListView.getItems().addAll(persons);
 
+            myListView.setCellFactory(param -> new ListCell<String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (empty || item == null) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("UserItem.fxml"));
+                            AnchorPane userItem = loader.load();
+                            UserItemController controller = loader.getController();
+
+                            String query = "SELECT login, email, avatar FROM public.connectify WHERE login = ?";
+                            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                                stmt.setString(1, item);
+                                ResultSet rs = stmt.executeQuery();
+                                if (rs.next()) {
+                                    String login = rs.getString("login");
+                                    String email = rs.getString("email");
+                                    String avatar = rs.getString("avatar");
+
+                                    // Ustawienie danych użytkownika
+                                    controller.setName(login);
+                                    controller.setEmail(email);
+
+                                    // Ustawienie ścieżki obrazka
+                                    String imagePath = getClass().getResource("/org/example/img/" + avatar + ".png").toExternalForm();
+                                    controller.setLogo(imagePath);
+
+                                    setGraphic(userItem);
+                                }
+                            }
+                        } catch (IOException | SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+
             myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
@@ -100,28 +138,42 @@ public class ChatController implements Initializable {
                     deleteUsername.setVisible(true);
                     status.setVisible(true);
                     statusLabel.setVisible(true);
-
                 }
             });
         });
 
         try {
             showAllUsers();
-            showFriends();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+
+    /**
+     * Sets the displayed username to the specified value.
+     *
+     * @param username The username to be displayed.
+     */
     public void displayName(String username) {
         account.setText(username);
     }
 
+    /**
+     * Sets the username for the current user.
+     *
+     * @param username The username to be set.
+     */
     public void setUsername(String username) {
         this.username = username;
+        showFriends();
     }
 
-
+    /**
+     * Centers the window on the screen.
+     *
+     * @param stage The Stage object representing the window.
+     */
     private void centerWindowOnScreen(Stage stage) {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         double centerX = screenBounds.getMinX() + (screenBounds.getWidth() / 2);
@@ -145,43 +197,82 @@ public class ChatController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(logins);
+        System.out.println("All logins in database: "+logins);
     }
 
     private void showFriends() {
+        showAllFriends();
         String query = connect.showFriends(username);
-        ArrayList<String> friends = new ArrayList<>();
-        this.friends = friends;
+        //System.out.println(username);
+        List<String> friends = new ArrayList<>();
         try (Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 String friend = rs.getString("contact_login");
                 friends.add(friend);
+                //System.out.println(friend);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(friends);
-
+        persons = friends;
+        System.out.println("All your friends: "+persons);
     }
 
-    private void addFriend(String friend) {
-        String query = connect.addFriend(username, friend);
+    private void showAllFriends(){
+        String query = connect.showAllFriends();
+        System.out.println("change name of this");
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+            while (rs.next()) {
+                String user = rs.getString("user_login");
+                String contact = rs.getString("contact_login");
+                System.out.println("User: " + user + ", Contact: " + contact);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Wystąpił błąd podczas wyświetlania kontaktów.");
+        }
+    }
 
-        System.out.println("username: "+username);
-        System.out.println("friend: "+friend);
+    private void addFriend(String friend) throws SQLException {
+        String query = connect.addFriend("user_login", "friend_login");
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, username);
             stmt.setString(2, friend);
-            stmt.executeUpdate();
-            System.out.println("Znajomy dodany pomyślnie.");
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Znajomy dodany pomyślnie.");
+            } else {
+                System.out.println("Nie udało się dodać znajomego.");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Wystąpił błąd podczas dodawania znajomego.");
         }
     }
 
+    private void deleteFriend(String friend) {
+        String query = connect.deleteFriend("user_login", "friend_login");
+
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, username);
+            stmt.setString(2, friend);
+
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Znajomy usunięty pomyślnie.");
+            } else {
+                System.out.println("Nie udało się usunąć znajomego.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Wystąpił błąd podczas usuwania znajomego.");
+        }
+    }
 
     @FXML
     public void searchUser() {
@@ -231,6 +322,9 @@ public class ChatController implements Initializable {
         }
     }
 
+    /**
+     * Hides the visibility of certain elements.
+     */
     private void visibleElements() {
         addUsername.setVisible(false);
         rejectUsername.setVisible(false);
@@ -240,7 +334,7 @@ public class ChatController implements Initializable {
     }
 
     @FXML
-    public void addUser() {
+    public void addUser() throws SQLException {
         searchError.setText("");
         String add = myLabel.getText();
 
@@ -283,8 +377,8 @@ public class ChatController implements Initializable {
             persons.remove(delete);
             myListView.getItems().setAll(persons);
 
+            deleteFriend(delete);
             visibleElements();
-
         }
     }
 
