@@ -71,11 +71,11 @@ public class Connect {
         return sql;
     }
     public String showFriends(String user) {
-        String sql = "SELECT contact FROM public.connectify_contacts WHERE user='"+user+"'";
+        String sql = "SELECT contact FROM public.connectify_contacts WHERE user_login='"+user+"'";
         return sql;
     }
     public String addFriend(String user, String contact) {
-        String sql = "INSERT INTO public.connectify_contacts(user, contact) VALUES('"+user+"','"+contact+"')";
+        String sql = "INSERT INTO public.connectify_contacts(user_login, contact_login) VALUES('"+user+"','"+contact+"')";
         return sql;
     }
     public String getUsers(){

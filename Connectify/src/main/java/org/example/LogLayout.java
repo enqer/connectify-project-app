@@ -10,8 +10,12 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.example.App;
+import org.example.ChatController;
 import org.example.connection.Connect;
 import org.example.mail.MailSender;
+import org.jasypt.util.password.StrongPasswordEncryptor;
+import org.jasypt.util.text.AES256TextEncryptor;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -48,25 +52,36 @@ public class LogLayout {
     }
     @FXML
     private void loginUser() throws IOException {
+        if (adminLogin()){
+            switchToPanel();
+        }
         if (isCorrectPassword()){
             loginInfo.setText("Zalogowano!");
-            switchToChat(loginLog.getText());
+            switchToChat(loginLog.getText().toLowerCase());
         } else {
             loginInfo.setText("Niepoprawny login lub hasło!");
         }
     }
 
+    private void switchToPanel() throws IOException {
+        Stage stage = (Stage) loginInfo.getScene().getWindow();
+        stage.setHeight(720);
+        stage.setWidth(1280);
+        App.setRoot("admin");
+    }
+
+
     private Boolean isCorrectPassword(){
         try{
             String result = null;
-            String query = connect.checkLoginPassword(loginLog.getText());
+            String query = connect.checkLoginPassword(loginLog.getText().toLowerCase());
             statement = sql.createStatement();
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()){
                 result = rs.getString("password");
                 System.out.println(result);
             }
-            if (result != null && result.equals(passwordLog.getText()))
+            if (result != null && passwordLog.getText().equals(checkPassword(result)))
                 return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -90,7 +105,7 @@ public class LogLayout {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return !result;
+        return result;
     }
 
     @FXML
@@ -132,7 +147,7 @@ public class LogLayout {
                 mailSender.setSender(System.getenv("EMAIL"));
                 mailSender.setRecipient(emailHelper.getText());
                 mailSender.setSubject("Connectify - przypomnienie hasła!");
-                mailSender.setContent("Twoje hasło to: "+pass);
+                mailSender.setContent("Twoje hasło to: "+ checkPassword(pass));
                 mailSender.send();
                 helperInfo.setText("Hasło zostało wysłane na twoją pocztę email.");
             }else {
@@ -158,5 +173,17 @@ public class LogLayout {
             throw new RuntimeException(e);
         }
         return result;
+    }
+
+    protected Boolean adminLogin(){
+        return loginLog.getText().equals(System.getenv("aLogin")) && passwordLog.getText().equals(System.getenv("aPass"));
+    }
+    public static String checkPassword(String encryptedStoredPassword) {
+//        StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
+//        return encryptor.checkPassword(inputPassword, encryptedStoredPassword);
+        AES256TextEncryptor textEncryptor = new AES256TextEncryptor();
+        textEncryptor.setPassword(System.getenv("PASS"));
+//        String myEncryptedText = textEncryptor.encrypt(inputPassword);
+        return textEncryptor.decrypt(encryptedStoredPassword);
     }
 }

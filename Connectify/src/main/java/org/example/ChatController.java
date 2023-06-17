@@ -155,7 +155,7 @@ public class ChatController implements Initializable {
         try (Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                String friend = rs.getString("contact");
+                String friend = rs.getString("contact_login");
                 friends.add(friend);
             }
         } catch (SQLException e) {

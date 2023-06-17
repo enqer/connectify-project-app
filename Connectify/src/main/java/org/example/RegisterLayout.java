@@ -15,8 +15,12 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import org.example.ChatController;
 import org.example.connection.Connect;
 import org.example.mail.MailSender;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
+import org.jasypt.util.password.StrongPasswordEncryptor;
+import org.jasypt.util.text.AES256TextEncryptor;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -25,6 +29,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
+
 
 public class RegisterLayout {
     private static final int MAX_LENGTH = 30;
@@ -66,13 +71,15 @@ public class RegisterLayout {
     private void registerUser(){
         if (checkDataValidity()){
             try {
-                String query = connect.registerUser(name.getText(),surname.getText(),login.getText(),email.getText(),password.getText(),datePicker.getValue().toString(),avatar);
+                String nameCapitalize = name.getText().substring(0,1).toUpperCase() + name.getText().substring(1).toLowerCase();
+                String surnameCapitalize = surname.getText().substring(0,1).toUpperCase() + surname.getText().substring(1).toLowerCase();
+                String query = connect.registerUser(nameCapitalize,surnameCapitalize,login.getText().toLowerCase(),email.getText(),encryptPassword(password.getText()),datePicker.getValue().toString(),avatar);
                 statement = sql.createStatement();
                 int rs = statement.executeUpdate(query);
                 System.out.println(rs);
                 registerInfo.setText("Konto zostało utworzone!");
                 sendWelcomeMail();
-                switchToChat(login.getText());
+                switchToChat(login.getText().toLowerCase());
             } catch (SQLException | IOException e) {
                 throw new RuntimeException(e);
             }
@@ -113,7 +120,7 @@ public class RegisterLayout {
     private Boolean isUniqueLogin(){
         try {
             Boolean result = false;
-            String query = connect.checkUniqueLogin(login.getText());
+            String query = connect.checkUniqueLogin(login.getText().toLowerCase());
             statement = sql.createStatement();
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()){
@@ -275,6 +282,16 @@ public class RegisterLayout {
         imgSPane5.setStyle("-fx-background-color: transparent");
         imgSPane6.setStyle("-fx-background-color: transparent");
         imgSPane.setStyle("-fx-background-color: #7289da");
+
+    }
+    public static String encryptPassword(String inputPassword) {
+//        StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
+//        return encryptor.encryptPassword(inputPassword);
+        AES256TextEncryptor textEncryptor = new AES256TextEncryptor();
+        textEncryptor.setPassword(System.getenv("PASS"));
+        String myEncryptedText = textEncryptor.encrypt(inputPassword);
+        String plainText = textEncryptor.decrypt(myEncryptedText);
+        return myEncryptedText;
     }
 
 }
