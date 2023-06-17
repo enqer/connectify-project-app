@@ -176,7 +176,7 @@ public class LogLayout {
     }
 
     protected Boolean adminLogin(){
-        return loginLog.getText().equals(System.getenv("aLogin")) && passwordLog.getText().equals(System.getenv("aPass"));
+        return loginLog.getText().equals(System.getenv("ALOGIN")) && passwordLog.getText().equals(System.getenv("APASSWORD"));
     }
     public static String checkPassword(String encryptedStoredPassword) {
 //        StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
