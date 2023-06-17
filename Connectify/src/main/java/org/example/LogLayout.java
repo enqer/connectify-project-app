@@ -66,7 +66,7 @@ public class LogLayout {
     private void switchToPanel() throws IOException {
         Stage stage = (Stage) loginInfo.getScene().getWindow();
         stage.setHeight(720);
-        stage.setWidth(1280);
+        stage.setWidth(900);
         App.setRoot("admin");
     }
 
