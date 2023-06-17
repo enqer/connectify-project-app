@@ -12,12 +12,10 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Screen;
@@ -87,6 +85,48 @@ public class ChatController implements Initializable {
 
             myListView.getItems().addAll(persons);
 
+                myListView.setCellFactory(param -> new ListCell<String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (empty || item == null) {
+                            setText(null);
+                            setGraphic(null);
+                        } else {
+                            try {
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("UserItem.fxml"));
+                                AnchorPane userItem = loader.load();
+                                UserItemController controller = loader.getController();
+
+                                String query = "SELECT login, email FROM public.connectify WHERE login = ?";
+                                try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                                    stmt.setString(1, item);
+                                    ResultSet rs = stmt.executeQuery();
+                                    if (rs.next()) {
+                                        String login = rs.getString("login");
+                                        String email = rs.getString("email");
+
+                                        // Ustawienie danych użytkownika
+                                        controller.setName(login);
+                                        controller.setEmail(email);
+                                        // controller.setLogo(imageUrl);
+
+                                        setGraphic(userItem);
+                                    }
+                                }
+                            } catch (IOException | SQLException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+
+
+
+
+                });
+
             myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
@@ -144,16 +184,35 @@ public class ChatController implements Initializable {
     }
 
     private void showAllUsers() throws IOException {
-        String query = connect.showUsers();
+        String query = "SELECT cc.name, cc.surname, cc.login, cc.email, cc.online, cc.avatar FROM public.connectify cc WHERE cc.login IN (SELECT contact_login FROM public.connectify_contacts WHERE user_login = 'Hahiyu')";
+        //String query = connect.showUsers();SELECT * FROM public.connectify cc WHERE cc.login IN (SELECT contact_login FROM public.connectify_contacts WHERE user_login = 'Hahiyu')";
         ArrayList<String> logins = new ArrayList<>();
         this.logins = logins;
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
 
+            myListView.getItems().clear();
+
             while (rs.next()) {
                 String login = rs.getString("login");
-                logins.add(login);
+                String email = rs.getString("email");
+                String image = rs.getString("avatar");
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("UserItem.fxml"));
+                try {
+                    AnchorPane userItem = loader.load();
+                    UserItemController controller = loader.getController();
+                    controller.setName(login);
+                    controller.setEmail(email);
+                    // controller.setLogo(image); // Zakomentowane, ponieważ obrazek jest tymczasowo wyłączony
+
+                    myListView.getItems().add(String.valueOf(userItem));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
