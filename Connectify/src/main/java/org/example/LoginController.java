@@ -21,13 +21,19 @@ public class LoginController {
     @FXML
     private Pane Pane;
 
-    // on start window
+    /**
+     * Method is initalizing after the window is open.
+     * This is the first method that is executed.
+     */
     public void initialize() throws IOException {
         showLogin();
     }
 
 
-
+    /**
+     * Onclick method showing login layout.
+     * @throws IOException if layout is valid.
+     */
     public void showLogin () throws IOException {
         Pane newLoadedPane =  FXMLLoader.load(getClass().getResource("logLayout.fxml"));
 //        Pane snewLoadedPane =  FXMLLoader.load(getClass().getClassLoader().getResource("logLayout.fxml"));
@@ -36,7 +42,10 @@ public class LoginController {
         loginBtn.setDisable(true);
         registerBtn.setDisable(false);
     }
-
+    /**
+     * Onclick method showing register layout.
+     * @throws IOException if layout is valid.
+     */
     public void showRegister (ActionEvent event) throws IOException {
         Pane newLoadedPane =  FXMLLoader.load(getClass().getResource("registerLayout.fxml"));
         Pane.getChildren().clear();
@@ -44,10 +53,6 @@ public class LoginController {
         loginBtn.setDisable(false);
         registerBtn.setDisable(true);
     }
-//    @FXML
-//    private void switchToSecondary() throws IOException {
-//        App.setRoot("chat");
-//    }
 
 
 }

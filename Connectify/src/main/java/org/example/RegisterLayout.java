@@ -59,6 +59,10 @@ public class RegisterLayout {
     private StackPane imgSPane1,imgSPane2,imgSPane3,imgSPane4,imgSPane5,imgSPane6;
     private String avatar;
 
+    /**
+     * Method is initalizing after the window is open.
+     * This is the first method that is executed.
+     */
     public void initialize() {
         maxLettersTextField(name,MAX_LENGTH);
         maxLettersTextField(surname,MAX_LENGTH);
@@ -67,6 +71,10 @@ public class RegisterLayout {
         maxLettersTextField(password, MAX_LENGTH);
     }
 
+    /**
+     * Method is checking if the data is valid.
+     * If all is good then method register the user to the database and switching to the new panel.
+     */
     @FXML
     private void registerUser(){
         if (checkDataValidity()){
@@ -86,6 +94,10 @@ public class RegisterLayout {
         }
     }
 
+    /**
+     * Checking valid data of user's input.
+     * @return true - if it is all good, false when something is invalid
+     */
     private Boolean checkDataValidity(){
         if (!isFieldsFilled())
         {
@@ -116,7 +128,10 @@ public class RegisterLayout {
         return true;
     }
 
-    // checking if the login is not in used
+    /**
+     * Checking if the login is unique value in databse.
+     * @return true - if login is unique, false- if login is not unique
+     */
     private Boolean isUniqueLogin(){
         try {
             Boolean result = false;
@@ -133,7 +148,10 @@ public class RegisterLayout {
         }
     }
 
-    // checking if the mail is not in used
+    /**
+     * Checking if mail is unique and mail match to pattern to checking his valid.
+     * @return true - if login is unique, false- if login is not unique
+     */
     private Boolean isUniqueMail(){
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
                 + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
@@ -154,7 +172,11 @@ public class RegisterLayout {
         return !result;
     }
 
-    //checking if password is strong enough
+    /**
+     * Method is chceking the password and when it is correct then returns true value.
+     * Password has to be min 8 signs, digit, big and small letter with special sign.
+     * @return boolean: true or false
+     */
     private Boolean isStrongPassword(){
         String pass = password.getText();
 
@@ -187,22 +209,39 @@ public class RegisterLayout {
         return true;
     }
 
-    // checking if the age of user is enough
+    /**
+     * Checking if the age of user is enough to register an account
+     * @return boolean: true or false
+     */
     private Boolean isEnoughAge(){
         LocalDate currentDate = LocalDate.now();
         LocalDate minimumDate = currentDate.minusYears(13);
         return datePicker.getValue().isBefore(minimumDate);
     }
 
-    // check if every field have been filled
+    /**
+     * Checking fields if they are filled with data, or they are null.
+     * @return boolean: true or false
+     */
     private Boolean isFieldsFilled(){
         if (avatar == null || name.getText().equals("") || surname.getText().equals("") || login.getText().equals("") || email.getText().equals("") || password.getText().equals("") || datePicker.getValue() == null)
             return false;
         return true;
     }
+
+    /**
+     * Method is checking letters in input to check if it is enough.
+     * @return boolean: true or false
+     */
     private Boolean isEnoughLetters(){
         return login.getText().length() >= 5 && login.getText().length() <= 30;
     }
+
+    /**
+     * Switching layout to ChatLayout after register.
+     * @param username passed data to new layout
+     * @throws IOException when loader fails
+     */
     @FXML
     private void switchToChat(String username) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("chat.fxml"));
@@ -227,7 +266,9 @@ public class RegisterLayout {
     }
 
 
-
+    /**
+     * Method send a welcome mail to new user after register.
+     */
     private void sendWelcomeMail(){
         MailSender mailSender = new MailSender();
         mailSender.setSender(System.getenv("EMAIL"));
@@ -237,7 +278,11 @@ public class RegisterLayout {
         mailSender.send();
     }
 
-
+    /**
+     * The user can only write "max" letters in input.
+     * @param textField which textField
+     * @param max how many letters
+     */
     private void maxLettersTextField(TextField textField, int max) {
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() > max) {
@@ -246,33 +291,54 @@ public class RegisterLayout {
         });
     }
 
-
+    /**
+     * Selecting img in register and changing styles of it.
+     */
     @FXML
     public void selectImg1(){
         setAvatarAndStyle("batman", imgSPane1);
     }
-
+    /**
+     * Selecting img in register and changing styles of it.
+     */
     @FXML
     public void selectImg2(){
         setAvatarAndStyle("breaking-bad", imgSPane2);
     }
+    /**
+     * Selecting img in register and changing styles of it.
+     */
     @FXML
     public void selectImg3(){
         setAvatarAndStyle("grandma", imgSPane3);
     }
+    /**
+     * Selecting img in register and changing styles of it.
+     */
     @FXML
     public void selectImg4(){
         setAvatarAndStyle("monster", imgSPane4);
     }
+    /**
+     * Selecting img in register and changing styles of it.
+     */
     @FXML
     public void selectImg5(){
         setAvatarAndStyle("muslim", imgSPane5);
     }
-
+    /**
+     * Selecting img in register and changing styles of it.
+     */
     @FXML
     public void selectImg6(){
         setAvatarAndStyle("man", imgSPane6);
     }
+
+    /**
+     * Setting avatar and adding styles.
+     * @param avatarName chosen avatar
+     * @param imgSPane chosen avatar's layout
+     */
     private void setAvatarAndStyle(String avatarName, Node imgSPane) {
         avatar = avatarName;
         imgSPane1.setStyle("-fx-background-color: transparent");
@@ -284,9 +350,13 @@ public class RegisterLayout {
         imgSPane.setStyle("-fx-background-color: #7289da");
 
     }
+
+    /**
+     * Encryption user's password to encrypted password.
+     * @param inputPassword user's password
+     * @return encrypted password.
+     */
     public static String encryptPassword(String inputPassword) {
-//        StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
-//        return encryptor.encryptPassword(inputPassword);
         AES256TextEncryptor textEncryptor = new AES256TextEncryptor();
         textEncryptor.setPassword(System.getenv("PASS"));
         String myEncryptedText = textEncryptor.encrypt(inputPassword);
