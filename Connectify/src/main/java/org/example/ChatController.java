@@ -70,7 +70,7 @@ public class ChatController implements Initializable {
 
     //status.setFill(Color.web("#1e2124"));
     //status.setFill(Color.GREEN);
-    
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         Platform.runLater(() -> {
