@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -54,8 +55,13 @@ public class Management implements Initializable {
     TextArea contentSelectedUser;
     @FXML
     Label emptyContent;
+    @FXML
+    Label searchLabel;
+    @FXML
+    ImageView searchImage;
     AdminUsers selectedUser;
-    private boolean isBlocked = false;
+    private boolean isBlocked ;
+    private String selectedUserB;
 
     private static ObservableList<AdminUsers> users = FXCollections.observableArrayList();
 
@@ -81,6 +87,16 @@ public class Management implements Initializable {
                 emailSelectedUser.setText(selectedUser.getEmail());
                 logourlSelectedUser.setImage(new Image(getClass().getResource("/org/example/img/"+selectedUser.getAvatar()+".png").toExternalForm()));
                 loginSelectedUser.setText(selectedUser.getLogin());
+                selectedUserB = selectedUser.getLogin();
+                System.out.println(selectedUser.getBlocked());
+                if(!selectedUser.getBlocked()) {
+                    blockButton.setText("Zablokuj użytkownika");
+                    isBlocked=false;
+                }
+                else {
+                    blockButton.setText("Odblokuj użytkownika");
+                    isBlocked=true;
+                }
                 if (selectedUser.getStatus()==true){
                     statusSelectedUser.setText("Online");
                     circleStatus.setFill(Color.GREEN);
@@ -101,17 +117,29 @@ public class Management implements Initializable {
     public void hideText(){
         searchUsersTextField.clear();
     }
-    public void pressButton(){
-            isBlocked = !isBlocked;
-            updateTextButton();
+    public void pressButton() throws SQLException {
+        updateTextButton();
+
     }
-    public void updateTextButton(){
+    public void updateTextButton() throws SQLException {
         if (isBlocked) {
-            blockButton.setText("Odblokuj użytkownika");
-        } else {
+            String query = connect.blockUser("false",selectedUserB);
+            System.out.println(selectedUserB);
+            statement = sql.createStatement();
+            statement.executeUpdate(query);
             blockButton.setText("Zablokuj użytkownika");
+            System.out.println("Użytkownik odblokowany");
+            isBlocked=false;
+        } else {
+            String query = connect.blockUser("true",selectedUserB);
+            statement = sql.createStatement();
+            statement.executeUpdate(query);
+            blockButton.setText("Odblokuj użytkownika");
+            System.out.println("Użytkownik zablokowany");
+            isBlocked=true;
         }
     }
+
     public void searchUsers() {
             filterUsers(searchUsersTextField.getText());
     }
@@ -149,9 +177,9 @@ public class Management implements Initializable {
                 String login = rs.getString("login");
                 String email = rs.getString("email");
                 String avatar = rs.getString("avatar");
-                System.out.println(avatar);
                 Boolean status = rs.getBoolean("online");
-                AdminUsers adminUsers = new AdminUsers(name,surname,email,avatar,login,status);
+                Boolean blocked = rs.getBoolean("blocked");
+                AdminUsers adminUsers = new AdminUsers(name,surname,email,avatar,login,status,blocked);
                 users.add(adminUsers);
             }
         } catch (SQLException e) {
@@ -174,23 +202,42 @@ public class Management implements Initializable {
     }
 
     public void initialize(URL location, ResourceBundle resources) {
+        listView.getItems().clear();
+        usersList.clear();
+        users.clear();
+
+        searchImage.setOnMouseEntered(event -> {
+            searchLabel.setStyle("-fx-background-color: #7289da;");
+        });
+        searchImage.setOnMouseExited(event -> {
+            searchLabel.setStyle("");
+        });
         try {
             addUsers();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         searchUsersTextField.setText("Search user");
+        searchUsersTextField.setStyle("-fx-text-fill: white;");
         usersList.addAll(users);
         for (AdminUsers user : usersList) {
             addElement(user);
         }
-        // add first user to start menu
+        //add first user to start menu
         AdminUsers selectedUser = users.get(0);
         nameSelectedUser.setText(selectedUser.getFirstName()+" "+selectedUser.getLastName());
         emailSelectedUser.setText(selectedUser.getEmail());
         logourlSelectedUser.setImage(new Image(getClass().getResource("/org/example/img/"+selectedUser.getAvatar()+".png").toExternalForm()));
         loginSelectedUser.setText(selectedUser.getLogin());
-        loginSelectedUser.setText(selectedUser.getLogin());
+        selectedUserB = selectedUser.getLogin();
+        if(!selectedUser.getBlocked()) {
+            blockButton.setText("Zablokuj użytkownika");
+            isBlocked=false;
+        }
+        else {
+            blockButton.setText("Odblokuj użytkownika");
+            isBlocked=true;
+        }
         if (selectedUser.getStatus()==true){
             statusSelectedUser.setText("Online");
             circleStatus.setFill(Color.GREEN);

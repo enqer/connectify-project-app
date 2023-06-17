@@ -16,10 +16,8 @@ public class AdminUsersListController {
 
     public void setData(AdminUsers users){
         name.setText(users.getFirstName()+" "+ users.getLastName());
-        //surname.setText(users.getLastName());
         email.setText(users.getEmail());
         Image img = new Image(getClass().getResource("/org/example/img/"+users.getAvatar()+".png").toExternalForm());
         logo.setImage(img);
     }
-
 }

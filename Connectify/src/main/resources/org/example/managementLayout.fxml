@@ -26,7 +26,7 @@
             <Font size="14.0" />
          </font></Label>
       <Label fx:id="searchLabel" layoutX="270.0" onMouseClicked="#searchUsers" prefHeight="50.0" prefWidth="60.0" AnchorPane.topAnchor="0.0" />
-      <ImageView fitHeight="30.0" fitWidth="41.0" layoutX="287.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="searchImage" fitHeight="30.0" fitWidth="41.0" layoutX="287.0" layoutY="10.0" onMouseClicked="#searchUsers" pickOnBounds="true" preserveRatio="true">
          <Image url="@img/search_image.png" />
       </ImageView>
       <Circle fx:id="circleStatus" fill="DODGERBLUE" layoutX="537.0" layoutY="61.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />

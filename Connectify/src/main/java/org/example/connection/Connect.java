@@ -82,6 +82,23 @@ public class Connect {
         String sql = "SELECT * from public.connectify";
         return sql;
     }
+    public String blockUser(String status,String login){
+        String sql = "UPDATE public.connectify SET blocked="+status+" WHERE login='"+login+"'";
+        return sql;
+    }
+    public String countUser(){
+        String sql = "SELECT COUNT(*) FROM public.connectify";
+        return sql;
+    }
+    public String countOnlineUser(){
+        String sql = "SELECT COUNT(*) FROM public.connectify WHERE online=true";
+        return sql;
+    }
+    public String countBlockedUser(){
+        String sql = "SELECT COUNT(*) FROM public.connectify WHERE blocked=true";
+        return sql;
+    }
+
 
 }
 

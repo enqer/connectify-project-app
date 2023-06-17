@@ -7,14 +7,16 @@ public class AdminUsers {
     private String avatar;
     private String login;
     private Boolean status;
+    private Boolean blocked;
 
-    public AdminUsers(String firstName, String lastName, String email,String avatar,String login,Boolean status) {
+    public AdminUsers(String firstName, String lastName, String email,String avatar,String login,Boolean status,Boolean blocked) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.avatar = avatar;
         this.login=login;
         this.status=status;
+        this.blocked=blocked;
     }
 
 
@@ -36,6 +38,10 @@ public class AdminUsers {
 
     public String getLogin() {
         return login;
+    }
+
+    public Boolean getBlocked() {
+        return blocked;
     }
 
     public Boolean getStatus() {
