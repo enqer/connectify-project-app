@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="userItem" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="74.0" prefWidth="180.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.UserItemController">
+<AnchorPane fx:id="userItem" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="180.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.UserItemController">
     <children>
-        <Label fx:id="nameLabel" layoutX="60.0" layoutY="23.0" prefHeight="25.0" prefWidth="110.0" text="name" textFill="WHITE">
+        <Label fx:id="nameLabel" layoutX="50.0" layoutY="12.5" prefHeight="25.0" prefWidth="118.0" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font></Label>
-        <ImageView fx:id="logoImageView" fitHeight="36.0" fitWidth="42.0" layoutX="8.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="logoImageView" fitHeight="36.0" fitWidth="42.0" layoutX="5.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>

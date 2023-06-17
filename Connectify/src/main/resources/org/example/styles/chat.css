@@ -20,6 +20,18 @@
     -fx-background-radius: 5px;
 }
 
+#myListView .list-cell:hover {
+    -fx-background-color: #7289da;
+}
+
+#myListView .list-cell:hover {
+    -fx-background-color: #7289da;
+}
+
+#myListView .list-cell:selected {
+    -fx-background-color: #7289da;
+}
+
 .text-field {
     -fx-background-color: #424549;
     -fx-text-fill: #c5c5c5;
@@ -66,25 +78,39 @@
     -fx-arc-width: 12;
     -fx-arc-height: 12;
 }
+
 #sendMessage{
     -fx-background-color: white;
 }
 #sendTextField{
-    -fx-background-color: white;
-    -fx-text-fill: black;
+    -fx-background-color: #1e2124;
+    -fx-text-fill: white;
 }
+
 #sendLabel,#sendTextField{
     -fx-border-style: solid;
     -fx-border-width: 2px;
     -fx-border-color: black;
+    -fx-background-radius: 0 0 0 5px;
 }
-#listViewMessage-cell:selected {
-   -fx-background-color: #7289da;
- }
- .listViewMessage-cell{
-   -fx-background-color: #424549;
- }
- .listViewMessage-cell:hover{
-    -fx-background-color: #7289da;
- }
 
+#listViewMessage .list-cell:selected {
+    -fx-background-color: #7289da;
+}
+
+#listViewMessage .list-cell {
+    -fx-background-color: #282b30;
+}
+
+#listViewMessage .list-cell:hover {
+    -fx-background-color: #7289da;
+}
+
+#listViewMessage {
+    -fx-background-radius: 5px 5px 0 0;
+}
+
+
+#userItem {
+    -fx-background-radius: 5px;
+}

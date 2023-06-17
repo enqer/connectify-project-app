@@ -66,6 +66,6 @@
             <Image url="@img/send_icon.png" />
          </image>
       </ImageView>
-      <Label fx:id="sendLabel" layoutX="953.0" layoutY="624.0" onMouseClicked="#addMessage" prefHeight="49.0" prefWidth="62.0" />
+      <Label fx:id="sendLabel" layoutX="953.0" layoutY="623.0" onMouseClicked="#addMessage" prefHeight="49.0" prefWidth="62.0" />
    </children>
 </AnchorPane>
