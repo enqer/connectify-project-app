@@ -13,7 +13,10 @@
       <ImageView fx:id="logourlSelectedUser" fitHeight="50.0" fitWidth="51.0" layoutX="364.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="nameSelectedUser" layoutX="429.0" layoutY="75.0" text="Tomasz El" textFill="WHITE" />
       <Label fx:id="emailSelectedUser" layoutX="430.0" layoutY="100.0" text="mail@template.com" textFill="WHITE" />
-      <Label layoutX="364.0" layoutY="149.0" text="Wyślij wiadomość do użytkownika:" textFill="WHITE" />
+      <Label fx:id="sendText" layoutX="364.0" layoutY="149.0" text="Wyślij wiadomość do użytkownika:" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
       <TextArea fx:id="contentSelectedUser" layoutX="364.0" layoutY="173.0" onMouseClicked="#hideContentStatus" prefHeight="93.0" prefWidth="318.0" />
       <Button fx:id="submitMail" layoutX="703.0" layoutY="207.0" mnemonicParsing="false" onAction="#sendMail" text="Wyślij" />
       <Label fx:id="loginSelectedUser" layoutX="365.0" layoutY="51.0" text="tomaszek96" textFill="WHITE">

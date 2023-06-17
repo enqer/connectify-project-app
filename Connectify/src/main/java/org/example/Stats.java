@@ -1,7 +1,12 @@
 package org.example;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import org.example.connection.Connect;
 
@@ -23,6 +28,16 @@ public class Stats implements Initializable {
     Label numberOnline;
     @FXML
     Label numberBlocked;
+    @FXML
+    CategoryAxis categoryAxis = new CategoryAxis();
+    @FXML
+    NumberAxis numberAxis = new NumberAxis();
+    @FXML
+    private LineChart<String,Number> lineChart=new LineChart<String,Number>(categoryAxis,numberAxis);
+
+
+
+
 
     private void getNumberOfUsers() throws SQLException {
         String query = connect.countUser();
@@ -52,6 +67,26 @@ public class Stats implements Initializable {
         }
     }
 
+    private void addData(){
+        categoryAxis.setCategories(FXCollections.observableArrayList(
+                "poniedziałek", "wtorek", "środa", "czwartek", "piątek"
+        ));
+        XYChart.Series<String,Number> series = new XYChart.Series<>();
+        series.setName("Przykładowe dane");
+
+        // Dodawanie danych do serii
+        series.getData().add(new XYChart.Data<>("poniedziałek", 6));
+        series.getData().add(new XYChart.Data<>("wtorek", 1));
+        series.getData().add(new XYChart.Data<>("środa", 12));
+        series.getData().add(new XYChart.Data<>("czwartek", 5));
+        series.getData().add(new XYChart.Data<>("piątek", 3));
+
+        // Dodawanie serii danych do wykresu
+        lineChart.getData().add(series);
+
+
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -62,6 +97,7 @@ public class Stats implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        addData();
 
 
     }

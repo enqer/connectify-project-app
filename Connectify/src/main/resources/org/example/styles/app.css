@@ -128,4 +128,14 @@
     -fx-border-radius: 3;
     -fx-min-height: 100;
 }
+#submitMail,#blockButton{
+    -fx-background-color: -fx-purple-color;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-font-weight: bold ;
+    -fx-border-color: transparent;
+    -fx-border-width: 2 2 2 2;
+}
+
+
 

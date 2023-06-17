@@ -5,21 +5,21 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="myAnchorPane" prefHeight="720.0" prefWidth="1280.0" stylesheets="@admin.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.AdminController">
+<AnchorPane id="myAnchorPane" prefHeight="664.0" prefWidth="183.0" stylesheets="@admin.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.AdminController">
     <children>
         <Label fx:id="titleLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="74.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-        <Pane fx:id="adminPane" layoutY="75.0" prefHeight="325.0" prefWidth="879.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0" />
-      <Label fx:id="managementButton" alignment="CENTER" layoutX="63.0" layoutY="7.0" onMouseClicked="#showManagement" prefHeight="59.0" prefWidth="190.0" text="Zarządzanie" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="400.0">
+        <Pane fx:id="adminPane" layoutY="75.0" prefHeight="645.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0" />
+      <Label fx:id="managementButton" alignment="CENTER" layoutX="63.0" layoutY="7.0" onMouseClicked="#showManagement" prefHeight="59.0" prefWidth="190.0" text="Zarządzanie" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="200.0">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="statsButton" alignment="CENTER" layoutX="616.0" layoutY="8.0" onMouseClicked="#showStats" prefHeight="59.0" prefWidth="190.0" text="Statystyki" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="400.0">
+      <Label fx:id="statsButton" alignment="CENTER" layoutX="616.0" layoutY="8.0" onMouseClicked="#showStats" prefHeight="59.0" prefWidth="190.0" text="Statystyki" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="205.0">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <ImageView fitHeight="65.0" fitWidth="100.0" layoutX="476.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="651.0" AnchorPane.leftAnchor="605.0" AnchorPane.rightAnchor="600.0" AnchorPane.topAnchor="4.0">
+      <ImageView fitHeight="65.0" fitWidth="100.0" layoutX="476.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="651.0" AnchorPane.leftAnchor="405.0" AnchorPane.rightAnchor="505.0" AnchorPane.topAnchor="4.0">
          <image>
             <Image url="@img/connectify.png" />
          </image></ImageView>

@@ -56,3 +56,10 @@
  .list-cell:hover{
     -fx-background-color: #7289da;
  }
+#loginSelectedUser{
+    -fx-font-weight: bold;
+}
+#name{
+    -fx-font-weight: bold;
+}
+

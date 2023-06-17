@@ -1,41 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.Stats">
+<AnchorPane prefHeight="720.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.Stats">
    <children>
-      <Label layoutX="239.0" layoutY="92.0" prefHeight="501.0" prefWidth="730.0" />
-      <Label layoutX="393.0" layoutY="234.0" text="Liczba użytkowników" textFill="WHITE">
+      <Label layoutX="99.0" layoutY="598.0" text="Liczba użytkowników" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="numberUsers" layoutX="448.0" layoutY="181.0" text="0" textFill="WHITE">
+      <Label fx:id="numberUsers" layoutX="154.0" layoutY="545.0" text="0" textFill="WHITE">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Label layoutX="775.0" layoutY="234.0" text="Online" textFill="WHITE">
+      <Label layoutX="640.0" layoutY="615.0" text="Online" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="numberOnline" layoutX="786.0" layoutY="181.0" text="0" textFill="WHITE">
+      <Label fx:id="numberOnline" layoutX="651.0" layoutY="562.0" text="0" textFill="WHITE">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Label layoutX="403.0" layoutY="434.0" text="Liczba zablokowanych" textFill="WHITE">
+      <Label layoutX="357.0" layoutY="605.0" text="Liczba zablokowanych" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="numberBlocked" layoutX="458.0" layoutY="381.0" text="0" textFill="WHITE">
+      <Label fx:id="numberBlocked" layoutX="412.0" layoutY="552.0" text="0" textFill="WHITE">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
+      <LineChart fx:id="lineChart" layoutX="121.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <xAxis>
+          <CategoryAxis fx:id="categoryAxis" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="numberAxis" side="LEFT" />
+        </yAxis>
+      </LineChart>
    </children>
 </AnchorPane>
