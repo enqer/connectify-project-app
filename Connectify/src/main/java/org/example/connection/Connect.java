@@ -70,23 +70,39 @@ public class Connect {
         String sql = "SELECT login FROM public.connectify";
         return sql;
     }
-    public String showFriends(String userLogin) {
-        String sql = "SELECT contact_login FROM public.connectify_contacts WHERE user_login='"+userLogin+"'";
-        return sql;
-    }
-    public String addFriend(String userLogin, String contactLogin) {
-        String sql = "INSERT INTO public.connectify_contacts VALUES('"+userLogin+"','"+contactLogin+"')";
-
-        return sql;
-    }
     public String showAllFriends() {
         String sql = "SELECT * FROM public.connectify_contacts";
+		return sql;
+	}
+    public String showFriends(String user) {
+        String sql = "SELECT contact FROM public.connectify_contacts WHERE user_login='"+user+"'";
+        return sql;
+    }
+    public String addFriend(String user, String contact) {
+        String sql = "INSERT INTO public.connectify_contacts(user_login, contact_login) VALUES('"+user+"','"+contact+"')";
         return sql;
     }
     public String getUsers(){
         String sql = "SELECT * from public.connectify";
         return sql;
     }
+    public String blockUser(String status,String login){
+        String sql = "UPDATE public.connectify SET blocked="+status+" WHERE login='"+login+"'";
+        return sql;
+    }
+    public String countUser(){
+        String sql = "SELECT COUNT(*) FROM public.connectify";
+        return sql;
+    }
+    public String countOnlineUser(){
+        String sql = "SELECT COUNT(*) FROM public.connectify WHERE online=true";
+        return sql;
+    }
+    public String countBlockedUser(){
+        String sql = "SELECT COUNT(*) FROM public.connectify WHERE blocked=true";
+        return sql;
+    }
+
 
 }
 

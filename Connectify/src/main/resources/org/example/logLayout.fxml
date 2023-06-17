@@ -15,12 +15,12 @@
                     <Font size="18.0" />
                 </font>
             </Label>
-            <TextField id="loginLog" fx:id="loginLog" focusTraversable="false" promptText="Login">
+            <TextField id="loginLog" fx:id="loginLog" promptText="Login">
                 <VBox.margin>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </VBox.margin>
             </TextField>
-      <PasswordField id="passwordLog" fx:id="passwordLog" focusTraversable="false" promptText="Hasło">
+      <PasswordField id="passwordLog" fx:id="passwordLog" promptText="Hasło">
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>

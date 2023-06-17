@@ -30,7 +30,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         try{
 
-            scene = new Scene(loadFXML("login"), 1280,720);
+            scene = new Scene(loadFXML("login"), 400,750);
             stage.setTitle("Connectify");
             Image img = new Image(String.valueOf(this.getClass().getResource("img/logo.png")));
             stage.getIcons().add(img);

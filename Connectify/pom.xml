@@ -35,7 +35,12 @@
             <artifactId>javafx-graphics</artifactId>
             <version>13</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.jasypt</groupId>
+            <artifactId>jasypt</artifactId>
+            <version>1.9.3</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

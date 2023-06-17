@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.RegisterLayout">
+<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.RegisterLayout">
    <children>
       <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
@@ -113,27 +113,27 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </HBox>
-            <TextField fx:id="name" promptText="Imię" focusTraversable="false">
+            <TextField fx:id="name" promptText="Imię">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField id="surname" fx:id="surname" focusTraversable="false" promptText="Nazwisko" >
+            <TextField id="surname" fx:id="surname" promptText="Nazwisko">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField id="login" fx:id="login" focusTraversable="false" promptText="Login">
+            <TextField id="login" fx:id="login" promptText="Login">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField id="email" fx:id="email" focusTraversable="false" promptText="Email">
+            <TextField id="email" fx:id="email" promptText="Email">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <PasswordField id="password" fx:id="password" focusTraversable="false" promptText="Hasło">
+            <PasswordField id="password" fx:id="password" promptText="Hasło">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>

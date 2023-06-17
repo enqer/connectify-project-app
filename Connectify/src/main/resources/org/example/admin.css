@@ -6,7 +6,7 @@
     -fx-background-color: #36393e;
 }
 #adminPane{
-    -fx-background-color: #8a9099;
+    -fx-background-color: #595a5c;
 }
 
 #managementButton{
@@ -52,4 +52,7 @@
  }
  .list-cell{
    -fx-background-color: #424549;
+ }
+ .list-cell:hover{
+    -fx-background-color: #7289da;
  }
