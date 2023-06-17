@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="userItem" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="74.0" prefWidth="180.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.UserItemController"
->
+<AnchorPane fx:id="userItem" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="74.0" prefWidth="180.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.UserItemController">
     <children>
-        <Label fx:id="nameLabel" layoutX="67.0" layoutY="11.0" text="name" textFill="WHITE" />
-        <Label fx:id="emailLabel" layoutX="68.0" layoutY="37.0" text="email" textFill="WHITE" />
-        <ImageView fx:id="logoImageView" fitHeight="36.0" fitWidth="42.0" layoutX="14.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
+        <Label fx:id="nameLabel" layoutX="60.0" layoutY="23.0" prefHeight="25.0" prefWidth="110.0" text="name" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+        <ImageView fx:id="logoImageView" fitHeight="36.0" fitWidth="42.0" layoutX="8.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>
