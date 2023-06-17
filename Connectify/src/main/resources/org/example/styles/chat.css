@@ -2,17 +2,17 @@
     -fx-background-color: #424549;
 }
 
-#myListView #myListView:even {
+#myListView .list-cell:even {
     -fx-background-color: #282b30;
     -fx-text-fill: white;
 
 }
-#myListView #myListView:odd {
+#myListView .list-cell:odd {
     -fx-background-color: #282b30;
     -fx-text-fill: white;
 }
 
-#myListView {
+.list-cell {
     -fx-border-color: #7289da;
 }
 
