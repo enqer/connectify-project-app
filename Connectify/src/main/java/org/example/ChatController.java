@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import Message.UserMessage;
 import Message.UserMessageController;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -23,6 +24,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -114,24 +116,28 @@ public class ChatController implements Initializable {
                             AnchorPane userItem = loader.load();
                             UserItemController controller = loader.getController();
 
-                            String query = "SELECT login, email, avatar FROM public.connectify WHERE login = ?";
+                            String query = connect.userLook("login");
                             try (PreparedStatement stmt = conn.prepareStatement(query)) {
                                 stmt.setString(1, item);
                                 ResultSet rs = stmt.executeQuery();
                                 if (rs.next()) {
                                     String login = rs.getString("login");
-                                    String email = rs.getString("email");
                                     String avatar = rs.getString("avatar");
 
                                     // Ustawienie danych użytkownika
                                     controller.setName(login);
-                                    controller.setEmail(email);
 
                                     // Ustawienie ścieżki obrazka
                                     String imagePath = getClass().getResource("/org/example/img/" + avatar + ".png").toExternalForm();
                                     controller.setLogo(imagePath);
 
+                                    // Dodanie stylu CSS dla zaznaczonego elementu
+                                    userItem.styleProperty().bind(Bindings.when(selectedProperty())
+                                            .then("-fx-background-color: #36393e")
+                                            .otherwise("-fx-background-color: transparent;"));
+
                                     setGraphic(userItem);
+
                                 }
                             }
                         } catch (IOException | SQLException e) {

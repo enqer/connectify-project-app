@@ -43,7 +43,6 @@ public class Connect {
             return(null);
         }
     }
-
     public String checkUniqueLogin(String login){
         String sql = "SELECT EXISTS ( select * from public.connectify where login='"+login+"' );";
         return sql;
@@ -57,7 +56,6 @@ public class Connect {
                         "VALUES ('"+name+"', '"+surname+"', '"+login+"', '"+email+"', '"+password+"', '"+date+"', false, true,'"+avatar+"');";
         return sql;
     }
-
     public String checkLoginPassword(String login){
         String sql ="Select password from public.connectify where login='"+login+"'";
         return sql;
@@ -104,6 +102,10 @@ public class Connect {
     }
     public String countBlockedUser(){
         String sql = "SELECT COUNT(*) FROM public.connectify WHERE blocked=true";
+        return sql;
+    }
+    public String userLook(String login){
+        String sql = "SELECT login, avatar FROM public.connectify WHERE login = ?";
         return sql;
     }
 

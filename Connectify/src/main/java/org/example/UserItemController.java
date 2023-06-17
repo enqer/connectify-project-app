@@ -1,14 +1,18 @@
 package org.example;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 public class UserItemController {
-    private String image;
-    private String email;
+    private BooleanProperty isSelected = new SimpleBooleanProperty(false);
 
+    @FXML
+    private AnchorPane userItem;
 
     @FXML
     private Label nameLabel;
@@ -31,13 +35,14 @@ public class UserItemController {
         // Ustawienie obrazu dla ImageView
         logoImageView.setImage(new Image(imageUrl));
     }
-
-    public void addElement(String name, String email, String image) {
-        this.nameLabel.setText(name);
-        this.emailLabel.setText(email);
-        // Ustaw obrazek w ImageView
-        Image img = new Image(image);
-        this.logoImageView.setImage(img);
+    @FXML
+    public void initialize() {
+        isSelected.addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                userItem.getStyleClass().add("selected");
+            } else {
+                userItem.getStyleClass().remove("selected");
+            }
+        });
     }
-
 }
