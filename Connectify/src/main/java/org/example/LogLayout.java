@@ -47,9 +47,13 @@ public class LogLayout {
     @FXML
     private Label helperInfoText, loginTitle;
 
-    private void initialize(){
-//        loginTitle.se
-    }
+
+
+    /**
+     * Method is based on log in to chat.
+     * Checking how is going to log in and after changing to new window.
+     * @throws IOException if layout is not gonna works throws an exception.
+     */
     @FXML
     private void loginUser() throws IOException {
         if (adminLogin()){
@@ -63,6 +67,10 @@ public class LogLayout {
         }
     }
 
+    /**
+     * Switching to panel is about switching window from log in to admin's panel.
+     * @throws IOException if layout is not gonna works throws an exception.
+     */
     private void switchToPanel() throws IOException {
         Stage stage = (Stage) loginInfo.getScene().getWindow();
         stage.setHeight(720);
@@ -70,7 +78,11 @@ public class LogLayout {
         App.setRoot("admin");
     }
 
-
+    /**
+     * Method is chceking the password and when it is correct then returns true value.
+     * Password has to be min 8 signs, digit, big and small letter with special sign.
+     * @return boolean: true or false
+     */
     private Boolean isCorrectPassword(){
         try{
             String result = null;
@@ -88,6 +100,13 @@ public class LogLayout {
         }
         return false;
     }
+
+    /**
+     * Method is chceking the email and when it is correct then returns true value.
+     * Email can be with max 255 letters, it has to match to regex to be true.
+     * Also email is checking in the database to not creating account with the same email.
+     * @return boolean: true or false
+     */
     private boolean checkCorrectEmail(){
         Boolean result = true;
         try {
@@ -108,6 +127,11 @@ public class LogLayout {
         return result;
     }
 
+    /**
+     * Method is switching window to chat if the login credentials was corrected.
+     * @param username - name of the current user who wants to log in
+     * @throws IOException
+     */
     @FXML
     private void switchToChat(String username) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("chat.fxml"));
@@ -131,6 +155,9 @@ public class LogLayout {
         currentStage.close();
     }
 
+    /**
+     * Showing help with log in, when user forgot his password.
+     */
     @FXML
     private void showHelp(){
         helperInfo.setVisible(true);
@@ -138,6 +165,10 @@ public class LogLayout {
         btnHelp.setVisible(true);
     }
 
+    /**
+     * Method sending help with password of user in mail.
+     * Then user can log in again to application.
+     */
     @FXML
     private void sendHelp(){
         if (checkCorrectEmail()){
@@ -158,6 +189,10 @@ public class LogLayout {
         }
     }
 
+    /**
+     * Method checking password of current user to send help in mail.
+     * @return password that user forgot.
+     */
     protected String passwordHelper(){
         String result = null;
         System.out.println();
@@ -175,15 +210,22 @@ public class LogLayout {
         return result;
     }
 
+    /**
+     * Admin can log in to application but when he is log in then he is switching to admin's panel.
+     * @return true - if admin's credentials are good or false instead.
+     */
     protected Boolean adminLogin(){
         return loginLog.getText().equals(System.getenv("ALOGIN")) && passwordLog.getText().equals(System.getenv("APASSWORD"));
     }
+
+    /**
+     * Method checking user's password in log in.
+     * @param encryptedStoredPassword password from database
+     * @return decrypted password
+     */
     public static String checkPassword(String encryptedStoredPassword) {
-//        StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
-//        return encryptor.checkPassword(inputPassword, encryptedStoredPassword);
         AES256TextEncryptor textEncryptor = new AES256TextEncryptor();
         textEncryptor.setPassword(System.getenv("PASS"));
-//        String myEncryptedText = textEncryptor.encrypt(inputPassword);
         return textEncryptor.decrypt(encryptedStoredPassword);
     }
 }
