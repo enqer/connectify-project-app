@@ -70,7 +70,7 @@ public class ChatController implements Initializable {
 
     //status.setFill(Color.web("#1e2124"));
     //status.setFill(Color.GREEN);
-
+    
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         Platform.runLater(() -> {
@@ -216,7 +216,7 @@ public class ChatController implements Initializable {
             e.printStackTrace();
         }
         persons = friends;
-        System.out.println("All friends: "+persons);
+        System.out.println("All your friends: "+persons);
     }
 
     private void showAllFriends(){
@@ -236,8 +236,7 @@ public class ChatController implements Initializable {
     }
 
     private void addFriend(String friend) throws SQLException {
-        String query = "INSERT INTO public.connectify_contacts VALUES (?, ?)";
-        //String query = connect.addFriend(username, friend);
+        String query = connect.addFriend("user_login", "friend_login");
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, username);
@@ -256,7 +255,7 @@ public class ChatController implements Initializable {
     }
 
     private void deleteFriend(String friend) {
-        String query = "DELETE FROM public.connectify_contacts WHERE user_login = ? AND contact_login = ?";
+        String query = connect.deleteFriend("user_login", "friend_login");
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, username);
