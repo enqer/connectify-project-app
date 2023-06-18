@@ -150,7 +150,7 @@ public class Client {
                 String to;
                 System.out.println(mess);
                 System.out.println(client);
-                System.out.println(avatar);
+                System.out.println(avatar+"|");
                 System.out.println(flag);
 
                 if (flag.equals("a"))

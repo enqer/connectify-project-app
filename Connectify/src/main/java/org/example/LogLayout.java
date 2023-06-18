@@ -59,12 +59,16 @@ public class LogLayout {
         if (adminLogin()){
             switchToPanel();
         }
-        if (isCorrectPassword()){
-            loginInfo.setText("Zalogowano!");
-            setOnline(loginLog.getText().toLowerCase());
-            switchToChat(loginLog.getText().toLowerCase());
-        } else {
-            loginInfo.setText("Niepoprawny login lub hasło!");
+        if (isBlocked(loginLog.getText().toLowerCase())){
+            loginInfo.setText("Zostałeś zablokowany!");
+        }else {
+            if (isCorrectPassword()){
+                loginInfo.setText("Zalogowano!");
+                setOnline(loginLog.getText().toLowerCase());
+                switchToChat(loginLog.getText().toLowerCase());
+            } else {
+                loginInfo.setText("Niepoprawny login lub hasło!");
+            }
         }
     }
 
@@ -242,5 +246,28 @@ public class LogLayout {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Checking if user who wants to log in is blocked.
+     * @param login login of user
+     * @return true when user is blocked and false when user is not blocked
+     */
+    private Boolean isBlocked(String login){
+        Boolean result = null;
+        try{
+
+            String query = connect.isBlocked(login);
+            statement = sql.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()){
+                result = rs.getBoolean("blocked");
+                System.out.println(result);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
     }
 }
