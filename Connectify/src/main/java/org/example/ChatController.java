@@ -43,6 +43,8 @@ public class ChatController implements Initializable {
     String currentPerson;
     Connect connect = new Connect();
     Connection conn = connect.getConnection();
+
+    private String myAvatar;
     private static ObservableList<UserMessage> messages = FXCollections.observableArrayList();
 
     @FXML
@@ -226,13 +228,29 @@ public class ChatController implements Initializable {
 //        for (UserMessage userMessage: messages) {
 //            addElement(userMessage);
 //        }
+//        String serverAddress = "localhost"; // Adres serwera
+//        int serverPort = 12345; // Numer portu serwera
+//
+//
+//
+//
+//
+//        System.out.println("name name name"+name);
+//
+//        client = new Client(serverAddress, serverPort, "chuj", "batman", listViewMessage);
+//        client.start();
+//        client.writer.println("olekzmorek300");
+    }
+
+
+    private void sendMessage() {
         String serverAddress = "localhost"; // Adres serwera
         int serverPort = 12345; // Numer portu serwera
-        String name = "marek"; // Nazwa klienta
 
-        client = new Client(serverAddress, serverPort, "chuj", "batman", listViewMessage);
+        String name = account.getText(); // Nazwa klienta
+
+        client = new Client(serverAddress, serverPort, name, myAvatar, listViewMessage);
         client.start();
-//        client.writer.println("olekzmorek300");
     }
 
     /**
@@ -255,10 +273,10 @@ public class ChatController implements Initializable {
                 String dateOfBirth = rs.getString("date_of_birth");
                 String avatar = rs.getString("avatar");
                 boolean online = rs.getBoolean("online");
-                nameOfUser.setText("Imię: " + name);
-                surnameOfUser.setText("Nazwisko: " + surname);
-                emailOfUser.setText("Email: " + email);
-                dateOfUser.setText("Data ur.: " + dateOfBirth);
+                nameOfUser.setText("Imię:\n" + name);
+                surnameOfUser.setText("Nazwisko:\n" + surname);
+                emailOfUser.setText("Email:\n" + email);
+                dateOfUser.setText("Data ur.:\n" + dateOfBirth);
 
                 String imagePath = getClass().getResource("/org/example/img/" + avatar + ".png").toString();
                 Image image = new Image(imagePath);
@@ -278,7 +296,6 @@ public class ChatController implements Initializable {
             e.printStackTrace();
         }
     }
-
 
     private void addElement(UserMessage userMessage) {
         try {
@@ -312,6 +329,8 @@ public class ChatController implements Initializable {
 
             if (rs.next()) {
                 String avatar = rs.getString("avatar");
+                System.out.println("showYourLogo / avatar: " + avatar);
+                myAvatar = avatar;
                 String imagePath = getClass().getResource("/org/example/img/" + avatar + ".png").toString();
                 Image image = new Image(imagePath);
                 accountPicture.setImage(image);
@@ -332,6 +351,7 @@ public class ChatController implements Initializable {
         account.setText(username);
         showYourLogo();
         onlineOffline(true);
+        sendMessage();
     }
 
     /**

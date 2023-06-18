@@ -72,17 +72,17 @@
             <Font size="16.0" />
          </font></Label>
       <ImageView fx:id="userPicture" fitHeight="40.0" fitWidth="40.0" layoutX="1042.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="surnameOfUser" layoutX="1050.0" layoutY="300.0" prefWidth="180.0" textFill="WHITE">
+      <Label fx:id="surnameOfUser" layoutX="1050.0" layoutY="320.0" prefWidth="180.0" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="emailOfUser" layoutX="1050.0" layoutY="350.0" prefWidth="180.0" textFill="WHITE">
+      <Label fx:id="emailOfUser" layoutX="1050.0" layoutY="390.0" prefWidth="180.0" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="dateOfUser" layoutX="1050.0" layoutY="400.0" prefWidth="180.0" textFill="WHITE">
+      <Label fx:id="dateOfUser" layoutX="1050.0" layoutY="460.0" prefWidth="180.0" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
