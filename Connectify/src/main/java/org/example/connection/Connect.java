@@ -142,10 +142,4 @@ public class Connect {
         return sql;
     }
 
-    public String finalQuery(String user) {
-        String sql = "SELECT online FROM public.connectify WHERE login = ?";
-        return sql;
-    }
-
 }
-
