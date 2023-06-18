@@ -3,9 +3,7 @@ package org.example;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -98,7 +96,11 @@ public class ChatController implements Initializable {
     @FXML
     private TextField sendTextField;
 
-    @FXML ImageView userPicture;
+    @FXML
+    private ImageView userPicture;
+
+    @FXML
+    private ImageView accountPicture;
 
     private static ObservableList<UserMessage> messages = FXCollections.observableArrayList();
 
@@ -113,6 +115,12 @@ public class ChatController implements Initializable {
             deleteUsername.setVisible(false);
             status.setVisible(false);
             statusLabel.setVisible(false);
+
+            userPicture.setVisible(false);
+            nameOfUser.setVisible(false);
+            surnameOfUser.setVisible(false);
+            emailOfUser.setVisible(false);
+            dateOfUser.setVisible(false);
 
             myListView.getItems().addAll(persons);
 
@@ -174,6 +182,12 @@ public class ChatController implements Initializable {
                     status.setVisible(true);
                     statusLabel.setVisible(true);
 
+                    userPicture.setVisible(true);
+                    nameOfUser.setVisible(true);
+                    surnameOfUser.setVisible(true);
+                    emailOfUser.setVisible(true);
+                    dateOfUser.setVisible(true);
+
                     giveAllData(currentPerson);
                 }
             });
@@ -201,8 +215,8 @@ public class ChatController implements Initializable {
 //        client.writer.println("olekzmorek300");
     }
 
-    private void giveAllData(String person){
-        System.out.println("\nClicked person: " + person);
+    private void giveAllData(String person) {
+        System.out.println("\ngiveAllData / Clicked person: " + person);
 
         String query = connect.giveAllData(person);
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -234,7 +248,7 @@ public class ChatController implements Initializable {
                 }
 
             } else {
-                System.out.println("No record found");
+                System.out.println("giveAllData / No record found");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -253,7 +267,8 @@ public class ChatController implements Initializable {
             e.printStackTrace();
         }
     }
-    public void addMessage(){
+
+    public void addMessage() {
         String message = sendTextField.getText();
 //        messages.add(0,new UserMessage("marek","22:00","batman",message));
 //        UserMessage userMessage = messages.get(0);
@@ -261,16 +276,37 @@ public class ChatController implements Initializable {
         client.writer.println(message);
     }
 
-    /**
-     * Sets the displayed username to the specified value.
-     * @param username The username to be displayed.
-     */
+    private void showYourLogo() {
+        String login = account.getText();
+        String query = connect.userLook(login);
+
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, login);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                String avatar = rs.getString("avatar");
+
+                String imagePath = getClass().getResource("/org/example/img/" + avatar + ".png").toString();
+                Image image = new Image(imagePath);
+                accountPicture.setImage(image);
+
+            } else {
+                System.out.println("showYourLogo / No record found");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void displayName(String username) {
         account.setText(username);
+        showYourLogo();
     }
 
     /**
      * Sets the username for the current user.
+     *
      * @param username The username to be set.
      */
     public void setUsername(String username) {
@@ -280,6 +316,7 @@ public class ChatController implements Initializable {
 
     /**
      * Centers the window on the screen.
+     *
      * @param stage The Stage object representing the window.
      */
     private void centerWindowOnScreen(Stage stage) {
@@ -305,7 +342,7 @@ public class ChatController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("All logins in database: "+logins);
+        System.out.println("showAllUsers / All logins in database: " + logins);
     }
 
     private void showFriends() {
@@ -322,22 +359,24 @@ public class ChatController implements Initializable {
             e.printStackTrace();
         }
         persons = friends;
-        System.out.println("All your friends: "+persons);
+        System.out.println("showFriends / All your friends: " + persons);
     }
 
-    private void showAllFriends(){
+    private void showAllFriends() {
         String query = connect.showAllFriends();
-        System.out.println("change name of this");
         try (Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+            ResultSet rs = stmt.executeQuery(query)) {
+            System.out.println("showAllFriends:");
             while (rs.next()) {
                 String user = rs.getString("user_login");
                 String contact = rs.getString("contact_login");
+
                 System.out.println("User: " + user + ", Contact: " + contact);
             }
+            System.out.println("-------------------");
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("An error occurred while displaying contacts");
+            System.out.println("showAllFriends / An error occurred while displaying contacts");
         }
     }
 
@@ -350,13 +389,13 @@ public class ChatController implements Initializable {
             int rowsAffected = stmt.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("Friend added successfully");
+                System.out.println("addFriend / Friend added successfully");
             } else {
-                System.out.println("Failed to add a friend");
+                System.out.println("addFriend / Failed to add a friend");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("An error occurred while adding a friend");
+            System.out.println("addFriend / An error occurred while adding a friend");
         }
     }
 
@@ -370,13 +409,13 @@ public class ChatController implements Initializable {
             int rowsAffected = stmt.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("Friend removed successfully");
+                System.out.println("deleteFriend / Friend removed successfully");
             } else {
-                System.out.println("Failed to remove a friend");
+                System.out.println("deleteFriend / Failed to remove a friend");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("An error occurred while deleting a friend");
+            System.out.println("deleteFriend / An error occurred while deleting a friend");
         }
     }
 
@@ -386,7 +425,7 @@ public class ChatController implements Initializable {
         searchError.setText("");
         String searchString = search.getText();
         if (searchString.isEmpty()) {
-            System.out.println("Nothing given");
+            System.out.println("searchUser / Nothing given");
             return;
         }
 
@@ -396,10 +435,10 @@ public class ChatController implements Initializable {
         for (String login : logins) {
             if (login.equals(searchString)) {
                 if (login.equals(username)) {
-                    System.out.println("You searched yourself");
+                    System.out.println("searchUser / You searched yourself");
                     foundSelf = true;
                 } else {
-                    System.out.println("User found: " + login);
+                    System.out.println("searchUser / User found: " + login);
                     foundUser = true;
 
                     if (!persons.contains(login)) {
@@ -411,8 +450,14 @@ public class ChatController implements Initializable {
                         status.setVisible(false);
                         statusLabel.setVisible(false);
 
+                        userPicture.setVisible(false);
+                        nameOfUser.setVisible(false);
+                        surnameOfUser.setVisible(false);
+                        emailOfUser.setVisible(false);
+                        dateOfUser.setVisible(false);
+
                     } else {
-                        System.out.println("User already exists in the list");
+                        System.out.println("searchUser / User already exists in the list");
                         searchError.setText("Użytkownik jest już dodany!");
                     }
                 }
@@ -423,7 +468,7 @@ public class ChatController implements Initializable {
         if (foundSelf && !foundUser) {
             searchError.setText("Tak, to Ty.");
         } else if (!foundUser) {
-            System.out.println("User not found");
+            System.out.println("searchUser / User not found");
             searchError.setText("Nie odnaleziono użytkownika.");
         }
     }
@@ -437,6 +482,12 @@ public class ChatController implements Initializable {
         deleteUsername.setVisible(false);
         status.setVisible(false);
         statusLabel.setVisible(false);
+
+        userPicture.setVisible(false);
+        nameOfUser.setVisible(false);
+        surnameOfUser.setVisible(false);
+        emailOfUser.setVisible(false);
+        dateOfUser.setVisible(false);
     }
 
     @FXML
@@ -454,7 +505,7 @@ public class ChatController implements Initializable {
             visibleElements();
 
         } else {
-            System.out.println("User already exists in the list");
+            System.out.println("addUser / User already exists in the list");
             searchError.setText("Użytkownik jest już dodany!");
         }
     }
@@ -470,7 +521,7 @@ public class ChatController implements Initializable {
             visibleElements();
 
         } else {
-            System.out.println("User already exists in the list");
+            System.out.println("rejectUser / User already exists in the list");
             searchError.setText("Użytkownik jest już dodany!");
         }
     }
@@ -485,7 +536,10 @@ public class ChatController implements Initializable {
 
             deleteFriend(delete);
             visibleElements();
-        }
+        } else {
+        System.out.println("deleteUser / User has already been removed from the list");
+        searchError.setText("Użytkownik został już usunięty.");
+    }
     }
 
 }
