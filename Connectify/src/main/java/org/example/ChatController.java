@@ -15,11 +15,13 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -245,7 +247,7 @@ public class ChatController implements Initializable {
                 if (online) {
                     status.setFill(Color.GREEN);
                 } else {
-                    status.setFill(Color.web("#520f0f"));
+                    status.setFill(Color.RED);
                 }
 
             } else {
@@ -542,6 +544,28 @@ public class ChatController implements Initializable {
             System.out.println("deleteUser / User has already been removed from the list");
             searchError.setText("Użytkownik został już usunięty.");
         }
+    }
+
+    @FXML
+    private void logout(ActionEvent event) throws IOException {
+        cleanup();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = new Stage();
+        Image img = new Image(String.valueOf(this.getClass().getResource("img/logo.png")));
+        stage.getIcons().add(img);
+        stage.setTitle("Connectify");
+        stage.setWidth(400);
+        stage.setHeight(750);
+        stage.setScene(new Scene(root));
+        stage.show();
+
+        // Zamknięcie bieżącego okna logowania
+        Stage currentStage = (Stage) myLabel.getScene().getWindow();
+        currentStage.close();
+
     }
 
     private void onlineOffline(boolean status, String login){

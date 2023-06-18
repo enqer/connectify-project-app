@@ -13,10 +13,10 @@
     </padding>
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#282b30" height="117.0" layoutX="260.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" styleClass="rectangle" width="980.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#282b30" height="84.0" layoutX="40.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" styleClass="rectangle" width="200.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#282b30" height="84.0" layoutX="46.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" styleClass="rectangle" width="194.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#282b30" height="524.0" layoutX="1040.0" layoutY="148.0" stroke="BLACK" strokeType="INSIDE" styleClass="rectangle" width="200.0" />
-      <ListView fx:id="myListView" layoutX="40.0" layoutY="112.0" prefHeight="560.0" prefWidth="200.0" />
-      <Label fx:id="account" alignment="CENTER" contentDisplay="CENTER" layoutX="103.0" layoutY="42.0" prefHeight="26.0" prefWidth="131.0" textFill="WHITE">
+      <ListView fx:id="myListView" layoutX="47.0" layoutY="112.0" prefHeight="560.0" prefWidth="193.0" />
+      <Label fx:id="account" layoutX="108.0" layoutY="42.0" prefHeight="26.0" prefWidth="126.0" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font></Label>
@@ -87,6 +87,15 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <ImageView fx:id="accountPicture" fitHeight="55.0" fitWidth="55.0" layoutX="46.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="accountPicture" fitHeight="55.0" fitWidth="55.0" layoutX="50.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="logout" onAction="#logout" layoutX="1.0" layoutY="14.0" mnemonicParsing="false" prefHeight="84.0" prefWidth="40.0">
+      <graphic>
+         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@img/xmark.png" />
+            </image>
+         </ImageView>
+      </graphic>
+      </Button>
    </children>
 </AnchorPane>
