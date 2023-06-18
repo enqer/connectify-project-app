@@ -195,6 +195,7 @@ public class ChatController implements Initializable {
 
         try {
             showAllUsers();
+            Runtime.getRuntime().addShutdownHook(new Thread(this::cleanup));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -244,7 +245,7 @@ public class ChatController implements Initializable {
                 if (online) {
                     status.setFill(Color.GREEN);
                 } else {
-                    status.setFill(Color.web("#1e2124"));
+                    status.setFill(Color.web("#520f0f"));
                 }
 
             } else {
@@ -302,6 +303,7 @@ public class ChatController implements Initializable {
     public void displayName(String username) {
         account.setText(username);
         showYourLogo();
+        readStatus(true);
     }
 
     /**
@@ -537,9 +539,60 @@ public class ChatController implements Initializable {
             deleteFriend(delete);
             visibleElements();
         } else {
-        System.out.println("deleteUser / User has already been removed from the list");
-        searchError.setText("Użytkownik został już usunięty.");
-    }
+            System.out.println("deleteUser / User has already been removed from the list");
+            searchError.setText("Użytkownik został już usunięty.");
+        }
     }
 
+    private void onlineOffline(boolean status, String login){
+        String query = connect.onlineOffline(status, login);
+
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setBoolean(1, status);
+            stmt.setString(2, login);
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("onlineOffline /Online status set to " + status + " for login: " + login);
+            } else {
+                System.out.println("onlineOffline /No rows affected");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void readStatus(boolean status){
+        String login = account.getText();
+        String query = connect.finalQuery(login);
+
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, login);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                boolean online = rs.getBoolean("online");
+
+                if (online){
+                    onlineOffline(status, login);
+                }
+
+            } else {
+                System.out.println("readStatus / No record found");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    private void cleanup() {
+        readStatus(false);
+
+        try {
+            if (conn != null && !conn.isClosed()) {
+                conn.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
