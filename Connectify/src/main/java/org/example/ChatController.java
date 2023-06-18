@@ -1,6 +1,7 @@
 package org.example;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.*;
 import java.text.DateFormat;
@@ -26,8 +27,10 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -49,6 +52,9 @@ public class ChatController implements Initializable {
     private ListView<String> myListView;
 
     @FXML
+    private ListView listViewMessage;
+
+    @FXML
     private Label myLabel;
 
     @FXML
@@ -64,6 +70,18 @@ public class ChatController implements Initializable {
     private Label usernameLabel;
 
     @FXML
+    private Label nameOfUser;
+
+    @FXML
+    private Label surnameOfUser;
+
+    @FXML
+    private Label emailOfUser;
+
+    @FXML
+    private Label dateOfUser;
+
+    @FXML
     private Circle status;
 
     @FXML
@@ -77,16 +95,13 @@ public class ChatController implements Initializable {
 
     @FXML
     private Button deleteUsername;
-    @FXML
-    private ListView listViewMessage;
+
     @FXML
     private TextField sendTextField;
 
+    @FXML ImageView userPicture;
+
     private static ObservableList<UserMessage> messages = FXCollections.observableArrayList();
-
-
-    //status.setFill(Color.web("#1e2124"));
-    //status.setFill(Color.GREEN);
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -124,14 +139,14 @@ public class ChatController implements Initializable {
                                     String login = rs.getString("login");
                                     String avatar = rs.getString("avatar");
 
-                                    // Ustawienie danych użytkownika
+                                    // Setting up user data
                                     controller.setName(login);
 
-                                    // Ustawienie ścieżki obrazka
+                                    // Setting the image path
                                     String imagePath = getClass().getResource("/org/example/img/" + avatar + ".png").toExternalForm();
                                     controller.setLogo(imagePath);
 
-                                    // Dodanie stylu CSS dla zaznaczonego elementu
+                                    // Adding CSS style for the selected element
                                     userItem.styleProperty().bind(Bindings.when(selectedProperty())
                                             .then("-fx-background-color: #36393e")
                                             .otherwise("-fx-background-color: transparent;"));
@@ -159,6 +174,8 @@ public class ChatController implements Initializable {
                     deleteUsername.setVisible(true);
                     status.setVisible(true);
                     statusLabel.setVisible(true);
+
+                    giveAllData(currentPerson);
                 }
             });
         });
@@ -176,8 +193,48 @@ public class ChatController implements Initializable {
         for (UserMessage userMessage: messages) {
             addElement(userMessage);
         }
-
     }
+
+    private void giveAllData(String person){
+        System.out.println("\nClicked person: " + person);
+
+        String query = connect.giveAllData(person);
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, person);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                String name = rs.getString("name");
+                String surname = rs.getString("surname");
+                String email = rs.getString("email");
+                String dateOfBirth = rs.getString("date_of_birth");
+                String avatar = rs.getString("avatar");
+                boolean online = rs.getBoolean("online");
+
+                nameOfUser.setText("Imię: " + name);
+                surnameOfUser.setText("Nazwisko: " + surname);
+                emailOfUser.setText("Email: " + email);
+                dateOfUser.setText("Data ur.: " + dateOfBirth);
+
+                String imagePath = getClass().getResource("/org/example/img/" + avatar + ".png").toString();
+                Image image = new Image(imagePath);
+
+                userPicture.setImage(image);
+
+                if (online) {
+                    status.setFill(Color.GREEN);
+                } else {
+                    status.setFill(Color.web("#1e2124"));
+                }
+
+            } else {
+                System.out.println("No record found");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void addElement(UserMessage userMessage) {
         try {
@@ -199,7 +256,6 @@ public class ChatController implements Initializable {
 
     /**
      * Sets the displayed username to the specified value.
-     *
      * @param username The username to be displayed.
      */
     public void displayName(String username) {
@@ -208,7 +264,6 @@ public class ChatController implements Initializable {
 
     /**
      * Sets the username for the current user.
-     *
      * @param username The username to be set.
      */
     public void setUsername(String username) {
@@ -218,7 +273,6 @@ public class ChatController implements Initializable {
 
     /**
      * Centers the window on the screen.
-     *
      * @param stage The Stage object representing the window.
      */
     private void centerWindowOnScreen(Stage stage) {
@@ -250,14 +304,12 @@ public class ChatController implements Initializable {
     private void showFriends() {
         showAllFriends();
         String query = connect.showFriends(username);
-        //System.out.println(username);
         List<String> friends = new ArrayList<>();
         try (Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 String friend = rs.getString("contact_login");
                 friends.add(friend);
-                //System.out.println(friend);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -278,7 +330,7 @@ public class ChatController implements Initializable {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Wystąpił błąd podczas wyświetlania kontaktów.");
+            System.out.println("An error occurred while displaying contacts");
         }
     }
 
@@ -291,13 +343,13 @@ public class ChatController implements Initializable {
             int rowsAffected = stmt.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("Znajomy dodany pomyślnie.");
+                System.out.println("Friend added successfully");
             } else {
-                System.out.println("Nie udało się dodać znajomego.");
+                System.out.println("Failed to add a friend");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Wystąpił błąd podczas dodawania znajomego.");
+            System.out.println("An error occurred while adding a friend");
         }
     }
 
@@ -311,13 +363,13 @@ public class ChatController implements Initializable {
             int rowsAffected = stmt.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("Znajomy usunięty pomyślnie.");
+                System.out.println("Friend removed successfully");
             } else {
-                System.out.println("Nie udało się usunąć znajomego.");
+                System.out.println("Failed to remove a friend");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Wystąpił błąd podczas usuwania znajomego.");
+            System.out.println("An error occurred while deleting a friend");
         }
     }
 

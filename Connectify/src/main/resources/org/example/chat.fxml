@@ -25,7 +25,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="usernameLabel" contentDisplay="CENTER" layoutX="1050.0" layoutY="155.0" prefHeight="32.0" prefWidth="181.0" textFill="WHITE">
+      <Label fx:id="usernameLabel" contentDisplay="CENTER" layoutX="1088.0" layoutY="154.0" prefHeight="32.0" prefWidth="141.0" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -35,12 +35,12 @@
             <Font name="System Bold" size="12.0" />
          </font></Button>
       <TextField fx:id="search" layoutX="282.0" layoutY="25.0" prefHeight="30.0" prefWidth="820.0" promptText="Wyszukaj znajomego" />
-      <Label fx:id="statusLabel" layoutX="1050.0" layoutY="187.0" prefHeight="40.0" prefWidth="62.0" text="Status:" textFill="WHITE">
+      <Label fx:id="statusLabel" layoutX="1050.0" layoutY="200.0" prefHeight="40.0" prefWidth="62.0" text="Status:" textFill="WHITE">
          <font>
             <Font name="Arial Italic" size="18.0" />
          </font>
       </Label>
-      <Circle fx:id="status" fill="DODGERBLUE" layoutX="1120.0" layoutY="207.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+      <Circle fx:id="status" fill="DODGERBLUE" layoutX="1120.0" layoutY="220.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
       <Button fx:id="addUsername" layoutX="1042.0" layoutY="92.0" mnemonicParsing="false" onAction="#addUser" prefHeight="30.0" prefWidth="78.0" text="Dodaj" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -67,5 +67,25 @@
          </image>
       </ImageView>
       <Label fx:id="sendLabel" layoutX="953.0" layoutY="623.0" onMouseClicked="#addMessage" prefHeight="49.0" prefWidth="62.0" />
+      <Label fx:id="nameOfUser" layoutX="1050.0" layoutY="250.0" prefWidth="180.0" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <ImageView fx:id="userPicture" fitHeight="40.0" fitWidth="40.0" layoutX="1042.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="surnameOfUser" layoutX="1050.0" layoutY="300.0" prefWidth="180.0" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="emailOfUser" layoutX="1050.0" layoutY="350.0" prefWidth="180.0" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="dateOfUser" layoutX="1050.0" layoutY="400.0" prefWidth="180.0" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
