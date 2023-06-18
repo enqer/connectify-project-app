@@ -294,9 +294,7 @@ public class ChatController implements Initializable {
 
     public void addMessage() {
         String message = sendTextField.getText();
-//        messages.add(0,new UserMessage("marek","22:00","batman",message));
-//        UserMessage userMessage = messages.get(0);
-//        addElement(userMessage);
+        sendTextField.clear();
         client.writer.println(message);
     }
 

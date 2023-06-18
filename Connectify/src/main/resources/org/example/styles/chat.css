@@ -12,7 +12,7 @@
     -fx-text-fill: white;
 }
 
-.list-cell {
+#myListView .list-cell {
     -fx-border-color: #7289da;
 }
 
@@ -93,21 +93,12 @@
     -fx-border-color: black;
     -fx-background-radius: 0 0 0 5px;
 }
-
-#listViewMessage .list-cell:selected {
-    -fx-background-color: #7289da;
-}
-
 #listViewMessage .list-cell {
     -fx-background-color: #282b30;
 }
-
-#listViewMessage .list-cell:hover {
-    -fx-background-color: #7289da;
-}
-
 #listViewMessage {
     -fx-background-radius: 5px 5px 0 0;
+    -fx-background-color: #282b30;
 }
 
 #userItem {
@@ -120,4 +111,7 @@
 #messageM{
     -fx-wrap-text: true;
     -fx-word-wrap: break-word;
+}
+#listViewMessage .list-cell{
+    -fx-background-color: transparent;
 }
