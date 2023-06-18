@@ -132,7 +132,10 @@ public class Connect {
         String sql = "SELECT name, surname, email, date_of_birth, avatar, online FROM public.connectify WHERE login = ?";
         return sql;
     }
-
+    public String setOnline(String user){
+        String sql = "UPDATE public.connectify SET online='true' WHERE login='"+user+"'";
+        return sql;
+    }
 
 }
 

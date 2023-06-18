@@ -1,13 +1,10 @@
 package org.example;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.sql.*;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -25,7 +22,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,10 +30,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.example.client.Client;
 import org.example.connection.Connect;
 
 
 public class ChatController implements Initializable {
+
+    Client client;
     private String username;
     public List<String> logins;
     private List<String> persons = new ArrayList<>();
@@ -189,10 +188,17 @@ public class ChatController implements Initializable {
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
         String formattedTime = dateFormat.format(currentDate);
-        messages.add(new UserMessage("marek",formattedTime.toString(),"batman","Wiadomość"));
-        for (UserMessage userMessage: messages) {
-            addElement(userMessage);
-        }
+//        messages.add(new UserMessage("Serwer",formattedTime.toString(),"batman","Witaj! Możesz zacząć rozmowę."));
+//        for (UserMessage userMessage: messages) {
+//            addElement(userMessage);
+//        }
+        String serverAddress = "localhost"; // Adres serwera
+        int serverPort = 12345; // Numer portu serwera
+        String name = "marek"; // Nazwa klienta
+
+        client = new Client(serverAddress, serverPort, "olekzmorek300", "breaking-bad", listViewMessage);
+        client.start();
+        client.writer.println("olekzmorek300");
     }
 
     private void giveAllData(String person){
@@ -249,9 +255,10 @@ public class ChatController implements Initializable {
     }
     public void addMessage(){
         String message = sendTextField.getText();
-        messages.add(0,new UserMessage("marek","22:00","batman",message));
-        UserMessage userMessage = messages.get(0);
-            addElement(userMessage);
+//        messages.add(0,new UserMessage("marek","22:00","batman",message));
+//        UserMessage userMessage = messages.get(0);
+//        addElement(userMessage);
+        client.writer.println(message);
     }
 
     /**
