@@ -185,9 +185,9 @@ public class ChatController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        Date currentDate = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-        String formattedTime = dateFormat.format(currentDate);
+//        Date currentDate = new Date();
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+//        String formattedTime = dateFormat.format(currentDate);
 //        messages.add(new UserMessage("Serwer",formattedTime.toString(),"batman","Witaj! Możesz zacząć rozmowę."));
 //        for (UserMessage userMessage: messages) {
 //            addElement(userMessage);
@@ -198,7 +198,7 @@ public class ChatController implements Initializable {
 
         client = new Client(serverAddress, serverPort, "olekzmorek300", "breaking-bad", listViewMessage);
         client.start();
-        client.writer.println("olekzmorek300");
+//        client.writer.println("olekzmorek300");
     }
 
     private void giveAllData(String person){

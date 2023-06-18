@@ -12,7 +12,8 @@ import org.example.ChatController;
 
 import java.io.*;
 import java.net.Socket;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class Client {
@@ -28,6 +29,14 @@ public class Client {
 
     private static ObservableList<UserMessage> messages = FXCollections.observableArrayList();
 
+    /**
+     * Constructor of Client class that setter the credentials for server.
+     * @param serverAddress address of server that we want to log in
+     * @param serverPort port of server that we want to log in
+     * @param name name of the client
+     * @param avatar avatar of the client
+     * @param listViewMessage listview of showing messages
+     */
     public Client(String serverAddress, int serverPort, String name, String avatar, ListView listViewMessage) {
         this.serverAddress = serverAddress;
         this.serverPort = serverPort;
@@ -36,6 +45,9 @@ public class Client {
         this.listViewMessage = listViewMessage;
     }
 
+    /**
+     * 
+     */
     public void start() {
         try {
             Socket socket = new Socket(serverAddress, serverPort);
@@ -45,7 +57,7 @@ public class Client {
             String serverMessage = reader.readLine();
             System.out.println(serverMessage);
 
-            writer.println(name);
+            writer.println(name+"."+avatar);
 
             new Thread(new MessageReader(reader)).start();
 
@@ -97,27 +109,34 @@ public class Client {
             }
         }
         public void addMessage(String message){
+            Date currentDate = new Date();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+            String formattedTime = dateFormat.format(currentDate);
             System.out.println(message);
             int a = message.indexOf(':');
             if (message.substring(0,a).equals("Serwer")){
-                messages.add(0,new UserMessage("Serwer","","man", message.substring(a+1)));
+                messages.add(0,new UserMessage("Serwer",formattedTime,"man", message.substring(a+1)));
                 UserMessage userMessage = messages.get(0);
                 addElement(userMessage);
             }else {
                 int b = message.indexOf(',');
+                int c = message.indexOf('.');
                 String mess = message.substring(a);
-                String client = message.substring(1, b);
+                String client = message.substring(1, c);
+                String avatar = message.substring(c+1,b);
                 String flag = message.substring(b+1,b+2);
                 String to;
                 System.out.println(mess);
                 System.out.println(client);
+                System.out.println(avatar);
                 System.out.println(flag);
+
                 if (flag.equals("a"))
                     to = "Do wszystkich";
                 else
                     to = "Do ciebie";
                 System.out.println(to);
-                messages.add(0,new UserMessage(client,"","batman", to + mess));
+                messages.add(0,new UserMessage(client,formattedTime,avatar, to + mess));
 //            messages.add(0,new UserMessage("olekzmorek","22:00","batman", message));
                 UserMessage userMessage = messages.get(0);
                 addElement(userMessage);
@@ -126,13 +145,4 @@ public class Client {
         }
     }
 
-
-//    public static void main(String[] args) {
-//        String serverAddress = "localhost"; // Adres serwera
-//        int serverPort = 12345; // Numer portu serwera
-//        String name = "Lewy"; // Nazwa klienta
-//
-//        Client client = new Client(serverAddress, serverPort, name);
-//        client.start();
-//    }
 }
