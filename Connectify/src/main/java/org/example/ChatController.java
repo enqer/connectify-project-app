@@ -43,6 +43,7 @@ public class ChatController implements Initializable {
     String currentPerson;
     Connect connect = new Connect();
     Connection conn = connect.getConnection();
+    private static ObservableList<UserMessage> messages = FXCollections.observableArrayList();
 
     @FXML
     private AnchorPane chatScene;
@@ -106,8 +107,14 @@ public class ChatController implements Initializable {
     private String globalAvatar;
     private String globalLogin;
 
-    private static ObservableList<UserMessage> messages = FXCollections.observableArrayList();
+    @FXML
+    private ImageView addPersonPhoto;
 
+    /**
+     * Initializes the controller class.
+     * @param arg0 The URL location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param arg1 The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         Platform.runLater(() -> {
@@ -174,11 +181,19 @@ public class ChatController implements Initializable {
             });
 
             myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+                /**
+                 * Called when the selection in the ListView changes.
+                 * @param arg0 The observable value holding the new selected item.
+                 * @param arg1 The previous selected item.
+                 * @param arg2 The new selected item.
+                 */
                 @Override
                 public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
                     currentPerson = myListView.getSelectionModel().getSelectedItem();
                     usernameLabel.setText(currentPerson);
                     myLabel.setText("");
+                    addPersonPhoto.setVisible(false);
+
                     searchError.setText("");
                     addUsername.setVisible(false);
                     rejectUsername.setVisible(false);
@@ -220,6 +235,11 @@ public class ChatController implements Initializable {
 //        client.writer.println("olekzmorek300");
     }
 
+    /**
+     * Retrieves and displays all data associated with a specific person.
+     * The data includes their name, surname, email, date of birth, avatar, and online status.
+     * @param person The login of the person whose data is to be retrieved and displayed.
+     */
     private void giveAllData(String person) {
         System.out.println("\ngiveAllData / Clicked person: " + person);
 
@@ -280,6 +300,10 @@ public class ChatController implements Initializable {
         client.writer.println(message);
     }
 
+    /**
+     * Displays the logo associated with the user's account.
+     * The logo is retrieved from the database based on the user's login.
+     */
     private void showYourLogo() {
         String login = account.getText();
         String query = connect.userLook(login);
@@ -302,15 +326,18 @@ public class ChatController implements Initializable {
         }
     }
 
+    /**
+     * Displays the username and sets the online status to true.
+     * @param username The username to be displayed.
+     */
     public void displayName(String username) {
         account.setText(username);
         showYourLogo();
-        readStatus(true);
+        onlineOffline(true);
     }
 
     /**
      * Sets the username for the current user.
-     *
      * @param username The username to be set.
      */
     public void setUsername(String username) {
@@ -320,7 +347,6 @@ public class ChatController implements Initializable {
 
     /**
      * Centers the window on the screen.
-     *
      * @param stage The Stage object representing the window.
      */
     private void centerWindowOnScreen(Stage stage) {
@@ -332,6 +358,11 @@ public class ChatController implements Initializable {
         stage.setY(centerY - (stage.getHeight() / 2));
     }
 
+    /**
+     * Retrieves and displays all users from the database.
+     * It populates the 'logins' list with the retrieved logins.
+     * @throws IOException If an I/O error occurs.
+     */
     private void showAllUsers() throws IOException {
         String query = connect.showUsers();
         ArrayList<String> logins = new ArrayList<>();
@@ -349,6 +380,10 @@ public class ChatController implements Initializable {
         System.out.println("showAllUsers / All logins in database: " + logins);
     }
 
+    /**
+     * Retrieves and displays the friends of the user.
+     * It also updates the 'persons' list with the retrieved friends.
+     */
     private void showFriends() {
         showAllFriends();
         String query = connect.showFriends(username);
@@ -366,6 +401,9 @@ public class ChatController implements Initializable {
         System.out.println("showFriends / All your friends: " + persons);
     }
 
+    /**
+     * Retrieves and displays all the friends of the user.
+     */
     private void showAllFriends() {
         String query = connect.showAllFriends();
         try (Statement stmt = conn.createStatement();
@@ -384,6 +422,11 @@ public class ChatController implements Initializable {
         }
     }
 
+    /**
+     * Adds a friend to the user's friend list.
+     * @param friend The login of the friend to be added.
+     * @throws SQLException If an SQL exception occurs.
+     */
     private void addFriend(String friend) throws SQLException {
         String query = connect.addFriend("user_login", "friend_login");
 
@@ -403,6 +446,10 @@ public class ChatController implements Initializable {
         }
     }
 
+    /**
+     * Deletes a friend from the user's friend list.
+     * @param friend The login of the friend to be deleted.
+     */
     private void deleteFriend(String friend) {
         String query = connect.deleteFriend("user_login", "friend_login");
 
@@ -423,10 +470,17 @@ public class ChatController implements Initializable {
         }
     }
 
+    /**
+     * Searches for a user based on the input search string.
+     * If a user is found, displays the user's information and avatar.
+     * If the user is already in the list, shows an error message.
+     * If the search string is empty, displays a message indicating no input was given.
+     */
     @FXML
     public void searchUser() {
         usernameLabel.setText("");
         searchError.setText("");
+
         String searchString = search.getText();
         if (searchString.isEmpty()) {
             System.out.println("searchUser / Nothing given");
@@ -447,6 +501,21 @@ public class ChatController implements Initializable {
 
                     if (!persons.contains(login)) {
                         myLabel.setText(login);
+
+                        String query = connect.userLook(login);
+                        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                            stmt.setString(1, login);
+                            ResultSet rs = stmt.executeQuery();
+                            if (rs.next()) {
+                                String avatar = rs.getString("avatar");
+                                String imagePath = getClass().getResource("/org/example/img/" + avatar + ".png").toString();
+                                Image image = new Image(imagePath);
+                                addPersonPhoto.setImage(image);
+                                addPersonPhoto.setVisible(true);
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
 
                         addUsername.setVisible(true);
                         rejectUsername.setVisible(true);
@@ -487,6 +556,8 @@ public class ChatController implements Initializable {
         status.setVisible(false);
         statusLabel.setVisible(false);
 
+        addPersonPhoto.setVisible(false);
+
         userPicture.setVisible(false);
         nameOfUser.setVisible(false);
         surnameOfUser.setVisible(false);
@@ -494,6 +565,11 @@ public class ChatController implements Initializable {
         dateOfUser.setVisible(false);
     }
 
+    /**
+     * Adds the selected user to the list.
+     * If the user already exists in the list, it displays an error message.
+     * @throws SQLException if an SQL exception occurs during the database operation.
+     */
     @FXML
     public void addUser() throws SQLException {
         searchError.setText("");
@@ -514,6 +590,11 @@ public class ChatController implements Initializable {
         }
     }
 
+    /**
+     * Rejects the selected user.
+     * If the user does not exist in the list, it clears the label and hides certain elements.
+     * If the user already exists in the list, it displays an error message.
+     */
     @FXML
     public void rejectUser() {
         searchError.setText("");
@@ -530,6 +611,12 @@ public class ChatController implements Initializable {
         }
     }
 
+    /**
+     * Deletes the selected user from the list.
+     * If the user exists in the list, it removes the user, updates the list view,
+     * deletes the friend relationship, and hides certain elements.
+     * If the user is not found in the list, it displays an error message.
+     */
     @FXML
     public void deleteUser() {
         String delete = usernameLabel.getText();
@@ -568,7 +655,12 @@ public class ChatController implements Initializable {
 
     }
 
-    private void onlineOffline(boolean status, String login){
+    /**
+     * Sets the online status for the specified user.
+     * @param status The online status to be set (true for online, false for offline).
+     */
+    private void onlineOffline(boolean status){
+        String login = account.getText();
         String query = connect.onlineOffline(status, login);
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -577,39 +669,21 @@ public class ChatController implements Initializable {
             int rowsAffected = stmt.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("onlineOffline /Online status set to " + status + " for login: " + login);
+                System.out.println("onlineOffline / Online status set to " + status + " for login: " + login);
             } else {
-                System.out.println("onlineOffline /No rows affected");
+                System.out.println("onlineOffline / No rows affected");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private void readStatus(boolean status){
-        String login = account.getText();
-        String query = connect.finalQuery(login);
-
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, login);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                boolean online = rs.getBoolean("online");
-
-                if (online){
-                    onlineOffline(status, login);
-                }
-
-            } else {
-                System.out.println("readStatus / No record found");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    /**
+     * Closes the database connection and sets the online status to false for the current user.
+     * It is recommended to call this method before closing the application.
+     */
     private void cleanup() {
-        readStatus(false);
+        onlineOffline(false);
 
         try {
             if (conn != null && !conn.isClosed()) {
