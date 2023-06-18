@@ -118,3 +118,7 @@
 #messageLogin {
     -fx-font-weight: bold;
 }
+#messageM{
+    -fx-wrap-text: true;
+    -fx-word-wrap: break-word;
+}
