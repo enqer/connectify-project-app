@@ -1,35 +1,21 @@
 #chatScene {
     -fx-background-color: #424549;
 }
-
-#myListView .list-cell:even {
-    -fx-background-color: #282b30;
-    -fx-text-fill: white;
-
-}
-#myListView .list-cell:odd {
-    -fx-background-color: #282b30;
-    -fx-text-fill: white;
-}
-
-#myListView .list-cell {
-    -fx-border-color: #7289da;
-}
-
-#myListView {
-    -fx-background-radius: 5px;
-}
-
-#myListView .list-cell:hover {
-    -fx-background-color: #7289da;
-}
-
 #myListView .list-cell:hover {
     -fx-background-color: #7289da;
 }
 
 #myListView .list-cell:selected {
     -fx-background-color: #7289da;
+}
+
+#myListView .list-cell {
+    -fx-background-color: transparent;
+}
+
+#myListView {
+    -fx-background-radius: 5px;
+    -fx-background-color: #282b30;
 }
 
 .text-field {
@@ -94,7 +80,7 @@
     -fx-background-radius: 0 0 0 5px;
 }
 #listViewMessage .list-cell {
-    -fx-background-color: #282b30;
+    -fx-background-color: transparent;
 }
 #listViewMessage {
     -fx-background-radius: 5px 5px 0 0;
@@ -111,7 +97,4 @@
 #messageM{
     -fx-wrap-text: true;
     -fx-word-wrap: break-word;
-}
-#listViewMessage .list-cell{
-    -fx-background-color: transparent;
 }

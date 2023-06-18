@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -668,7 +669,7 @@ public class ChatController implements Initializable {
         stage.show();
 
         // Zamknięcie bieżącego okna logowania
-        Stage currentStage = (Stage) myLabel.getScene().getWindow();
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
 
     }
