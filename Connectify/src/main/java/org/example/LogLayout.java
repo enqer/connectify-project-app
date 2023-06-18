@@ -61,6 +61,7 @@ public class LogLayout {
         }
         if (isCorrectPassword()){
             loginInfo.setText("Zalogowano!");
+            setOnline(loginLog.getText().toLowerCase());
             switchToChat(loginLog.getText().toLowerCase());
         } else {
             loginInfo.setText("Niepoprawny login lub hasło!");
@@ -227,5 +228,19 @@ public class LogLayout {
         AES256TextEncryptor textEncryptor = new AES256TextEncryptor();
         textEncryptor.setPassword(System.getenv("PASS"));
         return textEncryptor.decrypt(encryptedStoredPassword);
+    }
+
+    /**
+     * Method setting status of current logged user to online.
+     * @param login - user's login
+     */
+    private void setOnline(String login){
+        try{
+            String query = connect.setOnline(login);
+            statement = sql.createStatement();
+            int rs = statement.executeUpdate(query);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
