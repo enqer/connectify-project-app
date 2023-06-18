@@ -10,7 +10,7 @@
          <image>
             <Image url="@img/batman.png" />
          </image></ImageView>
-      <Label fx:id="messageLogin" layoutX="70.0" layoutY="6.0" style="-fx-font-style: bold;" text="Login" textFill="WHITE" />
+      <Label fx:id="messageLogin" layoutX="70.0" layoutY="6.0" text="Login" textFill="WHITE" />
       <Label fx:id="messageTime" layoutX="689.0" layoutY="10.0" text="15:21" textFill="WHITE" />
       <Label fx:id="messageM" layoutX="70.0" layoutY="29.0" text="&#10;" textFill="WHITE" wrapText="true" />
    </children>

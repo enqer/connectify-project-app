@@ -114,3 +114,7 @@
 #userItem {
     -fx-background-radius: 5px;
 }
+
+#messageLogin {
+    -fx-font-weight: bold;
+}

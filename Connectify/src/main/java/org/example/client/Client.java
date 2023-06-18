@@ -15,7 +15,9 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
+/**
+ * Client class that provided to connection to server and reads and writes messages.
+ */
 public class Client {
     private String serverAddress;
     private int serverPort;
@@ -46,7 +48,7 @@ public class Client {
     }
 
     /**
-     * 
+     * Method that start a connection to server and available to write and read messages.
      */
     public void start() {
         try {
@@ -79,13 +81,23 @@ public class Client {
         }
     }
 
+    /**
+     * MessageReader class reads the message to send.
+     */
     private static class MessageReader implements Runnable {
         private BufferedReader reader;
 
+        /**
+         * Constructor to set a reader.
+         * @param reader - reading from server
+         */
         public MessageReader(BufferedReader reader) {
             this.reader = reader;
         }
 
+        /**
+         * Method that run to adding messages.
+         */
         public void run() {
             try {
                 String serverMessage;
@@ -97,6 +109,11 @@ public class Client {
                 e.printStackTrace();
             }
         }
+
+        /**
+         * Method that adding new element to listview with new fxml layout.
+         * @param userMessage - message
+         */
         private void addElement(UserMessage userMessage) {
             try {
                 FXMLLoader loader = new FXMLLoader(ChatController.class.getResource("singleMessage.fxml"));
@@ -108,6 +125,11 @@ public class Client {
                 e.printStackTrace();
             }
         }
+
+        /**
+         * Processing the message and setting the data.
+         * @param message - text of message
+         */
         public void addMessage(String message){
             Date currentDate = new Date();
             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
