@@ -105,6 +105,9 @@ public class ChatController implements Initializable {
     @FXML
     private ImageView accountPicture;
 
+    @FXML
+    private ImageView addPersonPhoto;
+
     /**
      * Initializes the controller class.
      * @param arg0 The URL location used to resolve relative paths for the root object, or null if the location is not known.
@@ -187,6 +190,8 @@ public class ChatController implements Initializable {
                     currentPerson = myListView.getSelectionModel().getSelectedItem();
                     usernameLabel.setText(currentPerson);
                     myLabel.setText("");
+                    addPersonPhoto.setVisible(false);
+
                     searchError.setText("");
                     addUsername.setVisible(false);
                     rejectUsername.setVisible(false);
@@ -466,16 +471,16 @@ public class ChatController implements Initializable {
     }
 
     /**
-     * Searches for a user based on the entered search string.
-     * If the search string is empty, it does nothing.
-     * If the searched user is the logged-in user, it displays a message.
-     * If the searched user is found and not already in the list, it allows adding the user to the list.
-     * If the searched user is already in the list, it displays an error message.
+     * Searches for a user based on the input search string.
+     * If a user is found, displays the user's information and avatar.
+     * If the user is already in the list, shows an error message.
+     * If the search string is empty, displays a message indicating no input was given.
      */
     @FXML
     public void searchUser() {
         usernameLabel.setText("");
         searchError.setText("");
+
         String searchString = search.getText();
         if (searchString.isEmpty()) {
             System.out.println("searchUser / Nothing given");
@@ -496,6 +501,21 @@ public class ChatController implements Initializable {
 
                     if (!persons.contains(login)) {
                         myLabel.setText(login);
+
+                        String query = connect.userLook(login);
+                        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                            stmt.setString(1, login);
+                            ResultSet rs = stmt.executeQuery();
+                            if (rs.next()) {
+                                String avatar = rs.getString("avatar");
+                                String imagePath = getClass().getResource("/org/example/img/" + avatar + ".png").toString();
+                                Image image = new Image(imagePath);
+                                addPersonPhoto.setImage(image);
+                                addPersonPhoto.setVisible(true);
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
 
                         addUsername.setVisible(true);
                         rejectUsername.setVisible(true);
@@ -535,6 +555,8 @@ public class ChatController implements Initializable {
         deleteUsername.setVisible(false);
         status.setVisible(false);
         statusLabel.setVisible(false);
+
+        addPersonPhoto.setVisible(false);
 
         userPicture.setVisible(false);
         nameOfUser.setVisible(false);

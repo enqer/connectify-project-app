@@ -121,8 +121,6 @@ public class Connect {
     public String isBlocked(String user){
         return "SELECT blocked FROM public.connectify WHERE login='"+user+"'";
     }
-
-
     public String onlineOffline(boolean online, String login) {
         String sql = "UPDATE public.connectify SET online = ? WHERE login = ?";
         return sql;
