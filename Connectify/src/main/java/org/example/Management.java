@@ -129,6 +129,8 @@ public class Management implements Initializable {
             statement.executeUpdate(query);
             blockButton.setText("Zablokuj użytkownika");
             System.out.println("Użytkownik odblokowany");
+            String query2 = connect.setOffline(selectedUserB);
+            statement.executeUpdate(query2);
             isBlocked=false;
         } else {
             String query = connect.blockUser("true",selectedUserB);

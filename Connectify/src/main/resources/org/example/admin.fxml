@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -23,5 +24,13 @@
          <image>
             <Image url="@img/connectify.png" />
          </image></ImageView>
+      <ImageView fitHeight="49.0" fitWidth="53.0" layoutX="834.0" layoutY="13.0" onMouseClicked="#signOut" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="30.0">
+         <image>
+            <Image url="@img/sign_out_icon.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
     </children>
 </AnchorPane>

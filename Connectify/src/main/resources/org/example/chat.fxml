@@ -88,14 +88,5 @@
          </font>
       </Label>
       <ImageView fx:id="accountPicture" fitHeight="55.0" fitWidth="55.0" layoutX="50.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="logout" onAction="#logout" layoutX="1.0" layoutY="14.0" mnemonicParsing="false" prefHeight="84.0" prefWidth="40.0">
-      <graphic>
-         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@img/xmark.png" />
-            </image>
-         </ImageView>
-      </graphic>
-      </Button>
    </children>
 </AnchorPane>

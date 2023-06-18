@@ -56,14 +56,7 @@ public class AdminController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        adminAppLogo.setOnMouseEntered(event -> {
-            adminAppLogo.setCursor(Cursor.HAND);
-        });
 
-        // Przywrócenie domyślnego kursora myszki
-        adminAppLogo.setOnMouseExited(event -> {
-            adminAppLogo.setCursor(Cursor.DEFAULT);
-        });
     }
 }
 

@@ -103,6 +103,8 @@ public class ChatController implements Initializable {
 
     @FXML
     private ImageView accountPicture;
+    private String globalAvatar;
+    private String globalLogin;
 
     private static ObservableList<UserMessage> messages = FXCollections.observableArrayList();
 
@@ -213,7 +215,7 @@ public class ChatController implements Initializable {
         int serverPort = 12345; // Numer portu serwera
         String name = "marek"; // Nazwa klienta
 
-        client = new Client(serverAddress, serverPort, "olekzmorek300", "breaking-bad", listViewMessage);
+        client = new Client(serverAddress, serverPort, "chuj", "batman", listViewMessage);
         client.start();
 //        client.writer.println("olekzmorek300");
     }
@@ -233,7 +235,6 @@ public class ChatController implements Initializable {
                 String dateOfBirth = rs.getString("date_of_birth");
                 String avatar = rs.getString("avatar");
                 boolean online = rs.getBoolean("online");
-
                 nameOfUser.setText("Imię: " + name);
                 surnameOfUser.setText("Nazwisko: " + surname);
                 emailOfUser.setText("Email: " + email);
@@ -282,14 +283,13 @@ public class ChatController implements Initializable {
     private void showYourLogo() {
         String login = account.getText();
         String query = connect.userLook(login);
-
+        globalLogin = login;
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, login);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 String avatar = rs.getString("avatar");
-
                 String imagePath = getClass().getResource("/org/example/img/" + avatar + ".png").toString();
                 Image image = new Image(imagePath);
                 accountPicture.setImage(image);

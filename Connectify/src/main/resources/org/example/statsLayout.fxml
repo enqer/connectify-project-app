@@ -1,49 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="720.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.Stats">
+<AnchorPane fx:id="statsAnchorPane" prefHeight="720.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.Stats">
    <children>
-      <Label layoutX="99.0" layoutY="598.0" text="Liczba użytkowników" textFill="WHITE">
+      <Label fx:id="numberUsersText" layoutX="104.0" layoutY="535.0" text="Liczba użytkowników">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="numberUsers" layoutX="154.0" layoutY="545.0" text="0" textFill="WHITE">
+      <Label fx:id="numberUsers" layoutX="159.0" layoutY="482.0" text="0">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Label layoutX="640.0" layoutY="615.0" text="Online" textFill="WHITE">
+      <Label fx:id="numberOnlineText" layoutX="705.0" layoutY="535.0" text="Online">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="numberOnline" layoutX="651.0" layoutY="562.0" text="0" textFill="WHITE">
+      <Label fx:id="numberOnline" layoutX="716.0" layoutY="482.0" text="0">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Label layoutX="357.0" layoutY="605.0" text="Liczba zablokowanych" textFill="WHITE">
+      <Label fx:id="numberBlockedText" layoutX="385.0" layoutY="535.0" text="Liczba zablokowanych">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="numberBlocked" layoutX="412.0" layoutY="552.0" text="0" textFill="WHITE">
+      <Label fx:id="numberBlocked" layoutX="440.0" layoutY="482.0" text="0">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <LineChart fx:id="lineChart" layoutX="121.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <LineChart fx:id="lineChart" layoutX="121.0" legendSide="TOP" prefHeight="332.0" prefWidth="900.0" style="-fx-background-color: #424549;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <xAxis>
-          <CategoryAxis fx:id="categoryAxis" side="BOTTOM" />
+          <CategoryAxis fx:id="categoryAxis" side="BOTTOM" tickLabelFill="WHITE">
+               <tickLabelFont>
+                  <Font size="12.0" />
+               </tickLabelFont></CategoryAxis>
         </xAxis>
         <yAxis>
-          <NumberAxis fx:id="numberAxis" side="LEFT" />
+          <NumberAxis fx:id="numberAxis" side="LEFT" tickLabelFill="WHITE" />
         </yAxis>
+         <padding>
+            <Insets right="30.0" />
+         </padding>
       </LineChart>
+      <ImageView fitHeight="74.0" fitWidth="71.0" layoutX="134.0" layoutY="382.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/allUsers.png" />
+         </image></ImageView>
+      <ImageView fitHeight="74.0" fitWidth="71.0" layoutX="418.0" layoutY="382.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/blockedIcon.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="74.0" fitWidth="71.0" layoutX="691.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/onlineUsers.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

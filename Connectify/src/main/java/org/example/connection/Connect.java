@@ -141,6 +141,9 @@ public class Connect {
         String sql = "UPDATE public.connectify SET online = ? WHERE login = ?";
         return sql;
     }
+    public String setOffline(String login){
+        return "UPDATE public.connectify SET online='false' WHERE login ='"+login+"'";
+    }
 
     public String finalQuery(String user) {
         String sql = "SELECT online FROM public.connectify WHERE login = ?";

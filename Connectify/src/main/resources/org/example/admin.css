@@ -1,4 +1,3 @@
-
 #stats{
     -fx-background-color: #424549;
 }
@@ -62,5 +61,43 @@
 #name{
     -fx-font-weight: bold;
 }
-
-
+#numberBlocked{
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+#numberBlockedText{
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+#numberOnline{
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+#numberOnlineText{
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+#numberUsers{
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+#numberUsersText{
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+.chart-series-line {
+    -fx-stroke-width: 3px;
+    -fx-effect: null;
+    -fx-stroke: #7289da;
+}
+.chart-line-symbol {
+    -fx-background-color: #7289da;
+}
+.chart-legend{
+    -fx-fill: blue;
+    -fx-background-color: transparent;
+}
+.chart-legend-item .text {
+    -fx-fill: #7289da;
+    -fx-font-weight: bold;
+}

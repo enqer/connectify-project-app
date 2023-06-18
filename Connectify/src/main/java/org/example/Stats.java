@@ -63,24 +63,20 @@ public class Stats implements Initializable {
             numberBlocked.setText(String.valueOf(numberOfUsers));
         }
     }
-
     private void addData(){
         categoryAxis.setCategories(FXCollections.observableArrayList(
                 "poniedziałek", "wtorek", "środa", "czwartek", "piątek"
         ));
         XYChart.Series<String,Number> series = new XYChart.Series<>();
-        series.setName("Przykładowe dane");
+        series.setName("Liczba wiadomości");
 
-        // Dodawanie danych do serii
-        series.getData().add(new XYChart.Data<>("poniedziałek", 6));
-        series.getData().add(new XYChart.Data<>("wtorek", 1));
-        series.getData().add(new XYChart.Data<>("środa", 12));
-        series.getData().add(new XYChart.Data<>("czwartek", 5));
-        series.getData().add(new XYChart.Data<>("piątek", 3));
+        series.getData().add(new XYChart.Data<>("poniedziałek", 45));
+        series.getData().add(new XYChart.Data<>("wtorek", 34));
+        series.getData().add(new XYChart.Data<>("środa", 98));
+        series.getData().add(new XYChart.Data<>("czwartek", 29));
+        series.getData().add(new XYChart.Data<>("piątek", 90));
 
-        // Dodawanie serii danych do wykresu
         lineChart.getData().add(series);
-
 
     }
 
