@@ -321,8 +321,5 @@ public class Management implements Initializable {
             statusSelectedUser.setText("Offline");
             circleStatus.setFill(Color.RED);
         }
-
-
     }
-
 }

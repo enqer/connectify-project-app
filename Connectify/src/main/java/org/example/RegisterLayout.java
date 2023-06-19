@@ -33,8 +33,6 @@ import java.util.regex.Pattern;
 
 public class RegisterLayout {
     private static final int MAX_LENGTH = 30;
-
-
     Connect connect = new Connect();
     Connection sql = connect.getConnection();
     Statement statement;
@@ -51,10 +49,9 @@ public class RegisterLayout {
     @FXML
     private Label registerInfo;
 
-
-
     @FXML
     private ImageView img1,img2,img3,img4,img5,img6;
+
     @FXML
     private StackPane imgSPane1,imgSPane2,imgSPane3,imgSPane4,imgSPane5,imgSPane6;
     private String avatar;

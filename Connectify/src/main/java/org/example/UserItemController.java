@@ -16,25 +16,42 @@ public class UserItemController {
 
     @FXML
     private Label nameLabel;
-
     @FXML
     private Label emailLabel;
 
     @FXML
     private ImageView logoImageView;
 
+    /**
+     * Sets the name for the user.
+     * @param name The name to be set.
+     */
     public void setName(String name) {
         nameLabel.setText(name);
     }
 
+    /**
+     * Sets the email for the user.
+     * @param email The email to be set.
+     */
     public void setEmail(String email) {
         emailLabel.setText(email);
     }
 
+    /**
+     * Sets the logo image for the user item.
+     * @param imageUrl The URL of the image to be set as the logo.
+     */
     public void setLogo(String imageUrl) {
         // Ustawienie obrazu dla ImageView
         logoImageView.setImage(new Image(imageUrl));
     }
+
+    /**
+     * Initializes the user item.
+     * Adds a listener to the 'isSelected' property of the user item.
+     * When the value of 'isSelected' changes, it updates the style class of the user item accordingly.
+     */
     @FXML
     public void initialize() {
         isSelected.addListener((observable, oldValue, newValue) -> {

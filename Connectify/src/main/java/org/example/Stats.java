@@ -124,7 +124,5 @@ public class Stats implements Initializable {
             throw new RuntimeException(e);
         }
         addData();
-
-
     }
 }

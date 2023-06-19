@@ -47,8 +47,6 @@ public class LogLayout {
     @FXML
     private Label helperInfoText, loginTitle;
 
-
-
     /**
      * Method is based on log in to chat.
      * Checking how is going to log in and after changing to new window.
@@ -71,7 +69,6 @@ public class LogLayout {
                 }
             }
         }
-
     }
 
     /**
