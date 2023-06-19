@@ -25,13 +25,7 @@ public class App extends Application {
     private static double initialSceneWidth;
     private static double initialSceneHeight;
 
-<<<<<<< Updated upstream
-=======
-    /**
-     * The method start the first layout.
-     * @param stage - reference of stage
-     */
->>>>>>> Stashed changes
+
     @Override
     public void start(Stage stage) {
         try{
