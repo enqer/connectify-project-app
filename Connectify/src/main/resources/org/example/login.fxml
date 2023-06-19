@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.LoginController">
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@styles/app.css" fx:controller="org.example.LoginController">
    <children>
       <HBox alignment="TOP_CENTER">
          <children>

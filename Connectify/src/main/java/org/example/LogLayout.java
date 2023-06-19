@@ -58,18 +58,20 @@ public class LogLayout {
     private void loginUser() throws IOException {
         if (adminLogin()){
             switchToPanel();
-        }
-        if (isBlocked(loginLog.getText().toLowerCase())){
-            loginInfo.setText("Zostałeś zablokowany!");
-        }else {
-            if (isCorrectPassword()){
-                loginInfo.setText("Zalogowano!");
-                setOnline(loginLog.getText().toLowerCase());
-                switchToChat(loginLog.getText().toLowerCase());
-            } else {
-                loginInfo.setText("Niepoprawny login lub hasło!");
+        } else {
+            if (isBlocked(loginLog.getText().toLowerCase())){
+                loginInfo.setText("Zostałeś zablokowany!");
+            }else {
+                if (isCorrectPassword()){
+                    loginInfo.setText("Zalogowano!");
+                    setOnline(loginLog.getText().toLowerCase());
+                    switchToChat(loginLog.getText().toLowerCase());
+                } else {
+                    loginInfo.setText("Niepoprawny login lub hasło!");
+                }
             }
         }
+
     }
 
     /**
