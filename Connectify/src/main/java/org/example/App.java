@@ -18,15 +18,22 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * JavaFX App
+ * JavaFX App main class of launch the app.
  */
 public class App extends Application {
     private static Scene scene;
     private static double initialSceneWidth;
     private static double initialSceneHeight;
 
+<<<<<<< Updated upstream
+=======
+    /**
+     * The method start the first layout.
+     * @param stage - reference of stage
+     */
+>>>>>>> Stashed changes
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         try{
             scene = new Scene(loadFXML("login"), 400,750);
             stage.setTitle("Connectify");
@@ -47,6 +54,11 @@ public class App extends Application {
         }
     }
 
+    /**
+     * Setting root fxml to show.
+     * @param fxml - name of fxml file
+     * @throws IOException exception catch if fxml is not founded
+     */
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
 
@@ -60,11 +72,21 @@ public class App extends Application {
 
     }
 
+    /**
+     * The method is loading fxml files.
+     * @param fxml - name of file
+     * @return - returns fxmlloader
+     * @throws IOException catching exception if file fxml is not founded.
+     */
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
 
+    /**
+     * Main method that launch the app.
+     * @param args - parameters of launcher program.
+     */
     public static void main(String[] args) {
         launch();
     }

@@ -30,7 +30,9 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
-
+/**
+ * The class introduce the register's layout that user can register thier account.
+ */
 public class RegisterLayout {
     private static final int MAX_LENGTH = 30;
     Connect connect = new Connect();

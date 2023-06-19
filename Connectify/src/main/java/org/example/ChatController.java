@@ -218,6 +218,7 @@ public class ChatController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+<<<<<<< Updated upstream
     }
 
     /**
@@ -228,6 +229,15 @@ public class ChatController implements Initializable {
      * Starts the client connection.
      */
     private void sendMessage() {
+=======
+
+    }
+
+    /**
+     * The method introduce connection user to server.
+     */
+    private void connectingUser() {
+>>>>>>> Stashed changes
         String serverAddress = "localhost"; // Adres serwera
         int serverPort = 12345; // Numer portu serwera
 
@@ -281,15 +291,34 @@ public class ChatController implements Initializable {
         }
     }
 
+<<<<<<< Updated upstream
     /**
      * Adds a message to the chat.
      * Retrieves the message from the sendTextField, clears the text field,
      * and sends the message to the server via the client's writer.
+=======
+
+//    private void addElement(UserMessage userMessage) {
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("singleMessage.fxml"));
+//            Parent root = loader.load();
+//            UserMessageController controller = loader.getController();
+//            controller.setData(userMessage);
+//            listViewMessage.getItems().add(root);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    /**
+     * The method introduce sending a message to chat or someone directly.
+>>>>>>> Stashed changes
      */
     public void addMessage() {
         String message = sendTextField.getText();
         sendTextField.clear();
-        client.writer.println(message);
+        if (!sendTextField.getText().isEmpty())
+            client.writer.println(message);
     }
 
     /**
@@ -328,7 +357,7 @@ public class ChatController implements Initializable {
         account.setText(username);
         showYourLogo();
         onlineOffline(true);
-        sendMessage();
+        connectingUser();
     }
 
     /**

@@ -8,6 +8,9 @@ import javax.mail.internet.MimeMultipart;
 
 import java.util.Properties;
 
+/**
+ * The class introduce sending a mail to user.
+ */
 public class MailSender {
 
     protected String username = System.getenv("EMAIL");
@@ -26,24 +29,42 @@ public class MailSender {
 //
 //    }
 
+    /**
+     * Setting a sender of mail.
+     * @param sender - sender's mail
+     */
     public void setSender(String sender) {
         this.sender = sender;
     }
 
+    /**
+     * Setting a recipient of mail.
+     * @param recipient - recipient's mail
+     */
     public void setRecipient(String recipient) {
         this.recipient = recipient;
     }
 
+    /**
+     * Setting a subject of mail.
+     * @param subject - mail's subject
+     */
     public void setSubject(String subject) {
         this.subject = subject;
     }
 
+    /**
+     * Setting a content of mial.
+     * @param content - content of mail.
+     */
     public void setContent(String content) {
         this.content = content;
     }
 
 
-
+    /**
+     * The method introduce a sending message to recipient.
+     */
     public void send() {
         System.out.println(username + "to nazwa");
         System.out.println(password + "a to nie");

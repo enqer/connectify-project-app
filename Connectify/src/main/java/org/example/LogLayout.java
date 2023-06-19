@@ -24,6 +24,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.regex.Pattern;
 
+/**
+ * The class introduce layout of login to application.
+ */
 public class LogLayout {
 
     Connect connect = new Connect();

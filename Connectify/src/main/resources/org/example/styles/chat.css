@@ -118,9 +118,6 @@
     -fx-font-weight: bold;
 }
 
-#logoutIcon{
-    -fx-background-image: white;
-}
 
 .button {
     -fx-background-color: -fx-purple-color;

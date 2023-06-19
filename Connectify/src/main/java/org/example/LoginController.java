@@ -12,6 +12,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
+/**
+ * Login class introduce the functions of selecting to log in or register new user.
+ */
 public class LoginController {
 
     @FXML
