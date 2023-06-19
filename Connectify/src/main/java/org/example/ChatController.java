@@ -36,7 +36,6 @@ import org.example.connection.Connect;
 
 
 public class ChatController implements Initializable {
-
     Client client;
     private String username;
     public List<String> logins;
@@ -44,7 +43,7 @@ public class ChatController implements Initializable {
     String currentPerson;
     Connect connect = new Connect();
     Connection conn = connect.getConnection();
-
+    private String globalLogin;
     private String myAvatar;
     private static ObservableList<UserMessage> messages = FXCollections.observableArrayList();
 
@@ -107,8 +106,6 @@ public class ChatController implements Initializable {
 
     @FXML
     private ImageView accountPicture;
-    private String globalAvatar;
-    private String globalLogin;
 
     @FXML
     private ImageView addPersonPhoto;
@@ -221,29 +218,15 @@ public class ChatController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-//        Date currentDate = new Date();
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-//        String formattedTime = dateFormat.format(currentDate);
-//        messages.add(new UserMessage("Serwer",formattedTime.toString(),"batman","Witaj! Możesz zacząć rozmowę."));
-//        for (UserMessage userMessage: messages) {
-//            addElement(userMessage);
-//        }
-//        String serverAddress = "localhost"; // Adres serwera
-//        int serverPort = 12345; // Numer portu serwera
-//
-//
-//
-//
-//
-//        System.out.println("name name name"+name);
-//
-//        client = new Client(serverAddress, serverPort, "chuj", "batman", listViewMessage);
-//        client.start();
-//        client.writer.println("olekzmorek300");
     }
 
-
+    /**
+     * Sends a message to the server.
+     * Initializes a client connection to the server using the specified server address and port.
+     * Retrieves the name of the client from the account label.
+     * Creates a new instance of the Client class with the server address, port, client name, avatar, and message list view.
+     * Starts the client connection.
+     */
     private void sendMessage() {
         String serverAddress = "localhost"; // Adres serwera
         int serverPort = 12345; // Numer portu serwera
@@ -298,18 +281,11 @@ public class ChatController implements Initializable {
         }
     }
 
-    private void addElement(UserMessage userMessage) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("singleMessage.fxml"));
-            Parent root = loader.load();
-            UserMessageController controller = loader.getController();
-            controller.setData(userMessage);
-            listViewMessage.getItems().add(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    /**
+     * Adds a message to the chat.
+     * Retrieves the message from the sendTextField, clears the text field,
+     * and sends the message to the server via the client's writer.
+     */
     public void addMessage() {
         String message = sendTextField.getText();
         sendTextField.clear();
@@ -652,6 +628,11 @@ public class ChatController implements Initializable {
         }
     }
 
+    /**
+     * Logs out the user and navigates to the login screen.
+     * @param event the ActionEvent triggered by the logout button.
+     * @throws IOException if an I/O error occurs while loading the login.fxml file.
+     */
     @FXML
     private void logout(ActionEvent event) throws IOException {
         cleanup();
@@ -668,10 +649,8 @@ public class ChatController implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
 
-        // Zamknięcie bieżącego okna logowania
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
-
     }
 
     /**
