@@ -690,4 +690,5 @@ public class ChatController implements Initializable {
             e.printStackTrace();
         }
     }
+
 }
