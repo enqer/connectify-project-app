@@ -28,6 +28,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * The Management class handles the management functionality of the application.
+ */
 public class Management implements Initializable {
     Connect connect = new Connect();
     Connection sql = connect.getConnection();
@@ -65,6 +68,11 @@ public class Management implements Initializable {
 
     private static ObservableList<AdminUsers> users = FXCollections.observableArrayList();
 
+    /**
+     * Adds the AdminUsers object as a separate item to the list view.
+     *
+     * @param user The AdminUsers object to be added.
+     */
     private void addElement(AdminUsers user) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("user_item.fxml"));
@@ -77,18 +85,22 @@ public class Management implements Initializable {
         }
     }
 
-    //get user data from ListView
+    /**
+     * Retrieves and displays user data based on the selected item in the list view.
+     * This method updates the UI elements with the selected user's information.
+     * It also updates the user list and refreshes the list view.
+     *
+     * @throws SQLException If there is an error retrieving user data from the database.
+     */
     public void getUserData() throws SQLException {
             Parent selectedUserFXML = listView.getSelectionModel().getSelectedItem();
             if (selectedUserFXML != null) {
                 selectedUser = users.get(listView.getSelectionModel().getSelectedIndex());
-                System.out.println("Wybrany użytkownik: " + selectedUser.getFirstName() + " " + selectedUser.getLastName());
                 nameSelectedUser.setText(selectedUser.getFirstName()+" "+selectedUser.getLastName());
                 emailSelectedUser.setText(selectedUser.getEmail());
                 logourlSelectedUser.setImage(new Image(getClass().getResource("/org/example/img/"+selectedUser.getAvatar()+".png").toExternalForm()));
                 loginSelectedUser.setText(selectedUser.getLogin());
                 selectedUserB = selectedUser.getLogin();
-                System.out.println(selectedUser.getBlocked());
                 if(!selectedUser.getBlocked()) {
                     blockButton.setText("Zablokuj użytkownika");
                     isBlocked=false;
@@ -114,13 +126,30 @@ public class Management implements Initializable {
         }
     }
 
+    /**
+     * This method clears the textview when the search is done
+     */
     public void hideText(){
         searchUsersTextField.clear();
     }
+
+    /**
+     * Event handler for button press action.
+     * This method updates the text of the button.
+     *
+     * @throws SQLException If there is an error updating the text.
+     */
     public void pressButton() throws SQLException {
         updateTextButton();
-
     }
+
+    /**
+     * Updates the text of the button based on the current block status.
+     * If the user is blocked, the button text is updated to unblock the user and perform related actions.
+     * If the user is not blocked, the button text is updated to block the user and perform related actions.
+     *
+     * @throws SQLException If there is an error updating the button text or performing database operations.
+     */
     public void updateTextButton() throws SQLException {
         if (isBlocked) {
             String query = connect.blockUser("false",selectedUserB);
@@ -139,17 +168,28 @@ public class Management implements Initializable {
             blockButton.setText("Odblokuj użytkownika");
             System.out.println("Użytkownik zablokowany");
             isBlocked=true;
+            sendMailToBlockedUser();
         }
     }
 
+    /**
+     * Searches for users based on the entered search text and filters the user list accordingly.
+     * The search is performed using the text entered in the search bar.
+     */
     public void searchUsers() {
             filterUsers(searchUsersTextField.getText());
     }
 
+    /**
+     * Search the user list based on the provided keyword.
+     * Only users whose first name, last name, or email contains the keyword will be included in the filtered list.
+     * The filtered list is then displayed in the listView.
+     *
+     * @param keyword The keyword to search for in user names and email addresses.
+     */
     private void filterUsers(String keyword) {
         System.out.println(keyword);
         if (!keyword.isEmpty() && !keyword.equals("Search user")) {
-            System.out.println("working");
             ObservableList<AdminUsers> filteredList = FXCollections.observableArrayList();
             for (AdminUsers user : users) {
                 if (user.getFirstName().toLowerCase().contains(keyword.toLowerCase())
@@ -165,9 +205,14 @@ public class Management implements Initializable {
                 addElement(user);
             }
         }
-        System.out.println("not working");
     }
 
+    /**
+     * Retrieves user data from the database and populates the users list.
+     * Each user is represented by an instance of AdminUsers and added to the users list.
+     *
+     * @throws SQLException If an SQL exception occurs while retrieving user data from the database.
+     */
     public void addUsers() throws SQLException {
         try {
             String query = connect.getUsers();
@@ -188,6 +233,12 @@ public class Management implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Sends an email to the selected user with the content provided in the text area.
+     * The email is sent using the MailSender utility class, which handles the email sending process.
+     * If the content is empty, an error message is displayed.
+     */
     public void sendMail(){
         if(!contentSelectedUser.getText().isEmpty()) {
             MailSender mailSender = new MailSender();
@@ -199,10 +250,32 @@ public class Management implements Initializable {
         }
         else emptyContent.setText("Nie można wysłać wiadomości bez treści!");
     }
+
+    /**
+     * Sends an email to the blocked user with a notification message.
+     */
+    private void sendMailToBlockedUser(){
+        MailSender mailSender = new MailSender();
+        mailSender.setSender(System.getenv("EMAIL"));
+        mailSender.setRecipient(selectedUser.getEmail());
+        mailSender.setSubject("Connectify - wiadomość od Administratora");
+        mailSender.setContent("Zostałeś zablokowany!");
+        mailSender.send();
+    }
+
+    /**
+     * Clears the content status label, hiding any previous error or informational message.
+     */
     public void hideContentStatus(){
         emptyContent.setText("");
     }
 
+    /**
+     * Initializes the controller after its root element has been completely processed.
+     *
+     * @param location  the location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resources the resources used to localize the root object, or null if the root object was not localized.
+     */
     public void initialize(URL location, ResourceBundle resources) {
         listView.getItems().clear();
         usersList.clear();

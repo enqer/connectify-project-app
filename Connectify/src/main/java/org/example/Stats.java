@@ -17,6 +17,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
+/**
+ * The Stats class handles the display statistics functionality of the application.
+ */
 public class Stats implements Initializable {
 
     Connect connect = new Connect();
@@ -35,7 +38,12 @@ public class Stats implements Initializable {
     @FXML
     private LineChart<String,Number> lineChart=new LineChart<String,Number>(categoryAxis,numberAxis);
 
-
+    /**
+     * Retrieves the number of users from the database and displays it in the user count label.
+     * This method queries the database to get the count of users and updates the UI accordingly.
+     *
+     * @throws SQLException if an SQL exception occurs while executing the database query.
+     */
     private void getNumberOfUsers() throws SQLException {
         String query = connect.countUser();
         statement = sql.createStatement();
@@ -45,6 +53,13 @@ public class Stats implements Initializable {
             numberUsers.setText(String.valueOf(numberOfUsers));
         }
     }
+
+    /**
+     * Retrieves the number of online users from the database and displays it in the online user count label.
+     * This method queries the database to get the count of online users and updates the UI accordingly.
+     *
+     * @throws SQLException if an SQL exception occurs while executing the database query.
+     */
     private void getNumberofOnlineUsers() throws SQLException {
         String query = connect.countOnlineUser();
         statement = sql.createStatement();
@@ -54,6 +69,13 @@ public class Stats implements Initializable {
             numberOnline.setText(String.valueOf(numberOfUsers));
         }
     }
+
+    /**
+     * Retrieves the number of blocked users from the database and displays it in the online user count label.
+     * This method queries the database to get the count of blocked users and updates the UI accordingly.
+     *
+     * @throws SQLException if an SQL exception occurs while executing the database query.
+     */
     private void getNumberofBlockedUsers() throws SQLException {
         String query = connect.countBlockedUser();
         statement = sql.createStatement();
@@ -63,6 +85,12 @@ public class Stats implements Initializable {
             numberBlocked.setText(String.valueOf(numberOfUsers));
         }
     }
+
+    /**
+     * Adds data to the line chart.
+     * This method sets up the categories on the X-axis and adds a series with data points to the line chart.
+     * The data points represent the number of messages for each day of the week.
+     */
     private void addData(){
         categoryAxis.setCategories(FXCollections.observableArrayList(
                 "poniedziałek", "wtorek", "środa", "czwartek", "piątek"
@@ -80,7 +108,12 @@ public class Stats implements Initializable {
 
     }
 
-
+    /**
+     * Initializes the controller after its root element has been completely processed.
+     *
+     * @param url            the location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle the resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
