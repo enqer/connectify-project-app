@@ -101,10 +101,7 @@
          </font>
       </Label>
       <ImageView fx:id="accountPicture" fitHeight="45.0" fitWidth="45.0" layoutX="1050.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="logout" layoutX="1075.0" layoutY="89.0" mnemonicParsing="false" onAction="#logout" prefHeight="32.0" prefWidth="119.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
+      <Button fx:id="logout" layoutX="1075.0" layoutY="89.0" mnemonicParsing="false" onAction="#logout" prefHeight="32.0" prefWidth="119.0" />
       <ImageView fx:id="addPersonPhoto" fitHeight="40.0" fitWidth="40.0" layoutX="69.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="logoutLabel" layoutX="1090.0" layoutY="95.0" onMouseClicked="#logout" text="Wyloguj">
          <cursor>
@@ -114,9 +111,6 @@
       <image>
          <Image url="@img/logout_white.png" />
       </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
    </ImageView>
    </children>
 </AnchorPane>
