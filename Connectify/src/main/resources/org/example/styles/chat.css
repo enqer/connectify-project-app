@@ -1,3 +1,17 @@
+* {
+    -fx-primary-color: 	#7289da;
+    -fx-secondary-color: transparent;
+    -fx-light-grey-color: #d1d1d1;
+    -fx-purple-color: 	#7289da;
+    -fx-black0-color: 	#424549;
+    -fx-black1-color: 	#36393e;
+    -fx-black2-color: 	#282b30;
+    -fx-black3-color: 	#1e2124;
+
+    /*-fx-focus-color: -fx-primary-color;*/
+}
+
+
 #chatScene {
     -fx-background-color: #424549;
 }
@@ -33,16 +47,16 @@
     -fx-border-width: 2px;
 }
 
-.button {
-    -fx-background-color: #424549;
-    -fx-text-fill: white;
-    -fx-border-color: #515357;
-    -fx-border-width: 2px;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 6px;
-    -fx-padding: 5px 10px;
-    -fx-background-insets: 0;
-}
+/*.button {*/
+/*    -fx-background-color: #424549;*/
+/*    -fx-text-fill: white;*/
+/*    -fx-border-color: #515357;*/
+/*    -fx-border-width: 2px;*/
+/*    -fx-border-radius: 5px;*/
+/*    -fx-background-radius: 6px;*/
+/*    -fx-padding: 5px 10px;*/
+/*    -fx-background-insets: 0;*/
+/*}*/
 
 .button:pressed {
     -fx-border-color: #7289da;
@@ -97,4 +111,22 @@
 #messageM{
     -fx-wrap-text: true;
     -fx-word-wrap: break-word;
+}
+#logoutLabel {
+    -fx-text-fill: white;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+}
+
+#logoutIcon{
+    -fx-background-image: white;
+}
+
+.button {
+    -fx-background-color: -fx-purple-color;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-font-weight: bold ;
+    -fx-border-color: transparent;
+    -fx-border-width: 2 2 2 2;
 }
