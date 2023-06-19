@@ -26,10 +26,6 @@ public class App extends Application {
     private static double initialSceneHeight;
 
 
-    /**
-     * The method start the first layout.
-     * @param stage - reference of stage
-     */
     @Override
     public void start(Stage stage) {
         try{
