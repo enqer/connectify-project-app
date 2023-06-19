@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import Message.UserMessage;
-import Message.UserMessageController;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
