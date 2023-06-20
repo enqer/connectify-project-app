@@ -1,11 +1,11 @@
 # Connectify-project-app
 
 
-![Register](/imgs/img1.jpg)
+![Register](/imgs/img1.png)
 
-![Chat Page](/imgs/img2.jpg)
+![Chat Page](/imgs/img2.png)
 
-![Admin Page](/imgs/img3.jpg)
+![Admin Page](/imgs/img3.png)
 
-![Stats mode](/imgs/img4.jpg)
+![Stats mode](/imgs/img4.png)
 
